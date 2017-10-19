@@ -1,0 +1,25 @@
+body {
+  color: #4B4B4B;
+  padding-top: 3em; }
+
+header {
+  text-align: center;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 1em; }
+  header h1, header h2, header h3, header h4 {
+    font-weight: 100; }
+  header h1 {
+    font-size: 320%; }
+  header h2 {
+    color: #666;
+    font-size: 128%; }
+
+body.style-solarized-light {
+  background-color: #fdf6e3; }
+  body.style-solarized-light .card {
+    background-color: #fdf6e3; }
+
+body.style-github {
+  background-color: #f8f8f8; }
+  body.style-github .card {
+    background-color: #f8f8f8; }

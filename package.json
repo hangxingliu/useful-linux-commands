@@ -1,0 +1,30 @@
+{
+  "name": "useful-linux-commands",
+  "version": "2.1.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "node ./src/bin --test",
+    "start": "node ./src/bin",
+    "web": "node ./src/bin-web",
+    "pm2": "pm2 start ecosystem.yaml"
+  },
+  "private": true,
+  "bin": {
+    "useful-commands": "./src/bin",
+    "useful-commands-server": "./src/bin-web"
+  },
+  "dependencies": {
+    "colors": "*",
+    "express": "*",
+    "ejs": "*",
+    "serve-favicon": "*",
+    "commander": "*",
+    "morgan": "*"
+  },
+  "devDependencies": {
+    "fs-extra": "*"
+  },
+  "author": "LiuYue",
+  "license": "ISC"
+}

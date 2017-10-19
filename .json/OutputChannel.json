@@ -1,0 +1,11 @@
+{
+	"setMiniOutput": "Function",
+	"printQueryInfo": "Function",
+	"printFilenameDividingLine": "Function",
+	"printMoreEllipsis": "Function",
+	"printCommentLine": "Function",
+	"printLine": "Function",
+	"finish": "Function",
+	"getMiniOutput": "Function",
+	"isMiniOutput": "Function"
+}

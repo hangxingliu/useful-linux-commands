@@ -1,0 +1,10 @@
+apps:
+  - script   : ./src/bin-web
+    name     : useful-commands-server
+    instances: 0
+    exec_mode: cluster
+    watch:
+      - src
+      - web-resource
+      - useful-commands
+      - useful-installers

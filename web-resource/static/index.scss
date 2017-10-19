@@ -1,0 +1,50 @@
+body {
+    color: #4B4B4B;
+    padding-top: 3em;
+}
+header{
+    text-align: center;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 1em;
+
+    h1, h2, h3, h4 {
+        font-weight: 100;
+    }
+    h1 {
+        font-size: 320%;
+    }
+    h2 {
+        color: #666;
+        font-size: 128%;
+    }
+}
+
+$bgSolarizedLight: #fdf6e3;
+body.style-solarized-light {
+    background-color: $bgSolarizedLight;
+    .card {
+        background-color: $bgSolarizedLight;
+    }
+}
+
+// TODO
+// $bgSolarizedDark: #002b36;
+// $fgSolarizedDark: #839496;
+// body.style-solarized-dark {
+//     color: $fgSolarizedDark;
+//     background-color: $bgSolarizedDark;
+//     .card {
+//         background-color: $bgSolarizedDark;
+//     }
+// }
+
+$bgGithub: #f8f8f8;
+body.style-github {
+     background-color: $bgGithub;
+    .card {
+        background-color: $bgGithub;
+    }
+}
+body.style-github-gist {
+    // just empty is ok
+}
