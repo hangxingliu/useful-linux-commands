@@ -1,9 +1,22 @@
+# BASH
 # bash脚本if测试语句
 if [[  test_expression ]]; then
 	#...
 else
 	#...
 fi
+# bash脚本循环样例
+for (( c=1; c<=5; c++ )); do  
+   echo $c;
+done
+str="a b c"
+for part in $str; do
+	echo $part
+done
+# while
+while [[  test_expression ]]; do
+	#...
+done
 
 # 获取字符串变量长度 strlen 用 # 号
 STR="hello"; echo "${#STR}"
