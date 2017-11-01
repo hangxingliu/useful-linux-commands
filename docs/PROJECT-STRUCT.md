@@ -2,6 +2,7 @@
 
 - `.json`: **(deprecated)** some intellisense json files
 - `.vscode`: vscode workspace configured files
+- `docs`: some documents about this project
 - `node_modules`: node modules be installed by npm
 - `src`: all source codes for web and cli querying
 - `useful-commands`: all useful command files
