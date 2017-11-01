@@ -1,7 +1,4 @@
-# ignore __get_intellisense
-__get_intellisense.ts
 git-history.tar
-TODO.md
 
 # Logs
 logs

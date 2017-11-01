@@ -15,12 +15,12 @@
     "useful-commands-server": "./src/bin-web"
   },
   "dependencies": {
-    "colors": "*",
-    "express": "*",
-    "ejs": "*",
-    "serve-favicon": "*",
-    "commander": "*",
-    "morgan": "*"
+    "colors": "^1.1.2",
+    "commander": "^2.11.0",
+    "ejs": "^2.5.7",
+    "express": "^4.16.2",
+    "morgan": "^1.9.0",
+    "serve-favicon": "^2.4.5"
   },
   "devDependencies": {
     "fs-extra": "*"
