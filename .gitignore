@@ -1,3 +1,5 @@
+# Ignore archive file
+UsefulLinuxCommands-*.tar
 git-history.tar
 
 # Logs

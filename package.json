@@ -7,7 +7,8 @@
     "test": "node ./src/bin --test",
     "start": "node ./src/bin",
     "web": "node ./src/bin-web",
-    "pm2": "pm2 start ecosystem.yaml"
+    "pm2": "pm2 start ecosystem.yaml",
+    "archive": "tar c -v -f \"UsefulLinuxCommands-latest.tar\" .git"
   },
   "private": true,
   "bin": {
