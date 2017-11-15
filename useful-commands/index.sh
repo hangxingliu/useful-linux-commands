@@ -143,6 +143,14 @@ cd /home/ly/.config/SogouPY
 git init
 # 通过建立git仓库的办法让Sogou拼音坏了的时候还可以被恢复回来
 
+# install youtube-dl
+# -H set home variable into sudo
+sudo -H pip install --upgrade youtube-dl
+
+# install vlc media player in ubuntu
+# libavcodec-extra is support streaming or transcoding
+sudo apt-get install vlc browser-plugin-vlc libavcodec-extra
+
 # Proxychains
 git clone https://github.com/rofl0r/proxychains-ng
 cd proxychains-ng
