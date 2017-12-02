@@ -38,6 +38,11 @@ echo ${#arr[*]} # 数组长度: 3
 [ ... ] && [ ... ]
 [ ... ] || [ ... ]
 
+# Iterate arguments 迭代传入的参数
+for argument in "$@"; do
+    echo "$argument";
+done
+
 # 给BASH脚本记时 先设置内置变量: SECONDS=0 脚本结束时读 SECONDS 的值就OK了 
 
 # 神奇的 BASH 字符串分割:
