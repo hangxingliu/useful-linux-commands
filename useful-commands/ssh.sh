@@ -5,8 +5,11 @@ ssh-copy-id -i ~/.ssh/id_rsa.pub xx@hostname
 
 ssh -i xxx/id_rsa xxx@xx #使用指定私钥登录
 
-# 获得SSH公钥的figerpoint
-ssh-keygen -lf ~/.ssh/id_rsa.pub
+# 获得SSH公钥的 fingerpoint 指纹
+ssh-keygen -lvf ~/.ssh/id_rsa.pub
+# It looks like: 4096 SHA256://Unxhus.... xxx@mail.com (RSA)
+ssh-keygen -E md5 -lvf ~/.ssh/id_rsa.pub
+# It looks like: 4096 MD5://f0:23:5d... xxx@mail.com (RSA)
 
 # SSH permissions
 chmod 700 ~/.ssh
