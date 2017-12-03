@@ -14,12 +14,14 @@
 #   - ths OS has "apt" package manager 
 #
 #							Author: LiuYue
-#							Date  : 2017-04-23
+#							Date  : 2017-12-03
 #==================================================
 
 # CONFIG_BLOCK ====================>
 
-SOFTWARES=( "git" "vim" "htop" "gawk" "bash-completion")
+SOFTWARES="git vim htop gawk bash-completion";
+SOFTWARES_READABLE=`echo "$SOFTWARES" | tr ' ' ',' `;
+YOUTUBE_DL_BASE_OPTS="--proxy socks5://127.0.0.1:1080/ --socket-timeout 10 --merge-output-format mp4";
 ALIASES=(
 	"cl='clear'"
 	"cls='clear'"
@@ -29,26 +31,29 @@ ALIASES=(
 	"2cb='xclip -selection clipboard'"
 	"sudo='sudo '"
 	"vi='vim'"
-	"youtube=\"youtube-dl --proxy socks5://127.0.0.1:1080/ --socket-timeout 10 -f \
-'bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio' --merge-output-format mp4\""
-	"youtube-sub=\"youtube-dl --proxy socks5://127.0.0.1:1080/ --socket-timeout 10 --all-subs -f \
-'bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio' --merge-output-format mp4\""
+	"youtube=\"youtube-dl ${YOUTUBE_DL_BASE_OPTS} \
+		-f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio' \""
+	"youtube-music=\"youtube-dl ${YOUTUBE_DL_BASE_OPTS} \
+		-f 'bestvideo[ext=mp4][height<=360]+bestaudio' \""
+	"youtube-sub=\"youtube-dl ${YOUTUBE_DL_BASE_OPTS} --all-subs \
+		-f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio' \""
 )
+GIT_GRAPH_BASE_OPTS="--graph --branches --all --decorate";
 GIT_CONFIGS=(
 	"core.editor vim"
-	"alias.g log --graph --branches --all --decorate \
+	"alias.g log ${GIT_GRAPH_BASE_OPTS} \
 --format=format:'%C(yellow)%h%C(auto)%d%C(white): %s %C(dim)(%ad)' --date=format:'%m/%d'"
-	"alias.g2 log --graph --branches --all --decorate \
+	"alias.g2 log ${GIT_GRAPH_BASE_OPTS} \
 --format=format:'%C(yellow)%h%C(reset) %C(green dim)%ad (%ar) %C(auto)%d%n    %C(white)%s%n' \
 --date=format:'%y-%m-%d %H:%M'"
-	"alias.g3 log --graph --branches --all --decorate \
+	"alias.g3 log ${GIT_GRAPH_BASE_OPTS} \
 --format=format:'%C(yellow)%h%C(reset) %C(green dim)%ad (%ar) %C(auto)%d%n    %C(white)%s%n%b' \
 --date=format:'%y-%m-%d %H:%M'"
 	"alias.co checkout"
 	"alias.br branch"
 	"alias.cfg config"
-)
-BASHRC_FILE="$HOME/.bashrc"
+);
+BASHRC_FILE="$HOME/.bashrc";
 
 # <==================== CONFIG_BLOCK
 
@@ -100,11 +105,11 @@ echo -e "                                     |_|        "
 echo -e "${BOLD} Init basic software, config and environment \n\
                 ${BOLD}for new linux OS in one script."
 echo -e "\n${BOLD} Include: ${RESET}\n\
-        git, vim, htop, gawk, bash-completion\n\
+        ${SOFTWARES_READABLE}\n\
         Useful git configs, aliases\n\
         Useful bash aliases\n\
                             Author:${BOLD} LiuYue${RESET}\n\
-                            Date:  ${BOLD} 2017-04-23"
+                            Date:  ${BOLD} 2017-12-03"
 echo -e "${DIV_LINE}"
 
 [[ `yes_no "Are you ready?(y/n)"` == "no" ]] && exit 0;
@@ -124,15 +129,13 @@ if [[ "$IGNORE_INSTALL_SOFTWARE" == "false" ]]; then
 	sudo $INSTALLER update -y
 
 	title "Installing basic software ..."
-	for software in ${SOFTWARES[@]}; do
-		sudo $INSTALLER install -y $software
-		if [[ $? -ne 0 ]]; then
-			warn "Install ${RED}${software}${YELLOW_BOLD} failed! Do you want to continue?"
-			[[ `yes_no "continue(y/n): "` == "no" ]] && error 'You cancelled!';
-		else
-			success "Installed ${GREEN_BOLD}${software}"
-		fi
-	done
+	sudo $INSTALLER install -y ${SOFTWARES};
+	if [[ $? -ne 0 ]]; then
+		warn "Install ${RED}${software}${YELLOW_BOLD} failed! Do you want to continue?"
+		[[ `yes_no "continue(y/n): "` == "no" ]] && error 'You cancelled!';
+	else
+		success "Installed ${GREEN_BOLD}${software}"
+	fi
 
 else
 	warn "Ignored install software step!"
@@ -155,7 +158,8 @@ if [[ "$IGNORE_SET_BASH_ALIASES" == "false" ]]; then
 		echo "$DIV_LINE" >> $BASHRC_FILE
 		echo "$markText" >> $BASHRC_FILE
 		while [[ -n "${ALIASES[$i]}" ]]; do
-			aliasExpression="alias ${ALIASES[$i]}"
+			ALIAS=`echo "${ALIASES[$i]}" | awk '{gsub(/\s+/, " ", $0); print $0;}'`;
+			aliasExpression="alias ${ALIAS}"
 			subTitle "alias ${aliasExpression%%\=*}"
 
 			echo "$aliasExpression" >> $BASHRC_FILE;
