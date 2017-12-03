@@ -1,17 +1,19 @@
 # BASH
+
 # bash脚本if测试语句
 if [[  test_expression ]]; then
 	#...
 else
 	#...
 fi
+
 # bash脚本循环样例
 for (( c=1; c<=5; c++ )); do  
    echo $c;
 done
 str="a b c"
-for part in $str; do
-	echo $part
+for part in $str; do 
+	echo $part; 
 done
 # while
 while [[  test_expression ]]; do
@@ -56,3 +58,20 @@ echo "${FILENAME%%.*}" # index
 echo "${FILENAME#*.}" # d.ts
 echo "${FILENAME##*.}" # ts
 
+# Useful bash snippet: Get directory of current script located in.
+# 获得此BASH脚本文件所在的目录 (代码片段)
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
+	DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )";
+	SOURCE="$(readlink "$SOURCE")"; [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE";
+done
+DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+# From: https://stackoverflow.com/questions/59895/
+
+# Terminal Color Cheat Sheet: 颜色速查
+# 8colors => BgValue = FgValue + 10; 
+# FgValues: Black:30 Red:31 Green:32 Yellow:33 Blue:34 Magenta:35(洋红) Cyan:36(青) White:37 Gray:90
+# Reset:0 Bold:1 Italic:3 Underline:4 DotLine:5 Revert:7 Hide:8
+# For Example: starts with `\x1b[`  ends with `m`
+GREEN_BOLD="\x1b[1;32m"; RESET="\x1b[0m"; GREY_BG="\x1b[100m"
+echo -e "$GREEN_BOLD text $RESET $GREY_BG greyBg $RESET";
