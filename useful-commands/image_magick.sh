@@ -28,8 +28,25 @@ convert test.jpg -canny 0x1 -negate to.jpg
 import screenshot.jpg # 截图(手动选择范围)
 import -window root screenshot.jpg # 截取整个屏幕
 
-# 合并图片
-# 例子: 添加水印 (水印到图片右下方,偏移(x-10;y+5)的位置 )
+# 叠加图片
+# 例子: 添加水印 (watermark) (水印到图片右下方,偏移(x-10;y+5)的位置 )
 composite -gravity SouthEast -geometry -10+5 watermark.png from.jpg to.jpg
 # 指定 -compose 参数可以设置合并方法: multiply screen difference exclusion
 # -gravity: North South East West Center 
+
+# 连接/合并图片 (concat/combine images)
+# -append: vertical combine(top to bottom)
+# +append: horizonal combine (left to right)
+convert 1.jpg 2.jpg 3.jpg -append all.jpg 
+convert *.jpg -append all.jpg
+# 使用 montage 合并
+# https://www.imagemagick.org/Usage/montage/
+# `-tile 1x` => 1 column in row 
+# `-tile 2x3` => 2 columns in row, max 6 rows (overflow part to other files).
+# no `-tile` option => only 1 row in target image. (left to right) 
+motage -mode concatenate -tile 1x 1.jpg 2.jpg all.jpg
+# available options:
+# -background "#ff0000" / -background "grey20" / -background none
+# -geometry "+50+100" gap between echo part is (50w and 100h)
+# -title "title"  
+# -geometry 50x60+10+10  max-width: 50px; max-height: 60px; margin: 10px;
