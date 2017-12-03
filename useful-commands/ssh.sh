@@ -65,5 +65,8 @@ ssh-keygen -t rsa -b 4096 -C "you@mail.com"
 eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_rsa # or other private key file
 
+# 验证 SSH 私钥密码/查看 SSH 私钥 Validate SSH private key
+ssh-keygen -yf ~/.ssh/id_rsa
+
 # 给桌面版电脑安装SSH服务器
 sudo apt-get install openssh-server
