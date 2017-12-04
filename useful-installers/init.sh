@@ -21,7 +21,7 @@
 
 SOFTWARES="git vim htop gawk bash-completion";
 SOFTWARES_READABLE=`echo "$SOFTWARES" | tr ' ' ',' `;
-YOUTUBE_DL_BASE_OPTS="--proxy socks5://127.0.0.1:1080/ --socket-timeout 10 --merge-output-format mp4";
+YOUTUBE_DL_BASE_OPTS="--proxy socks5://127.0.0.1:1080/ --socket-timeout 10 ";
 ALIASES=(
 	"cl='clear'"
 	"cls='clear'"
