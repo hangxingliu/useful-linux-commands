@@ -13,6 +13,8 @@ sudo dpkg-reconfigure lightdm
 # 安装显示管理器
 sudo apt install lightdm gdm3
 
+# Gtk-WARNING **: Unable to locate theme engine in module_path: "adwaita"
+sudo apt install gnome-themes-standard
 
 # 让Ubuntu长的更像Mac系统(攒钱买Mac...)
 
