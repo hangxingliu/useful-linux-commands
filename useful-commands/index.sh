@@ -280,3 +280,10 @@ journalctl -u nginx.service --since today
 -r # 反转显示日志(先显示最新的日志) 
 -p [priority] # 根据日志优先级筛选日志
 # (0: 出现/1: 警告/2: 暴击/3: 错误/4: 警告/5: 通知/6: INFO/7: 调试)
+
+# 彻底删除一个文件(覆写,删除)
+# Delete file secure/can not recovered
+shred -u -z fileName 
+# -u: remove file after overwriting
+# -z: add a zero to hide shredding
+# -n 25: over write 25 times random characters (default: 25)
