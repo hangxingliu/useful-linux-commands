@@ -11,6 +11,9 @@ ssh-keygen -lvf ~/.ssh/id_rsa.pub
 ssh-keygen -E md5 -lvf ~/.ssh/id_rsa.pub
 # It looks like: 4096 MD5://f0:23:5d... xxx@mail.com (RSA)
 
+# Remove fingerpoint in file known_hosts
+ssh-keygen -R hostname
+
 # SSH permissions
 chmod 700 ~/.ssh
 chmod 644 ~/.ssh/id_rsa.pub  # public key  -rw-r--r--

@@ -2,7 +2,7 @@
 sudo apt install shadowsocks-libev
 
 # WARNING!!! If you build shadowsocks-libev by yourself to overwrite apt package
-# Please apt purge --autoremove shadowsocks-libev firstly
+apt purge --autoremove shadowsocks-libev # please exexcute this command firstly
 
 # Shadowsocks dependencies in Centos 7
 yum update
@@ -11,24 +11,12 @@ yum install gcc gettext autoconf libtool automake make pcre-devel asciidoc xmlto
 
 # Shadowsocks dependencies in Ubuntu
 sudo apt update
-sudo apt install --no-install-recommends build-essential autoconf libtool \
-        libssl-dev gawk debhelper dh-systemd init-system-helpers pkg-config asciidoc \
-        xmlto apg libpcre3-dev zlib1g-dev libev-dev libudns-dev libsodium-dev
+sudo apt install --no-install-recommends \
+    build-essential autoconf libtool \
+    libssl-dev gawk debhelper dh-systemd init-system-helpers pkg-config asciidoc \
+    xmlto apg libpcre3-dev zlib1g-dev libev-dev libudns-dev libsodium-dev libmbedtls-dev libc-ares-dev automake
 # install asciidoc, xmlto must remember: --no-install-recommends
 # else you will install some very huge package. such as texlive-latex-extra-doc
-
-# install c-ares
-git clone https://github.com/c-ares/c-ares.git
-cd c-ares
-./buildconf && ./configure
-make && sudo make install
-
-# install libsodium
-git clone https://github.com/jedisct1/libsodium.git  
-cd libsodium  
-./autogen.sh
-./configure
-make && sudo make install 
 
 ## install ss
 git clone https://github.com/shadowsocks/shadowsocks-libev.git  
@@ -39,8 +27,9 @@ git submodule update --init --recursive
 # if configure failed because asciidoc
 # you can add option: "--disable-documentation" follow ./configure
 # or sudo apt install asciidoc
-
 make && sudo make install
+
+
 # if make failed like " ... undefined reference to  ..."
 # And you build and install libsodium/mbedtls like above by yourself
 # You should ./configure again like this:
@@ -64,6 +53,8 @@ sudo ldconfig
 
 ## Usage
 ss-server -c config.json
+## Usage in background
+ss-server -c config.json -f ss_is_running.pid
 
 ## Example Config
 {
