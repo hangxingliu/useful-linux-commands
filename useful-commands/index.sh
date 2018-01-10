@@ -287,3 +287,10 @@ shred -u -z fileName
 # -u: remove file after overwriting
 # -z: add a zero to hide shredding
 # -n 25: over write 25 times random characters (default: 25)
+
+
+# Compile htop (manual)
+sudo apt install libtool libncursesw5-dev;
+git clone https://github.com/hishamhm/htop.git;
+cd htop;
+./autogen.sh && ./configure && make && sudo make install;
