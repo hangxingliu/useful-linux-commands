@@ -1,7 +1,7 @@
 {
   "name": "useful-linux-commands",
   "version": "2.1.0",
-  "description": "",
+  "description": "A program for querying useful linux commands in terminal or browser",
   "main": "src/index.js",
   "scripts": {
     "test": "node ./src/bin --test",
@@ -17,15 +17,15 @@
   },
   "dependencies": {
     "colors": "^1.1.2",
-    "commander": "^2.11.0",
+    "commander": "^2.13.0",
     "ejs": "^2.5.7",
     "express": "^4.16.2",
     "morgan": "^1.9.0",
     "serve-favicon": "^2.4.5"
   },
   "devDependencies": {
-    "fs-extra": "*"
+    "fs-extra": "^5.0.0"
   },
   "author": "LiuYue",
-  "license": "ISC"
+  "license": "GPL-3.0"
 }

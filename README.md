@@ -1,30 +1,38 @@
 # Useful Linux Commands
 
-You can quickly query useful linux commands in terminal or browser.
+A program for querying useful linux commands in terminal or browser.
 
-You can install it in local or remote server
+It is a command line toolkit and also a querying server.
 
-## Install in local
-
-``` bash
-	sudo npm i -g
-	# And then You can use it 
-	useful-commands --help
-```
-
-## Install in server
+## Install
 
 ``` bash
-	sudo npm i
-	# Way1: just run
-	npm run web -- -p ${port_number: 10765} -h ${host_name: 127.0.0.1}
-	# sudo npm run web -- -p 80
-
-	# Way2: pm2
-	pm2 start ecosystem.yaml
+git clone https://github.com/hangxingliu/useful-linux-commands.git;
+cd useful-linux-commands;
+sudo npm install --global
 ```
 
-### Query:
+## Use as a command line toolkit
+
+``` bash
+useful-commands keyword ...  # query commands
+useful-commands --help       # get help information
+```
+
+## Use as a querying server
+
+``` bash
+# Way1: launch server directly
+useful-commands-server -p ${port_number:10765} -h ${host_name:127.0.0.1}
+
+# Way2: launch server by pm2
+cd useful-linux-commands;
+pm2 start ecosystem.yaml;
+
+# Then query in browser ...
+```
+
+## Query:
 
 ``` bash
 	# in terminal:
@@ -32,5 +40,12 @@ You can install it in local or remote server
 	wget http://domain/keywords?color -O
 	curl http://domain/filename/keywords?a=5&b=1
 	curl http://domain/help
-
 ```
+
+## Author
+
+[LiuYue @hangxingliu](https://github.com/hangxingliu)
+
+## License
+
+[GPL-3.0](LICENSE)
