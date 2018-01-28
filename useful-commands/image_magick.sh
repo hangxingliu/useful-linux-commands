@@ -44,7 +44,7 @@ convert *.jpg -append all.jpg
 # `-tile 1x` => 1 column in row 
 # `-tile 2x3` => 2 columns in row, max 6 rows (overflow part to other files).
 # no `-tile` option => only 1 row in target image. (left to right) 
-motage -mode concatenate -tile 1x 1.jpg 2.jpg all.jpg
+montage -mode concatenate -tile 1x 1.jpg 2.jpg all.jpg
 # available options:
 # -background "#ff0000" / -background "grey20" / -background none
 # -geometry "+50+100" gap between echo part is (50w and 100h)
