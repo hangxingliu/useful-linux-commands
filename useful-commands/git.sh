@@ -1,3 +1,13 @@
+# Git
+
+# 相关名词中英对照 Terminology zh-CN/en
+## workspace: 工作区
+## index(stage): 暂存区
+## repository: 仓库区(本地仓库)
+## remote: 远端(远程仓库)
+## ---
+## stash: 存档库 (为了某些操作, 临时存放一下变动)
+
 # git log 可视化图表
 # 一行样式
 git log --graph --branches --all --decorate \
@@ -34,4 +44,20 @@ git config --gloabl commit.gpgsign true
 
 
 # 第一次上传git代码失败: fatal: 拒绝合并无关的历史
- git pull --allow-unrelated-histories
+# fatal: refusing to merge unrelated histories
+git pull --allow-unrelated-histories
+
+# git reset mode:  重置(删除)本地commit
+git reset --mixed # by default: reset files to working directory
+# mixed 是默认模式, 重置到工作目录(文件系统)
+git reset --soft # reset files to stage/index 重置到暂存区
+git reset --hard # F**k your life mode: reset files to black hole(黑洞)
+## for example:
+git reset --soft HEAD^ # reset to last commit
+
+# git delete local branch git删除本地分支:
+git branch --delete <branch_name>
+# replace `-d` to `-D` to delete branch un-merged (--force)
+
+# git delete remote branch git删除远端分支
+git push --delete <remote_name> <branch_name>
