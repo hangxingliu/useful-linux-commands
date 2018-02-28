@@ -216,7 +216,7 @@ cryptswap1 /swapfile /dev/urandom ...
 vim /etc/default/grub
 # replace
 #   GRUB_HIDDEN_TIMEOUT=0
-# to: 
+# to:
 #   GRUB_HIDDEN_TIMEOUT=
 sudo update-grub
 
@@ -247,7 +247,7 @@ wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-ke
 # 2. Set repository
 sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
 # 3. Install
-sudo apt update 
+sudo apt update
 sudo apt install google-chrome-stable
 
 # 自定义 Grub
@@ -277,13 +277,13 @@ split file.txt -l 10 part.txt.
 journalctl -u nginx.service --since today
 -n [lineNumbers]: # -n all 全部行 默认值为10行
 -f # Follow 不断显示新的日志
--r # 反转显示日志(先显示最新的日志) 
+-r # 反转显示日志(先显示最新的日志)
 -p [priority] # 根据日志优先级筛选日志
 # (0: 出现/1: 警告/2: 暴击/3: 错误/4: 警告/5: 通知/6: INFO/7: 调试)
 
 # 彻底删除一个文件(覆写,删除)
 # Delete file secure/can not recovered
-shred -u -z fileName 
+shred -u -z fileName
 # -u: remove file after overwriting
 # -z: add a zero to hide shredding
 # -n 25: over write 25 times random characters (default: 25)
@@ -294,3 +294,9 @@ sudo apt install libtool libncursesw5-dev;
 git clone https://github.com/hishamhm/htop.git;
 cd htop;
 ./autogen.sh && ./configure && make && sudo make install;
+
+# common proxy variable in bash
+export http_proxy=http://127.0.0.1:8000
+export http_proxy=http://user:pwd@127.0.0.1:8000
+export http_proxy=socks5://127.0.0.1:1080
+export https_proxy=http://127.0.0.1:8000
