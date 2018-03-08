@@ -1,9 +1,6 @@
 # Install Ubuntu unity tweak tools
 sudo apt install unity-tweak-tools
 
-# Ubuntu文件管理器右键菜单编辑
-sudo apt install nautilus-actions
-
 # 给Centos/RHEL 安装bash补全
 yum install bash-completion
 
@@ -74,14 +71,6 @@ grep -rnwi 'path/to/folder' -e 'keyword'
 # 解决VSCode的alt键与系统冲突的问题
 gsettings set org.gnome.desktop.wm.preferences mouse-button-modifier "<Super>"
 
-# Privoxy 将SS的socks5代理转成HTTP代理
-sudo apt install privoxy
-sudo vim /etc/privoxy/config
-# Add a line in the bottom
-#	forward-socks5	/ 127.0.0.1:1080
-sudo service privoxy restart
-# now http proxy is running on 127.0.0.1:8118
-
 # grep查询关键字以及上3行下5行
 grep -A 5 -B 3 -e "keyword"
 
@@ -147,26 +136,6 @@ git init
 # -H set home variable into sudo
 sudo -H pip install --upgrade youtube-dl
 
-# install vlc media player in ubuntu
-# libavcodec-extra is support streaming or transcoding
-sudo apt-get install vlc browser-plugin-vlc libavcodec-extra
-
-# Proxychains
-git clone https://github.com/rofl0r/proxychains-ng
-cd proxychains-ng
-./configure --prefix=/usr --sysconfdir=/etc
-make
-sudo make install
-sudo make install-config # (installs proxychains.conf)
-vim /etc/proxychains.conf
-
-# 屏幕Gif录制工具
-sudo add-apt-repository ppa:peek-developers/stable
-sudo apt update && sudo apt install peek
-
-# 取色工具
-sudo apt install gpick
-
 # iconv 将 GBK 转成 utf8
 iconv -f GBK -t UTF-8 file.txt -o utf8_file.txt
 
@@ -182,10 +151,6 @@ dpkg -S $文件路径
 sudo apt install mingw-w64
 # 编译: -static-libxxx 是为了让相应的库静态存储到 exe文件中 防止电脑上缺失这些库
 i686-w64-mingw32-g++ main.cpp -o bin.exe -static-libstdc++ -static-libgcc
-
-# git fatal: 拒绝合并无关历史
-# 一般因为本体推送到远端, 而远端初始化的时候已有了一些文件(例如: LICENSE...)
-git pull origin master --allow-unrelated-histories
 
 # 内存盘 RAM DISK
 sudo mount -t tmpfs -o size=512m tmpfs /path/mount/to
@@ -241,15 +206,6 @@ sudo init $level #切换运行级别到$level
 #  5 多用户，带图形界面
 #  6 重启
 
-# 安装 Chrome
-# 1. Add key
-wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-# 2. Set repository
-sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
-# 3. Install
-sudo apt update
-sudo apt install google-chrome-stable
-
 # 自定义 Grub
 sudo add-apt-repository ppa:danielrichter2007/grub-customizer
 sudo apt update
@@ -288,15 +244,24 @@ shred -u -z fileName
 # -z: add a zero to hide shredding
 # -n 25: over write 25 times random characters (default: 25)
 
-
 # Compile htop (manual)
 sudo apt install libtool libncursesw5-dev;
 git clone https://github.com/hishamhm/htop.git;
 cd htop;
 ./autogen.sh && ./configure && make && sudo make install;
 
-# common proxy variable in bash
-export http_proxy=http://127.0.0.1:8000
-export http_proxy=http://user:pwd@127.0.0.1:8000
-export http_proxy=socks5://127.0.0.1:1080
-export https_proxy=http://127.0.0.1:8000
+# get group of current user
+id -g
+
+# enable/disable postfix server
+sudo update-rc.d postfix disable/enable
+
+# Start system slowly (开机慢)
+## 1. Check if there are any errors in system logs (GUI: gnome-logs)
+##    For example, could not found device referenced in /etc/fstab
+## 2. echo services elapsed times:
+systemd-analyze blame
+## 3. reference wiki:
+##    https://wiki.archlinux.org/index.php/Improving_performance/Boot_process
+
+

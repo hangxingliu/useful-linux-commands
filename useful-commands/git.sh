@@ -44,6 +44,7 @@ git config --gloabl commit.gpgsign true
 
 
 # 第一次上传git代码失败: fatal: 拒绝合并无关的历史
+# 一般因为本体推送到远端, 而远端初始化的时候已有了一些文件(例如: LICENSE...)
 # fatal: refusing to merge unrelated histories
 git pull --allow-unrelated-histories
 

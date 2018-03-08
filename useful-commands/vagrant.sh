@@ -18,15 +18,17 @@ vagrant init ubuntu/xenial64 #ubutnu16.04 64bits
 # centos/6 centos/7
 vagrant up # 下载所需镜像(如果不存在) 启动虚拟机
 
-## 登录 
+## 登录
 vagrant ssh
-ssh root@127.0.0.1 -p 2222 -i private_key_file 
+ssh root@127.0.0.1 -p 2222 -i private_key_file
 ### There maybe exist permission problem in NTFS lead to ssh login failed
 ### (NTFS可能导致权限问题,无法正常SSH登录)
-### 私钥文件路径可以在 vagrant ssh-config 中看到
+### 私钥文件路径可以在 `vagrant ssh-config` 中看到
 
 ## 目录共享
-### 虚拟机内的/vagrant/于虚拟机当前目录共享目录
+### 1. 虚拟机内的/vagrant/ 相当与 Vagrantfile所在的目录
+### 2. 在Vagrantfile中可以如下配置:
+config.vm.synced_folder "~/share_to_vagrant_vm", "/vagrant_share"
 
 ## Vagrantfile Configurations: 配置
 ### 端口映射, 在config.vm.box下面加入

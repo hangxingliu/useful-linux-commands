@@ -1,3 +1,5 @@
+# Shadowsocks
+
 # (Depercated: version is too old) In Ubuntu just apt install:
 sudo apt install shadowsocks-libev
 
@@ -19,9 +21,9 @@ sudo apt install --no-install-recommends \
 # else you will install some very huge package. such as texlive-latex-extra-doc
 
 ## install ss
-git clone https://github.com/shadowsocks/shadowsocks-libev.git  
-cd shadowsocks-libev  
-git submodule update --init --recursive  
+git clone https://github.com/shadowsocks/shadowsocks-libev.git
+cd shadowsocks-libev
+git submodule update --init --recursive
 ./autogen.sh
 ./configure
 # if configure failed because asciidoc
@@ -33,7 +35,7 @@ make && sudo make install
 # if make failed like " ... undefined reference to  ..."
 # And you build and install libsodium/mbedtls like above by yourself
 # You should ./configure again like this:
-undefined reference to 
+undefined reference to
 ./configure --with-sodium-include=/usr/local/include \
     --with-sodium-lib=/usr/local/lib \
     --with-mbedtls-include=/usr/local/include \
@@ -58,10 +60,35 @@ ss-server -c config.json -f ss_is_running.pid
 
 ## Example Config
 {
-  "server":"server_ip", 
-  "server_port":8888, 
+  "server":"server_ip",
+  "server_port":8888,
   "local_port":1080,
   "password":"password",
   "timeout":600,
   "method":"chacha20-ietf-poly1305"
 }
+
+# Privoxy (convert socks5 proxy to HTTP proxy)
+
+sudo apt install privoxy
+sudo vim /etc/privoxy/config
+# Add a line in the bottom
+#	forward-socks5	/ 127.0.0.1:1080
+sudo service privoxy restart
+# now http proxy is running on 127.0.0.1:8118
+
+# Proxychains (force proxy for terminal commands)
+
+git clone https://github.com/rofl0r/proxychains-ng
+cd proxychains-ng
+./configure --prefix=/usr --sysconfdir=/etc
+make
+sudo make install
+sudo make install-config # (installs proxychains.conf)
+vim /etc/proxychains.conf
+
+# common proxy variable in terminal
+export http_proxy=http://127.0.0.1:8000
+export http_proxy=http://user:pwd@127.0.0.1:8000
+export http_proxy=socks5://127.0.0.1:1080
+export https_proxy=http://127.0.0.1:8000
