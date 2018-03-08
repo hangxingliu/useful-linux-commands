@@ -15,8 +15,9 @@ _useful_commands_completion() {
 	LAST_WORD="$3";
 
 	OPTS="-a -A -b -B -f -F -m --mini --help --color --no-color";
-	FILES_ARRAY=( awk bash curl ffmpeg find_xargs git gpg image_magick index install_deluge_on_centos_6
-		lsyncd monitor_and_usage mysql qt samba sed ssh_enc ssh ss swap ui vagrant vim xbindkeys );
+	FILES_ARRAY=( awk bash curl disk docker ffmpeg find_xargs git gpg gui_software
+                image_magick index install_deluge_on_centos_6 lsyncd monitor_and_usage
+                mysql proxy qt samba sed ssh_enc ssh swap ui vagrant vim xbindkeys );
 	for FNAME in "${FILES_ARRAY[@]}"; do
 		FILES="${FILES} ${FNAME}";
 		_F_FILES="${_F_FILES} -f${FNAME}";

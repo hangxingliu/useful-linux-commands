@@ -5,3 +5,6 @@
 - [ ] add highlight for text in editor
 - [ ] add article/chapter/section block support
 - [ ] awk.sh and awk.manual.sh/awk.article.sh/awk.manual.sh/awk.detailed.sh
+- [ ] add querying whole word mode
+	- For example: `-whello` would only match hello in `hello world` but not `helloooo~` 
+
