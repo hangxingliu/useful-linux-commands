@@ -14,12 +14,12 @@ Program
 	.usage('[options]')
 	.description('Useful linux commands web query server')
 	.option('-p, --port <port>', `Specifying the port is server listening on(default: ${Config.port})`)
-	.option('-h, --host <host>', `Specifying the host is server listening on(default: ${Config.host})`)
+	.option('    --host <host>', `Specifying the host is server listening on(default: ${Config.host})`)
 	.parse(process.argv);
 
 Config.port = parseInt(Program.port) || Config.port;
 Config.host = Program.host || Config.host;
- 
+
 
 let app = Express();
 
@@ -40,15 +40,17 @@ app.use('/static', Express.static(Config.static));
 app.use(forDownloadInstallScript);
 
 app.use((req, res) => {
-	let ua = req.header('user-agent');
-	isFromCURLorWGET(ua) ?
+	let ua = req.header('user-agent') || '';
+	ua.match(/^(?:Wget|curl)/i) ?
 		forWgetCURL.handler(req, res) :
 		forBrowser.handler(req, res);
 });
 
 app.use((err, req, res, next) => {
+	void next; // ignore unused next function
+
 	console.error(err && (err.stack ? err.stack : err));
-	
+
 	res.status(500);
 	res.write(`500: One day you'll leave this world behind. So live a life you will remember.`);
 	res.end();
@@ -57,9 +59,7 @@ app.use((err, req, res, next) => {
 
 let server = require('http').createServer(app);
 server.listen(Config.port, Config.host);
-server.on('listening', () => console.log(`Server is listening on ${Config.host}:${Config.port}`));
-
-
-// Functions
-const WGET_CURL_UA_MATCHER = /^(?:Wget|curl)/i;
-function isFromCURLorWGET(ua = '') { return ua.match(WGET_CURL_UA_MATCHER); }
+server.on('listening', () =>{
+	console.log(`Server is listening on ${Config.host}:${Config.port}`);
+	console.log(`  Visit: http://${Config.host}:${Config.port}`);
+});
