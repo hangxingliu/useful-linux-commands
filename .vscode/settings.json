@@ -4,6 +4,13 @@
 		".json/*.json"
 	],
 	"cSpell.words": [
-		"gitignore"
-	]
+		"gitignore",
+		"fname",
+        "gitignore",
+        "minified",
+        "rsync"
+	],
+	"files.associations": {
+		".htmlhintrc": "json"
+	}
 }

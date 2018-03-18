@@ -7,4 +7,6 @@
 - [ ] awk.sh and awk.manual.sh/awk.article.sh/awk.manual.sh/awk.detailed.sh
 - [ ] add querying whole word mode
 	- For example: `-whello` would only match hello in `hello world` but not `helloooo~` 
-
+- [ ] support set up server with sepcial port from system environment variable `process.env.PORT`
+- [ ] support query on the mobile devices without keydown event.
+- [ ] minify html page and javascript
