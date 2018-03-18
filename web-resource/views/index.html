@@ -17,8 +17,8 @@
 
 	</head>
 	<body class="style-<%=styles[style]%>">
-		
-		<div class="container">
+
+		<div class="main-container container">
 			<header>
 				<h1>Query Command</h1>
 				<h2>Useful Linux Commands Query Website</h2>
@@ -27,16 +27,16 @@
 			<div class="row">
 				<div class="col-sm-12 clearfix">
 					<div class="input-group">
-						<input type="text" class="form-control" autofocus 
+						<input type="text" class="form-control" autofocus
 							id="txtSearchBox"
 							placeholder="input any keyword. optional: -f filename, -a lines after count, -b lines before count">
 						<span class="input-group-btn">
 							<div class="btn-group">
 								<button type="button" class="btn btn-secondary">Style: <%=style%></button>
-								<button type="button" 
+								<button type="button"
 									class="btn btn-secondary dropdown-toggle dropdown-toggle-split"
-									data-toggle="dropdown" 
-									aria-haspopup="true" 
+									data-toggle="dropdown"
+									aria-haspopup="true"
 									aria-expanded="false">
 									<span class="sr-only">Toggle Style</span>
 								</button>
@@ -48,10 +48,9 @@
 							</div>
 						</span>
 					</div>
-				<!-- /.col-->
-				</div>
-			<!-- /.row-->
-			</div><br/>
+				</div> <!-- /.col-->
+			</div> <!-- /.row-->
+			<br/>
 
 			<div class="row d-flex align-items-stretch" id="rowHelp" style="display: none">
 				<div class="col-sm-12 col-md-8 ">
@@ -73,7 +72,7 @@
 					</div>
 				</div>
 				<div class="col-sm-12 col-md-4 ">
-					<div class="card">
+					<div class="card" style="height: 100%">
 						<div class="card-block">
 							<h4 class="card-title">Installer</h4>
 							<h6 class="card-subtitle mb-2 text-muted">Some useful one step installer script</h6>
@@ -92,29 +91,49 @@
 						</div>
 					</div>
 				</div>
-			<!-- /#rowHelp-->
-			</div><br/>
-			
-			<div id="result-template" style="display: none">
-				<div class="row" style="margin-bottom: 1em">
-					<div class="col-sm-12">
-						<div class="card">
-							<div class="card-block">
-								<h4 class="card-title">{{ name }}</h4>
-								<div class="card-text">
-									<pre><code class="bash">{{ content }}</code></pre>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+			</div> <!-- /#rowHelp-->
+			<br/>
 
 			<div class="result" id="blockResult">
 
 			</div>
 
-		<!-- /.container-->
+		</div> <!-- /.container-->
+
+		<footer class="page-footer">
+			<div class="container text-center">
+				<div class="mb-4">
+					<a class="github-link" href="https://github.com/hangxingliu" target="_blank">
+						<img src="/static/images/GitHub-Mark-32px.png" />
+						<br/>
+						@hangxingliu
+					</a>
+				</div>
+				<div>
+					<a href="https://github.com/hangxingliu/useful-linux-commands" target="_blank">
+						Project Github repo
+					</a>
+				</div>
+				<div>
+					This website and its sources are published under the 
+					<a href="https://choosealicense.com/licenses/gpl-3.0/">GPL-3.0</a> 
+				</div>
+			</div>
+		</footer>
+
+		<div id="result-template" style="display: none">
+			<div class="row" style="margin-bottom: 1em">
+				<div class="col-sm-12">
+					<div class="card">
+						<div class="card-block">
+							<h4 class="card-title">{{ name }}</h4>
+							<div class="card-text">
+								<pre><code class="bash">{{ content }}</code></pre>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 
 		<script src="/static/jquery/jquery.min.js"></script>

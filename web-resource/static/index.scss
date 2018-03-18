@@ -1,6 +1,25 @@
+$footerLinkColor: #008BCD;
+
+$bgSolarizedLight: #fdf6e3;
+$footerBgSolarizedLight: #eee7d5;
+
+$bgGithub: #f8f8f8;
+$footerBgGithub: #efefef;
+
+$footerBgGithubGist: #f4f4f4;
+
+$bgSolarizedDark: #002F38;
+$bgSolarizedDark2: #003943;
+$fgSolarizedDark: #91A09F;
+$footerBgSolarizedDark: darken($color: $bgSolarizedDark, $amount: 5%);
+
+html {
+	height: 100%;
+}
 body {
+	height: 100%;
     color: #4B4B4B;
-    padding-top: 3em;
+	padding-top: 3em;
 }
 header{
     text-align: center;
@@ -19,32 +38,80 @@ header{
     }
 }
 
-$bgSolarizedLight: #fdf6e3;
+
+// =======================
+//  For sticky footer
+// >>>>>>>>>>>>>>>>>>>>>>>
+body {
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+}
+.main-container {
+	flex: 1 0 auto;
+	// grow: 1 for expand it
+	// shrink: 0 for shrink container size to default
+}
+.page-footer {
+	flex-shrink: 0;
+
+	margin-top: 50px;
+	padding-top: 25px;
+	padding-bottom: 60px;
+
+	color: #91A09F;
+
+	.github-link {
+		text-decoration: none;
+	}
+	a {
+		color: $footerLinkColor;
+		&:hover, &:focus {
+			color: lighten($color: $footerLinkColor, $amount: 10%);
+		}
+	}
+}
+// <<<<<<<<<<<<<<<<<<<<<<<
+
+
 body.style-solarized-light {
     background-color: $bgSolarizedLight;
     .card {
         background-color: $bgSolarizedLight;
-    }
+	}
+	.page-footer {
+		background-color: $footerBgSolarizedLight;
+	}
 }
-
-// TODO
-// $bgSolarizedDark: #002b36;
-// $fgSolarizedDark: #839496;
-// body.style-solarized-dark {
-//     color: $fgSolarizedDark;
-//     background-color: $bgSolarizedDark;
-//     .card {
-//         background-color: $bgSolarizedDark;
-//     }
-// }
-
-$bgGithub: #f8f8f8;
 body.style-github {
      background-color: $bgGithub;
     .card {
         background-color: $bgGithub;
-    }
+	}
+	.page-footer {
+		background-color: $footerBgGithub;
+	}
 }
 body.style-github-gist {
-    // just empty is ok
+   .page-footer {
+	   background-color: $footerBgGithubGist;
+   }
+}
+
+body.style-solarized-dark {
+    color: $fgSolarizedDark;
+    background-color: $bgSolarizedDark;
+    .card {
+        background-color: $bgSolarizedDark;
+	}
+	.page-footer {
+		background-color: $footerBgSolarizedDark;
+	}
+	input, button, code, input:focus, button:hover {
+		color: $fgSolarizedDark;
+		background-color: $bgSolarizedDark2;
+	}
+	.github-link img {
+		filter: invert(100%);
+	}
 }

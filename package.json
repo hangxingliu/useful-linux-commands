@@ -8,7 +8,8 @@
     "start": "node ./src/bin",
     "web": "node ./src/bin-web",
     "pm2": "pm2 start ecosystem.yaml",
-    "archive": "tar c -v -f \"UsefulLinuxCommands-latest.tar\" .git"
+    "archive": "tar c -v -f \"UsefulLinuxCommands-latest.tar\" .git",
+	"build-static": "node ./scripts/build-static.js"
   },
   "private": true,
   "bin": {
@@ -24,7 +25,10 @@
     "serve-favicon": "^2.4.5"
   },
   "devDependencies": {
-    "fs-extra": "^5.0.0"
+    "autoprefixer": "^8.1.0",
+    "fs-extra": "^5.0.0",
+    "node-sass": "^4.7.2",
+    "postcss-cli": "^5.0.0"
   },
   "author": "LiuYue",
   "license": "GPL-3.0"

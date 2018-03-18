@@ -2,17 +2,17 @@ let { getFileNames } = require('../files');
 let { OutputChannel } = require('../output_channel/ajax');
 let query = require('../query');
 
-let styles = ['light', 'dark', 'github', 'gist'];
+let styles = ['github', 'gist', 'light', 'dark'];
 let stylesMap = {
-	light: 'solarized-light',
-	dark: 'solarized-dark',
 	github: 'github',
-	gist: 'github-gist'
+	gist: 'github-gist',
+	light: 'solarized-light',
+	dark: 'solarized-dark'
 };
 
 function handler(req, res) {
 	let path = '/'; path = req.path;
-	
+
 	// response index page(homepage)
 	if (path == '/') {
 		let style = styles[0];
@@ -31,19 +31,19 @@ function handler(req, res) {
 			linesAfterCount = parseInt(req.query.a),
 			keywords = req.query.q || '',
 			fileNameFilter = req.query.file || '';
-		
+
 		if (isNaN(linesBeforeCount)) linesBeforeCount = 1;
 		if (isNaN(linesAfterCount)) linesAfterCount = 5;
-		
+
 		if (!keywords && !fileNameFilter)
 			return res.json({ error: 'empty query' }) + res.end();
 
 		console.log('web ajax api query: ', fileNameFilter, keywords);
-		
+
 		let outputChannel = new OutputChannel(res);
 		query(keywords, fileNameFilter, linesBeforeCount, linesAfterCount, outputChannel);
 
-		return;		
+		return;
 	}
 
 	res.status(404);
