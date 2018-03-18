@@ -1,7 +1,7 @@
 # Docker
 
 # Install Docker on Ubuntu via .deb package
-# deb package download page:
+# deb package download page: (under `SYSTEM_NAME/pool/stable/`)
 # https://download.docker.com/linux/ubuntu/dists/
 # other ways:
 # https://docs.docker.com
@@ -41,6 +41,13 @@ sudo docker ps # -a for all
 
 # start and stop container
 sudo docker start/stop $CONTAINER_NAME
+# kill all containers
+sudo docker kill $(docker ps -q)
+
+# remove all containers
+sudo docker rm $(docker ps -q -a) # and -f for force remove even if it is running
+
+# difference between kill(just now) and stop(send SIGTERM and wait it at most 10 seconds)
 
 # clean up all things (Boom shakalaka~~)
 sudo docker system prune -a
