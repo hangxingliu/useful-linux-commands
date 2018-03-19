@@ -19,7 +19,7 @@ function handler(req, res) {
 		for (const s of styles)
 			if (s in req.query)
 				style = s;
-		return res.render('index', {
+		return res.render('index-min', {
 			style,
 			styles: stylesMap,
 			files: getFileNames()

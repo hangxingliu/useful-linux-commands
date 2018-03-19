@@ -1,71 +1,119 @@
-var App = function() {
-	var $input = $('#txtSearchBox'),
-		$help = $('#rowHelp'),
-		tmpl = $('#result-template').clone().html(),
-		$blockResult = $('#blockResult');
-	
-	var regexpA = /^-a(.*?)$/i,
+//@ts-check
+(function App() {
+	/** @type {HTMLInputElement} */
+	let $input = $('#txtSearchBox');
+
+	/** @type {HTMLFormElement} */
+	let $form = $('#formSearchBox');
+
+	let $help = $div('#rowHelp'),
+		$menu = $div('#styleDropdown .dropdown-menu'),
+		$blockResult = $div('#blockResult');
+
+	let tmpl = $div('#result-template').innerHTML;
+
+	let regexpA = /^-a(.*?)$/i,
 		regexpB = /^-b(.*?)$/i,
 		regexpFile = /^-f(.*?)$/i;
-	
-	var resultKeywordHighlighter = '';
-	var OriginalQueryText = '';
 
-	$input.keydown(function(e){
-		var key = e.which || e.keyCode || 0;
-		if (key == 13 || key == 32)//enter || space
+	/** @type {RegExp} */
+	let resultKeywordHighlighter;
+
+	$input.addEventListener('keydown', event => {
+		let key = event.which || event.keyCode || 0;
+		if (key == 10 || key == 13 || key == 32) {//enter || space
+			if (key != 32)
+				event.preventDefault();
 			return sendQueryRequest();
+		}
 	});
-	
+	$form.addEventListener('submit', event => { // for mobile device that could not catch keydown event
+		event.preventDefault();
+		return sendQueryRequest();
+	});
+
+	$('#styleDropdown .style-menu-toggle').addEventListener('click', event => {
+		event.preventDefault();
+		toggleDisplay($menu);
+	});
+
 	function sendQueryRequest() {
-		OriginalQueryText = $input.val();
-		var parts = OriginalQueryText.split(/\s+/);
+		let parts = value($input).split(/\s+/);
 
-		var q = [], options = { file: '', a: '', b: '' };
-		var opt2regexpMap = {
-			file: regexpFile, a: regexpA, b: regexpB
-		};
+		let q = [], options = { file: '', a: '', b: '' };
+		/** @type {{[x: string]: RegExp}} */
+		let opt2regexpMap = { file: regexpFile, a: regexpA, b: regexpB };
 
-		for (var i = 0; i < parts.length; i++) {
-			var word = parts[i], match, isKeyword = true;
+		for (let i = 0; i < parts.length; i++) {
+			let word = parts[i], match, isKeyword = true;
 			if (!word) continue;
-			Object.keys(opt2regexpMap).map(opt =>
-				options[opt] = (match = word.match(opt2regexpMap[opt]))
+			for (let opt in opt2regexpMap) {
+				let regexp = opt2regexpMap[opt];
+				options[opt] = (match = word.match(regexp))
 					? ((isKeyword = false) || match[1] || parts[++i] || '')
-					: options[opt]);
+					: options[opt];
+			}
 			isKeyword && q.push(word);
 		}
-		
+
 		resultKeywordHighlighter = getRegexp4ResultKeywordHightlight(q);
 
-		var url = `api?q=${encodeURIComponent(q.join('+'))}` +
+		let url = `api?q=${encodeURIComponent(q.join('+'))}` +
 			`&[a]&[b]&[file]`.replace(/\[(\w+)\]/g, (_, name) =>
 				name + '=' + encodeURIComponent(options[name]));
 		console.log(url);
-		$.get(url, handlerResult);
+		httpGetJSON(url, handlerResult);
 	}
 
-	function handlerResult(data) {
-		var items = data.files, html = '';
-		items && items.length ? $help.removeClass('d-flex') : $help.addClass('d-flex');
+	/**
+	 *
+	 * @param {Error} err
+	 * @param {number} status
+	 * @param {{files: Array}} data
+	 */
+	function handlerResult(err, status, data) {
+		let items = data.files, html = '';
+		setHelpDisplay(items && items.length > 0);
 
-		for (var index in items) {
-			var item = items[index];
-			item.content = item.contents.map(v => 
+		for (let index in items) {
+			let item = items[index];
+			item.content = item.contents.map(v =>
 				v == '...' ? `<i>...(lines be omitted)</i><br />` : escapeHtml(v)).join('');
 			html += appendResultItem(item);
 		}
-		$blockResult.html(html).find('pre code').each(function (i, e) {
-			if (resultKeywordHighlighter)
-				e.innerHTML = e.innerHTML.replace(resultKeywordHighlighter, _ => `<b><u>${_}</u></b>`);
-			hljs.highlightBlock(e);
-		});
+		$blockResult.innerHTML = html;
+		$$('pre code', $blockResult).forEach(
+			/** @param {HTMLPreElement} e */
+			e => {
+				if (resultKeywordHighlighter)
+					e.innerHTML = e.innerHTML.replace(resultKeywordHighlighter, _ => `<b><u>${_}</u></b>`);
+				//@ts-ignore highlight.js
+				hljs.highlightBlock(e);
+			});
 	}
+
+	/** @param {boolean} show */
+	function setHelpDisplay(show) { (show ? removeClass : addClass).call(null, $help, 'd-flex'); }
 
 	function appendResultItem(obj) {
 		return tmpl.replace(/\{\{\s+(\w+)\s+\}\}/g, (_, name) =>
 			name == 'content' ? (obj.content || '') : escapeHtml(obj[name] || '') );
-	}	
+	}
+
+	function getRegexp4ResultKeywordHightlight(keywords) {
+		let words = keywords.map(keywd => keywd.split('+')).reduce((a, b) => a.concat(b), []);
+		return new RegExp('(' + words.map(keyword =>
+			keyword.replace(/[\*\+\?\(\)\[\]\{\}\.\|]/g, _ => `\\${_}`)
+		).join('|') + ')', 'ig');
+	}
+
+	// ==========================================
+	//
+	//      Vanilla js library functions
+	//
+	// ==========================================
+
+	/** @param {string} str */
 	function escapeHtml(str) {
 		return str
 			.replace(/&/g, "&amp;")
@@ -75,11 +123,70 @@ var App = function() {
 			.replace(/'/g, "&#039;");
 	}
 
-	function getRegexp4ResultKeywordHightlight(keywords) {
-		var words = keywords.map(keywd => keywd.split('+')).reduce((a, b) => a.concat(b), []);
-		return new RegExp('(' + words.map(keyword =>
-			keyword.replace(/[\*\+\?\(\)\[\]\{\}\.\|]/g, _ => `\\${_}`)
-		).join('|') + ')', 'ig');
+	/** @return {any} */
+	function $(selector) { return document.querySelector(selector); }
+	/** @return {HTMLDivElement} */
+	function $div(selector) { return $(selector); }
+	/**
+	 * @param {string} selector
+	 * @param {HTMLElement} [parent]
+	 * @returns {any[]}
+	 */
+	function $$(selector, parent) {
+		return Array.prototype.slice.call(
+			(parent || document).querySelectorAll(selector));
 	}
-};
-app = new App();
+
+	/** @param {HTMLElement} element */
+	function toggleDisplay(element) {
+		// https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/offsetParent
+		element.style.display = element.offsetParent === null ? 'block' : 'none';
+	}
+
+	/** @param {HTMLInputElement} element */
+	function value(element) { return String(element.value); }
+
+	/**
+	 * @param {HTMLElement} element
+	 * @param {string} className
+	 */
+	function removeClass(element, className) {
+		if (element.classList)
+			element.classList.remove(className);
+		else
+			element.className = element.className
+				.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+	}
+
+	/**
+	 * @param {HTMLElement} element
+	 * @param {string} className
+	 */
+	function addClass(element, className) {
+		if (element.classList)
+			element.classList.add(className);
+		else
+			element.className += ' ' + className;
+	}
+
+	/**
+	 * @param {string} uri
+	 * @param {(err: Error, statusCode: number, object: any) => any} callback
+	 */
+	function httpGetJSON(uri, callback) {
+		let request = new XMLHttpRequest();
+		request.open('GET', uri, true);
+		request.onload = function () {
+			let data = null;
+			try {
+				data = JSON.parse(request.responseText);
+			} catch (ex) {
+				console.error(ex);
+				return callback(new Error(`Parse response JSON Error`));
+			}
+			return callback(null, request.status, data);
+		};
+		request.onerror = () => callback(new Error('XMLHttpRequest Error'));
+		request.send();
+	}
+})();

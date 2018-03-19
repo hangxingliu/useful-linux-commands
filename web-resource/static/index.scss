@@ -27,7 +27,7 @@ header{
     margin-bottom: 1em;
 
     h1, h2, h3, h4 {
-        font-weight: 100;
+        font-weight: 300;
     }
     h1 {
         font-size: 320%;
@@ -38,6 +38,17 @@ header{
     }
 }
 
+.style-menu-toggle:focus,
+.style-menu-toggle:hover {
+	outline: none !important;
+	box-shadow: none !important;
+	color: inherit !important;
+	background-color: inherit !important;
+	border-color: inherit !important;
+}
+#styleDropdown:hover .dropdown-menu {
+	display: block;
+}
 
 // =======================
 //  For sticky footer
@@ -110,6 +121,10 @@ body.style-solarized-dark {
 	input, button, code, input:focus, button:hover {
 		color: $fgSolarizedDark;
 		background-color: $bgSolarizedDark2;
+	}
+	.dropdown-menu {
+		background-color: $bgSolarizedDark2;
+		a {color: $fgSolarizedDark;}
 	}
 	.github-link img {
 		filter: invert(100%);
