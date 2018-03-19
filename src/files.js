@@ -1,3 +1,5 @@
+//@ts-check
+
 const DIR = `${__dirname}/../useful-commands`;
 
 let fs = require('fs');
@@ -6,30 +8,34 @@ let fileContentCache = {},
 	fileNames = [];
 
 reload();
+module.exports = { reload, getFileNames, readEach };
+
+function clearFileContentCache() {
+	fileContentCache = {};
+}
+
 function reload() {
 	clearFileContentCache();
 	try {
-		fileNames = fs.readdirSync(DIR).filter(shellScriptFilter);
+		fileNames = fs.readdirSync(DIR).filter(fileName => fileName.endsWith('.sh'));
 	} catch (e) {
 		console.error(e.stack);
 		return false;
 	}
 	return true;
 }
-function clearFileContentCache() { for (let key in fileContentCache) delete fileContentCache[key] }
-function shellScriptFilter(fileName) { return fileName.endsWith('.sh'); }
 
 /**
- * @param {string} [keyword] 
+ * @param {string} [keyword]
  * @returns {Array<string>}
  */
 function getFileNames(keyword) {
-	return keyword ? fileNames.filter(fileName => fileName.indexOf(keyword) >= 0)
-		: fileNames;
+	return keyword ? fileNames.filter(fileName => fileName.indexOf(keyword) >= 0) : fileNames;
 }
+
 /**
- * @param {Array<string>} fileNames 
- * @param {Function} callback (content, fileName)
+ * @param {Array<string>} fileNames
+ * @param {(content: string, fileName: string) => any} callback
  */
 function readEach(fileNames, callback) {
 	fileNames.forEach( fileName => {
@@ -45,9 +51,3 @@ function readEach(fileNames, callback) {
 		return callback(content, fileName);
 	});
 }
-
-module.exports = {
-	reload,
-	getFileNames,
-	readEach
-};

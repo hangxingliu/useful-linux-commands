@@ -1,3 +1,5 @@
+//@ts-check
+
 function OutputChannel(res) {
 
 	let output = {
@@ -15,17 +17,17 @@ function OutputChannel(res) {
 
 	function setMiniOutput(_miniOutput) { return _miniOutput;}
 	function getMiniOutput() { return false; }
-	
+
 	function printQueryInfo(keywordsArray, fileNameLimit) {
 		output.query.keyword = keywordsArray.length ? keywordsArray : ['all content'];
 		if (fileNameLimit)
-			output.query.filename = '*' + fileNameLimit + '*'; 
+			output.query.filename = '*' + fileNameLimit + '*';
 	}
-	
+
 	function printFilenameDividingLine(fileName){
 		if (currentFile.name)
 			output.files.push(currentFile);
-		
+
 		currentFile = initFile(fileName);
 	}
 
@@ -43,17 +45,16 @@ function OutputChannel(res) {
 		contents[contents.length - 1] += content + '\n';
 	}
 
-	function finish() { 
+	function finish() {
 		if (currentFile.name)
 			output.files.push(currentFile);
-		
+
 		res.json(output);
 		res.end();
 	}
 
 	//export public methods
 	this.getMiniOutput = getMiniOutput;
-	this.isMiniOutput = getMiniOutput;
 	this.setMiniOutput = setMiniOutput
 	this.printQueryInfo = printQueryInfo
 	this.printFilenameDividingLine = printFilenameDividingLine

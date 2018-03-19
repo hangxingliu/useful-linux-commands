@@ -1,5 +1,5 @@
 let { getFileNames } = require('../files');
-let { OutputChannel } = require('../output_channel/ajax');
+let { OutputChannel } = require('../output-channel/ajax');
 let query = require('../query');
 
 let styles = ['github', 'gist', 'light', 'dark'];

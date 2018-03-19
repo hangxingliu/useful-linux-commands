@@ -1,30 +1,31 @@
+//@ts-check
 function OutputChannel(res, colorized) {
 
 	let output = [];
-	
+
 	let miniOutput = false;
 
 	function setMiniOutput(_miniOutput) { miniOutput = _miniOutput; }
 	function getMiniOutput() { return miniOutput; }
-	
+
 	function printQueryInfo(keywordsArray, fileNameLimit) {
 		if (miniOutput) return;
 
-		let info = keywordsArray.length 
+		let info = keywordsArray.length
 			? keywordsArray.map(kw => colorized ? `\u001b[1m${kw}\u001b[22m` : kw)
 				.join('+')
 			: 'all content';
 
 		if (fileNameLimit) {
-			let fname = '*' + fileNameLimit + '*'; 
+			let fname = '*' + fileNameLimit + '*';
 			info += ` in ${colorized ? `\u001b[1m${fname}\u001b[22m` : fname} files`
 		}
 		output.push(`\nquery: ${info}`);
 	}
-	
+
 	function printFilenameDividingLine(fileName){
 		if (miniOutput) return;
-		
+
 		let str = colorized ? `\n\u001b[1m${fileName}\u001b[22m` : `\n${fileName}`;
 		output.push(`${str} ---------------------------------\n`);
 	}
@@ -32,7 +33,7 @@ function OutputChannel(res, colorized) {
 	function printMoreEllipsis(){
 		if (miniOutput) return;
 
-		output.push(colorized ? '\u001b[37m...\u001b[39m' : '...');	
+		output.push(colorized ? '\u001b[37m...\u001b[39m' : '...');
 	}
 
 	const PREFIX = '> ';
@@ -55,14 +56,13 @@ function OutputChannel(res, colorized) {
 			((colorized ? PREFIX_COLOR : PREFIX) + content));
 	}
 
-	function finish() { 
+	function finish() {
 		res.write(output.join('\n') + '\n');
 		res.end();
 	}
 
 	//export public methods
 	this.getMiniOutput = getMiniOutput;
-	this.isMiniOutput = getMiniOutput;
 	this.setMiniOutput = setMiniOutput
 	this.printQueryInfo = printQueryInfo
 	this.printFilenameDividingLine = printFilenameDividingLine

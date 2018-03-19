@@ -1,4 +1,4 @@
-let { OutputChannel } = require('./output_channel/console'),
+let { OutputChannel } = require('./output-channel/console'),
 	{ Arguments } = require('./arguments'),
 	{ getFileNames } = require('./files'),
 	query = require('./query');
@@ -8,18 +8,18 @@ function main(args) {
 	let app = new Arguments(args);
 
 	if (app.isLaunchForTest()) return testMain();
-	if (app.isLaunchForHelp()) return require('./help').print();	
-	
+	if (app.isLaunchForHelp()) return require('./help').print();
+
 	app.parse();
 
 	//empty query. just print command files list
 	if (app.isEmptyQuery())
 		return console.log(`\nUseful Linux Command Files:\n  ${getFileNames().join('\n  ')}\n`);
-	
+
 	let isMini = app.getMiniOutput();
 	let outputChannel = new OutputChannel();
 	outputChannel.setMiniOutput(isMini);
-	
+
 	return query(
 		app.getQueryString(),
 		app.getFileNameLimit(),

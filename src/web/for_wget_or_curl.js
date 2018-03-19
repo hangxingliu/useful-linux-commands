@@ -1,6 +1,6 @@
 let help = require('./help');
 let { getFileNames } = require('../files');
-let { OutputChannel } = require('../output_channel/wget_curl');
+let { OutputChannel } = require('../output-channel/wget_curl');
 let query = require('../query');
 
 let fileNameMatcher = /^\/(\w+)\//;
@@ -12,7 +12,7 @@ function handler(req, res) {
 		mini = 'mini' in req.query;
 	let linesBeforeCount = parseInt(req.query.b),
 		linesAfterCount = parseInt(req.query.a);
-	
+
 	if (isNaN(linesBeforeCount)) linesBeforeCount = 1;
 	if (isNaN(linesAfterCount)) linesAfterCount = 5;
 
@@ -21,24 +21,24 @@ function handler(req, res) {
 		help.print(res, colorized);
 		return res.end();
 	}
-	
+
 	// response file index content
 	if (path == '/')
 		return printFilesInfo(res);
-	
+
 	//match path
 	let fileNameFilter = '', keywords = '';
 	let match = path.match(fileNameMatcher);
 	fileNameFilter = match ? match[1] : null;
-	
+
 	match = path.match(keywordMatcher);
 	keywords = match ? match[1] : null;
-	
+
 	if (!keywords && !fileNameFilter)
 		return printFilesInfo(res);
 
 	console.log('wget/curl query: ', fileNameFilter, keywords);
-	
+
 	let outputChannel = new OutputChannel(res, colorized);
 	outputChannel.setMiniOutput(mini);
 	query(keywords, fileNameFilter, linesBeforeCount, linesAfterCount, outputChannel);

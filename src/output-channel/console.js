@@ -1,24 +1,25 @@
+//@ts-check
 require('colors');
 
 function OutputChannel() {
 
 	let miniOutput = false;
-	
+
 	function setMiniOutput(_miniOutput) { miniOutput = _miniOutput; }
 	function getMiniOutput() { return miniOutput; }
-	
+
 	function printQueryInfo(keywordsArray, fileNameLimit) {
 		if (miniOutput) return;
 
-		let info = keywordsArray.length 
+		let info = keywordsArray.length
 			? keywordsArray.map(kw => kw.bold).join('+')
 			: 'all content';
 
 		if (fileNameLimit)
-			info += ` in ${('*'+fileNameLimit+'*').bold} files`	
+			info += ` in ${('*'+fileNameLimit+'*').bold} files`
 		console.log(`\nquery: ${info}`);
 	}
-	
+
 	function printFilenameDividingLine(fileName){
 		if (miniOutput) return;
 
@@ -28,7 +29,7 @@ function OutputChannel() {
 	function printMoreEllipsis(){
 		if (miniOutput) return;
 
-		console.log('...'.white);	
+		console.log('...'.white);
 	}
 
 	const PREFIX = '> '.white;
@@ -50,7 +51,6 @@ function OutputChannel() {
 
 	//export public methods
 	this.getMiniOutput = getMiniOutput;
-	this.isMiniOutput = getMiniOutput;
 	this.setMiniOutput = setMiniOutput
 	this.printQueryInfo = printQueryInfo
 	this.printFilenameDividingLine = printFilenameDividingLine
