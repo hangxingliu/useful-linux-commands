@@ -1,43 +1,54 @@
 {
-  "name": "useful-linux-commands",
-  "version": "2.1.0",
-  "description": "A program for querying useful linux commands in terminal or browser",
-  "main": "src/index.js",
-  "scripts": {
-    "test": "node ./src/bin --test",
-    "start": "node ./src/bin",
-    "web": "node ./src/bin-web",
-    "pm2": "pm2 start ecosystem.yaml",
-    "archive": "tar c -v -f \"UsefulLinuxCommands-latest.tar\" .git",
-    "build-static": "node ./scripts/build-static.js"
-  },
-  "private": true,
-  "bin": {
-    "useful-commands": "./src/bin",
-    "useful-commands-server": "./src/bin-web"
-  },
-  "dependencies": {
-    "colors": "^1.1.2",
-    "commander": "^2.13.0",
-    "ejs": "^2.5.7",
-    "express": "^4.16.2",
-    "morgan": "^1.9.0",
-    "serve-favicon": "^2.4.5"
-  },
-  "devDependencies": {
-    "@types/jquery": "^3.3.1",
-    "autoprefixer": "^8.1.0",
-    "babel-core": "^6.26.0",
-    "babel-plugin-minify-mangle-names": "^0.3.0",
-    "babel-plugin-transform-es2015-arrow-functions": "^6.22.0",
-    "babel-plugin-transform-es2015-block-scoping": "^6.26.0",
-    "babel-plugin-transform-es2015-template-literals": "^6.22.0",
-    "babel-plugin-transform-merge-sibling-variables": "^6.9.0",
-    "fs-extra": "^5.0.0",
-    "html-minifier": "^3.5.11",
-    "node-sass": "^4.7.2",
-    "postcss-cli": "^5.0.0"
-  },
-  "author": "LiuYue",
-  "license": "GPL-3.0"
+	"name": "useful-linux-commands",
+	"version": "2.2.0",
+	"description": "A program for querying useful linux commands in terminal or browser",
+	"main": "src/index.js",
+	"scripts": {
+		"test": "node ./src/bin --test",
+		"start": "node ./src/bin",
+		"web": "node ./src/bin-web",
+		"pm2": "pm2 start ecosystem.yaml",
+		"archive": "tar c -v -f \"UsefulLinuxCommands-latest.tar\" .git",
+		"build-static": "node ./scripts/build-static.js"
+	},
+	"bin": {
+		"useful-commands": "./src/bin",
+		"useful-commands-server": "./src/bin-web"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/hangxingliu/useful-linux-commands"
+	},
+	"bugs": {
+		"url": "https://github.com/hangxingliu/useful-linux-commands/issues"
+	},
+	"homepage": "https://github.com/hangxingliu/useful-linux-commands",
+	"dependencies": {
+		"colors": "^1.2.1",
+		"commander": "^2.13.0",
+		"ejs": "^2.5.7",
+		"express": "^4.16.3",
+		"morgan": "^1.9.0",
+		"serve-favicon": "^2.4.5"
+	},
+	"devDependencies": {
+		"@types/jquery": "^3.3.1",
+		"autoprefixer": "^8.1.0",
+		"babel-core": "^6.26.0",
+		"babel-plugin-minify-mangle-names": "^0.3.0",
+		"babel-plugin-transform-es2015-arrow-functions": "^6.22.0",
+		"babel-plugin-transform-es2015-block-scoping": "^6.26.0",
+		"babel-plugin-transform-es2015-template-literals": "^6.22.0",
+		"babel-plugin-transform-merge-sibling-variables": "^6.9.0",
+		"fs-extra": "^5.0.0",
+		"html-minifier": "^3.5.11",
+		"node-sass": "^4.7.2",
+		"postcss-cli": "^5.0.0"
+	},
+	"author": {
+		"name": "LiuYue",
+		"email": "hangxingliu@gmail.com",
+		"url": "https://github.com/hangxingliu"
+	},
+	"license": "GPL-3.0"
 }

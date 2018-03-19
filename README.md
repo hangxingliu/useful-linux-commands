@@ -1,5 +1,9 @@
 # Useful Linux Commands
 
+<a href="https://www.npmjs.com/package/useful-linux-commands">
+<img src="https://img.shields.io/npm/v/useful-linux-commands.svg?style=flat-square" />
+</a>
+
 A collection of useful linux commands that can be queried from the command line and within the browser.
 
 The commands and comments inside consists of two languages (English, 简体中文)
