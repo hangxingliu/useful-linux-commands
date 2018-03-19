@@ -1,8 +1,10 @@
 # Useful Linux Commands
 
-A program for querying useful linux commands in terminal or browser.
+A collection of useful linux commands that can be queried from the command line and within the browser.
 
-It is a command line toolkit and also a querying server.
+The commands and comments inside consists of two languages (English, 简体中文)
+
+![screenshot](screenshots/1.png)
 
 ## Install
 
@@ -12,35 +14,65 @@ cd useful-linux-commands;
 sudo npm install --global
 ```
 
-## Use as a command line toolkit
+## Usage
+
+### As a command line toolkit (CLI)
 
 ``` bash
 useful-commands keyword ...  # query commands
 useful-commands --help       # get help information
 ```
 
-## Use as a querying server
+the query ways:
 
 ``` bash
-# Way1: launch server directly
-useful-commands-server -p ${port_number:10765} -h ${host_name:127.0.0.1}
+useful-commands ssh
+useful-commands ssh git
+useful-commands purge -fdocker # `purge` in docker command set
+useful-commands ssh -a6 -b5 # within 5 lines before and 6 lines after 
+useful-commands -fdocker # all commands in docker command set
+```
 
-# Way2: launch server by pm2
-cd useful-linux-commands;
+### As a web server
+
+default port is **10765**
+
+``` bash
+# Way 1: launch server directly
+useful-commands-server -p ${port_number:10765}
+
+# Way 2: launch server by pm2
 pm2 start ecosystem.yaml;
 
-# Then query in browser ...
+# Way 3: launch server by docker
+sudo docker build -t cmd-query-server .
+sudo docker run -p 80:10765 -u node -m 256M --memory-swap 1G -d \
+	--name my-cmd-query-server cmd-query-server
 ```
 
-## Query:
+the query ways:
 
 ``` bash
-	# in terminal:
-	wget http://domain/keywords -O
-	wget http://domain/keywords?color -O
-	curl http://domain/filename/keywords?a=5&b=1
-	curl http://domain/help
+# in browser:
+# input keyword or flag in search input box
+
+# in terminal:
+wget http://domain/keywords -O
+wget http://domain/keywords?color -O
+curl http://domain/filename/keywords?a=5&b=1
+curl http://domain/help
 ```
+
+## Contribute
+
+- [Commit issue](https://github.com/hangxingliu/useful-linux-commands/issues)
+- [Pull request](https://github.com/hangxingliu/useful-linux-commands/pulls)
+- [Give me coffee via Paypal](https://www.paypal.me/hangxingliu)
+
+References:
+
+- [Project Structure](docs/PROJECT-STRUCT.md)
+
 
 ## Author
 
