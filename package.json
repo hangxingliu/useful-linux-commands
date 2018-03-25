@@ -33,6 +33,7 @@
 	},
 	"devDependencies": {
 		"@types/jquery": "^3.3.1",
+		"async": "^2.6.0",
 		"autoprefixer": "^8.1.0",
 		"babel-core": "^6.26.0",
 		"babel-plugin-minify-mangle-names": "^0.3.0",

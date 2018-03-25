@@ -4,12 +4,14 @@
 
 let fs = require('fs');
 let path = require('path');
+let child_process = require('child_process');
 
-let babel = require('babel-core');
-let sass = require('node-sass');
-let postcss = require('postcss');
-let autoprefixer = require('autoprefixer');
-let htmlminifier = require('html-minifier');
+let Async = require('async'),
+	babel = require('babel-core'),
+	sass = require('node-sass'),
+	postcss = require('postcss'),
+	autoprefixer = require('autoprefixer'),
+	htmlminifier = require('html-minifier');
 
 const DIR = path.join(__dirname, '..', 'web-resource', 'static');
 const HTML_DIR = path.join(__dirname, '..', 'web-resource', 'views');
@@ -20,86 +22,136 @@ const AUTOPREFIXER = autoprefixer({
 	browsers: ['cover 95%'],
 });
 
-let taskHTML = startTask('html');
-fs.readFile(path.join(HTML_DIR, 'index.html'), { encoding: 'utf8' }, (err, html) => {
-	if (err) return taskHTML.fatal(err);
-	taskHTML.done();
+let jsIntegrity = '', cssIntegrity = '';
 
-	taskHTML = startTask(`minify html`);
-	try {
-		html = htmlminifier.minify(html, {
-			removeComments: true,
-			collapseWhitespace: true
-		});
-	} catch (ex) {
-		return taskHTML.fatal(ex);
-	}
 
-	taskHTML = startTask('write index.min.html');
-	fs.writeFile(path.join(HTML_DIR, 'index-min.html'), html,
-		function (err) {
-			if (err) return taskHTML.fatal(err);
-			taskHTML.done();
-		});
-});
+// Main building flow:
+Async.series([
+	then => Async.parallel([taskJavascript, taskStylesheet], then),
+	getIntegrity,
+	taskHTML
+]);
 
-let taskJavascript = startTask('javascript');
-babel.transformFile(path.join(DIR, 'index.js'), {
-	plugins: [
-		["transform-es2015-block-scoping", { throwIfClosureRequired: true }], // for `let`, `const`
-		"transform-es2015-arrow-functions", // for `() => {}`
-		"transform-es2015-template-literals",
-		"transform-merge-sibling-variables",
-		"minify-mangle-names",
-	],
-	comments: false,
-	compact: true
-}, (err, result) => {
-	if (err) return taskJavascript.fatal(err);
-	taskJavascript.done();
+function taskJavascript(then) {
+	let task = startTask('javascript');
+	babel.transformFile(path.join(DIR, 'index.js'), {
+		plugins: [
+			["transform-es2015-block-scoping", { throwIfClosureRequired: true }], // for `let`, `const`
+			"transform-es2015-arrow-functions", // for `() => {}`
+			"transform-es2015-template-literals",
+			"transform-merge-sibling-variables",
+			"minify-mangle-names",
+		],
+		comments: false,
+		compact: true
+	}, (err, result) => {
+		if (err) return task.fatal(err);
+		task.done();
 
-	taskJavascript = startTask('write index.min.js');
-	fs.writeFile(path.join(DIR, 'index.min.js'), result.code,
-		function (err) {
-			if (err) return taskJavascript.fatal(err);
-			taskJavascript.done();
-		});
-});
-
-let taskStylesheet = startTask('sass');
-sass.render(Object.assign({ file: path.join(DIR, 'index.scss'), }, SASSOPTS),
-	function (err, result) {
-		if (err) return taskStylesheet.fatal(err);
-		taskStylesheet.done();
-
-		taskStylesheet = startTask('autoprefixer');
-		//@ts-ignore
-		postcss([AUTOPREFIXER])
-			.process(result.css, { from: undefined })
-			.then(function (result) {
-				if (result.warnings()) {
-					for (let warning of result.warnings())
-						console.error(`postcss warning: `, warning.toString());
-					// return task.fatal(new Error(`there have warnings in postcss process`));
-				}
-				taskStylesheet.done();
-
-				taskStylesheet = startTask('write index.min.css');
-				fs.writeFile(path.join(DIR, 'index.min.css'), result.css,
-					function (err) {
-						if (err) return taskStylesheet.fatal(err);
-						taskStylesheet.done();
-					});
+		task = startTask('write index.min.js');
+		fs.writeFile(path.join(DIR, 'index.min.js'), result.code,
+			function (err) {
+				if (err) return task.fatal(err);
+				task.done();
+				then();
 			});
 	});
+}
 
+function taskStylesheet(then) {
+	let task = startTask('sass');
+	sass.render(Object.assign({ file: path.join(DIR, 'index.scss'), }, SASSOPTS),
+		function (err, result) {
+			if (err) return task.fatal(err);
+			task.done();
+
+			task = startTask('autoprefixer');
+			//@ts-ignore
+			postcss([AUTOPREFIXER])
+				.process(result.css, { from: undefined })
+				.then(function (result) {
+					if (result.warnings()) {
+						for (let warning of result.warnings())
+							console.error(`postcss warning: `, warning.toString());
+						// return task.fatal(new Error(`there have warnings in postcss process`));
+					}
+					task.done();
+
+					task = startTask('write index.min.css');
+					fs.writeFile(path.join(DIR, 'index.min.css'), result.css,
+						function (err) {
+							if (err) return task.fatal(err);
+							task.done();
+							then();
+						});
+				});
+		});
+}
+
+function taskHTML(then) {
+	let task = startTask('html');
+	fs.readFile(path.join(HTML_DIR, 'index.html'), { encoding: 'utf8' }, (err, html) => {
+		if (err) return task.fatal(err);
+		task.done();
+
+		task = startTask(`minify html`);
+		try {
+			html = htmlminifier.minify(html, {
+				removeComments: true,
+				collapseWhitespace: true
+			});
+		} catch (ex) {
+			return task.fatal(ex);
+		}
+		task.done();
+
+		task = startTask('write index.min.html');
+		// console.log(jsIntegrity);
+		// console.log(cssIntegrity);
+		html = html.replace('__insert_css_integrity_here__', `integrity="sha384-${cssIntegrity}"`)
+			.replace('__insert_js_integrity_here__', `integrity="sha384-${jsIntegrity}"`);
+		fs.writeFile(path.join(HTML_DIR, 'index-min.html'), html,
+			function (err) {
+				if (err) return task.fatal(err);
+				task.done();
+				then();
+			});
+	});
+}
+
+function getIntegrity(then) {
+	let task = startTask('get files integrity');
+	Async.parallel([
+		then => getFileIntegrity(path.join(DIR, 'index.min.js'), then),
+		then => getFileIntegrity(path.join(DIR, 'index.min.css'), then)
+	], (err, results) => {
+		if (err) return task.fatal(err);
+		jsIntegrity = results[0];
+		cssIntegrity = results[1];
+
+		task.done();
+		then();
+	})
+}
+
+/**
+ * @param {string} file
+ * @param {function} then
+ */
+function getFileIntegrity(file, then) {
+	file = "'" + file.replace(/'/g, "'\\''") + "'";
+	child_process.exec(`shasum -b -a 384 ${file} | xxd -r -p | base64`, (err, stdout, stderr) => {
+		if (err) return then(err, null);
+		return then(null, stdout.trim());
+	});
+}
 
 function startTask(what = '') {
 	console.log(`[.] start task: "${what}" ...`);
 	return { done, fatal };
 
 	function done() {
-		console.log(`[~] task "${what}" done!`);
+		console.log(`[~]   task "${what}" done!`);
 	}
 
 	function fatal(err) {

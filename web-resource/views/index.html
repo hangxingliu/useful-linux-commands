@@ -9,11 +9,13 @@
 
 		<link rel="shortcut icon" href="/static/favicon/favicon.ico"/>
 
-		<link rel="stylesheet" href="/static/index.min.css">
-		<link rel="stylesheet" href="/static/highlight.js/styles/<%=styles[style]%>.css">
+		<link rel="stylesheet" href="/static/index.min.css" __insert_css_integrity_here__ />
+		<link rel="stylesheet" href="/static/highlight.js/styles/<%=styles[style]%>.css"
+			integrity="sha384-<%=styleSRIs[style]%>" />
 
 		<!-- boostrap -->
-		<link rel="stylesheet" href="/static/bootstrap/bootstrap.slim.min.css">
+		<link rel="stylesheet" href="/static/bootstrap/bootstrap.slim.min.css" 
+			integrity="sha384-/ziZm8NEVlV7K7LyB3ifxx3ia2cYJ+vikC7fOlr1T5TLVOE/bfXvX1j5tlv8IjgV" />
 
 	</head>
 	<body class="style-<%=styles[style]%>">
@@ -138,8 +140,9 @@
 		<!-- <script src="https://wechatfe.github.io/vconsole/lib/vconsole.min.js?v=3.0.0.0"></script>
 		<script>var vConsole = new VConsole();</script> -->
 
-		<script src="/static/highlight.js/highlight.pack.js"></script>
-		<script src="/static/index.min.js"></script>
+		<script src="/static/highlight.js/highlight.pack.js"
+			integrity="sha384-ZY31mcqrqN4SPuDHV+6VKDerwTAhr3U6psNJ2q1nLgCu3H75AZHTXKWr9GvrBc0H"></script>
+		<script src="/static/index.min.js" __insert_js_integrity_here__></script>
 
 <!-- Google Analytics -->
 <script>

@@ -8,6 +8,11 @@ let stylesMap = {
 	gist: 'github-gist',
 	light: 'solarized-light',
 	dark: 'solarized-dark'
+}, styleSRIsMap = {
+	github: '3os04U6CRSZxAX9SO97BPnd90GVfzlfbJvpeTAGpHSDjGNIftACTITCXIhWdeaMm',
+	gist: '4dJlnp9ZK7fF+a6IldWe0MwL1NG+HWAhI9k9jJa0ly0iwnyX+qQ7nxlXpcDx4mE/',
+	light: 'Tnnq6pbLZp9PjpOt+RfOeRPGGKlGVI4o4dUEk6aPfkMf0sFzLLuPwWe217uipl4b',
+	dark: 'r6qmB9/fPnKwgAlSFlqwLDc5mWgL5SSxvLHPJbmFPL36fTg/BQaII9kKq0CxffSU'
 };
 
 function handler(req, res) {
@@ -22,6 +27,7 @@ function handler(req, res) {
 		return res.render('index-min', {
 			style,
 			styles: stylesMap,
+			styleSRIs: styleSRIsMap,
 			files: getFileNames()
 		});
 	}
