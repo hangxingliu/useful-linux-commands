@@ -1,6 +1,6 @@
 {
 	"name": "useful-linux-commands",
-	"version": "2.2.0",
+	"version": "2.3.0",
 	"description": "A program for querying useful linux commands in terminal or browser",
 	"main": "src/index.js",
 	"scripts": {
