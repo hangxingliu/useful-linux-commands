@@ -158,8 +158,13 @@ sudo mount -t tmpfs -o size=512m tmpfs /path/mount/to
 vim /etc/fstab
 tmpfs /path/mount/to tmpfs rw,relatime,size=512m 0 0
 
+# Set huamn language by environment variable to English
 # 设置当前Shell下的显示语言 到 English
 export LC_ALL=C # C: English
+
+# Set Timezone by environment variable 时区
+export TZ=Asia/Shanghai
+TZ=Asia/Tokyo date # show tokyo date string
 
 # Ubuntu 17.04 加密主目录后启动很久 (booting bug: encrypted home in 17.04)
 

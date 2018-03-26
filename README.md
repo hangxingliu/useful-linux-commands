@@ -41,6 +41,8 @@ useful-commands -fdocker # all commands in docker command set
 
 default port is **10765**
 
+[PM2 deploy guide](docs/PM2_DEPLOY.md)
+
 ``` bash
 # Way 1: launch server directly
 useful-commands-server -p ${port_number:10765}
