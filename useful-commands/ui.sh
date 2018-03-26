@@ -1,3 +1,6 @@
+# Linux desktop environment
+# Linux desktop UI environment (Unity and Gnome)
+
 # 系统用户界面相关 User Interface
 
 # 查看是 Wayland 还是 X11
@@ -6,7 +9,7 @@ echo $XDG_SESSION_TYPE # x11 / wayland
 # 安装 gnome 桌面环境
 sudo apt install gnome-shell ubuntu-gnome-desktop
 # 必装相关工具
-sudo apt install gnome-tweak-tool dconf-editor 
+sudo apt install gnome-tweak-tool dconf-editor
 
 # 切换显示管理器(display manager) (例如: gdm3 花屏问题 需要切换到 LightDM)
 sudo dpkg-reconfigure lightdm
@@ -18,7 +21,7 @@ sudo apt install gnome-themes-standard
 
 # 让Ubuntu长的更像Mac系统(攒钱买Mac...)
 
-# Unity 主题包:(下载后看README) 
+# Unity 主题包:(下载后看README)
 https://github.com/B00merang-Project/macOS-Sierra/releases
 # GTK/GNOME 主题: (Gnome-OSX) For GTK3
 https://www.gnome-look.org/p/1171688/

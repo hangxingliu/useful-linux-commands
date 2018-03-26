@@ -1,9 +1,10 @@
-# find 命令 和 xargs 命令
+# find & xargs
+# useful snippets about command find and xargs
 
 find /path/to -maxdepth 2 -name "*.js" -type f -size -2M
 # 说明: -maxdepth: 最深查找层级 -name 文件名限制 -iname 不分大小写的文件名限制
 # -type f 限制必须是文件. d: 目录 l:符号链接
-# -size 限制文件大小. -2M: 小于2MB +10k: 大于10kb 
+# -size 限制文件大小. -2M: 小于2MB +10k: 大于10kb
 
 find /path/to ! -type d \( -iname "*.js" -o -iname "*.ts" \)
 # 说明: ! 表示反义 NOT.  -o 表示 OR 或 记得用括号的时候要转义 ( => \(

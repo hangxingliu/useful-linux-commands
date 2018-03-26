@@ -23,6 +23,7 @@
 
 ## Useful commands and installers
 
+- [ ] translate
 - [ ] add useful commands about iptables/nftables and firewalld
 
 ## Finished

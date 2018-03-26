@@ -1,3 +1,6 @@
+# SSH
+# generate key pair, connect by SSH and more commands about SSH
+
 ssh-keygen -t rsa # 创建公私钥对
 ssh-copy-id xxx@hostname # 复制公钥到服务器
 ssh-copy-id -i ~/.ssh/id_rsa.pub xx@hostname
@@ -32,7 +35,7 @@ chmod 640 ~/.ssh/authorized_keys
 # SSH 服务器配置 /etc/ssh/sshd_config
 # 关闭密码登录SSH(只允许公私钥登录, 更加安全)
 	PasswordAuthentication no # 禁止使用密码登录
-	PermitRootLogin without-password 
+	PermitRootLogin without-password
 	# root账户通过SSH登录时只能用公私钥方式登录
 	# 上一句配置可以设置成 no (意味着不能直接ssh root@hostname登录)
 	# 而是需要 ssh otherUser@hostname 登录后 sudo -i 进入

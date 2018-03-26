@@ -1,3 +1,6 @@
+# monitor and usage report
+# some commands about system monitor and resource usage report
+
 # 系统启动时间和负载
 uptime # (load average: 1min, 5min, 15min)
 # load average 的最充分使用是: CPU核心数*3

@@ -1,3 +1,7 @@
+# Samba
+# share File between Linux and Windows
+# (Samba is a re-implementation of the SMB networking protocol.)
+
 # 通过Samba与Windows共享打印机文件夹
 sudo apt install samba
 

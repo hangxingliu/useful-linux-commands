@@ -1,3 +1,6 @@
+# GPG
+# encrypt and decrypt by command gpg
+
 # 配置GPG
 gpg --gen-key
 gpg --list-secret-keys --keyid-format LONG

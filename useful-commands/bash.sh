@@ -1,4 +1,6 @@
-# BASH
+# Bash
+# Bash basic statement and useful bash snippets
+# (Bash is a Unix shell and command language written by Brian Fox.)
 
 # bash脚本if测试语句
 if [[  test_expression ]]; then
@@ -8,12 +10,12 @@ else
 fi
 
 # bash脚本循环样例
-for (( c=1; c<=5; c++ )); do  
+for (( c=1; c<=5; c++ )); do
    echo $c;
 done
 str="a b c"
-for part in $str; do 
-	echo $part; 
+for part in $str; do
+	echo $part;
 done
 # while
 while [[  test_expression ]]; do
@@ -45,7 +47,7 @@ for argument in "$@"; do
     echo "$argument";
 done
 
-# 给BASH脚本记时 先设置内置变量: SECONDS=0 脚本结束时读 SECONDS 的值就OK了 
+# 给BASH脚本记时 先设置内置变量: SECONDS=0 脚本结束时读 SECONDS 的值就OK了
 
 # 神奇的 BASH 字符串分割:
 # 样例文件名: index.d.ts
@@ -69,7 +71,7 @@ DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 # From: https://stackoverflow.com/questions/59895/
 
 # Terminal Color Cheat Sheet: 颜色速查
-# 8colors => BgValue = FgValue + 10; 
+# 8colors => BgValue = FgValue + 10;
 # FgValues: Black:30 Red:31 Green:32 Yellow:33 Blue:34 Magenta:35(洋红) Cyan:36(青) White:37 Gray:90
 # Reset:0 Bold:1 Italic:3 Underline:4 DotLine:5 Revert:7 Hide:8
 # For Example: starts with `\x1b[`  ends with `m`

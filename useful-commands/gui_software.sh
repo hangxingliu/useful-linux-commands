@@ -1,4 +1,5 @@
-# Some Useful GUI Software
+# GUI softwares for Linux
+# commands about how to install some GUI softwares on Linux
 
 # Multi-media player (VLC)
 # install vlc media player in ubuntu

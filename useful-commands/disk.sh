@@ -1,4 +1,5 @@
-# Commands about disk(storage)
+# Commands about disk/storage
+# useful filesystem commands (mount disk ...)
 
 # NTFS filesystem mount/unmount
 

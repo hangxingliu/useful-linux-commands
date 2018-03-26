@@ -1,4 +1,5 @@
-# lsyncd (Live Syncing Daemon) 实时同步
+# lsyncd
+# Live Syncing Daemon (实时同步)
 # https://github.com/axkibe/lsyncd.git
 
 sudo apt install lsyncd # 截止 2017/10/20 最新版本: 2.2.2

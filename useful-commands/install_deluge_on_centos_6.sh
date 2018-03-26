@@ -1,3 +1,9 @@
+# Install Deluge on Centos 6
+# Deluge: multi-platform bittorrent client
+
+# This document is reference from:
+# http://idroot.net/tutorials/how-to-install-deluge-on-centos-6/
+
 # 1. add yum repo
 
 vim /etc/yum.repos.d/linuxtech.repo
@@ -11,7 +17,7 @@ enabled=1
 gpgcheck=1
 gpgkey=http://pkgrepo.linuxtech.net/el6/release/RPM-GPG-KEY-LinuxTECH.NET
 
-# 3. yum update and install 
+# 3. yum update and install
 
 yum update
 yum install deluge-common deluge-web deluge-daemon
@@ -45,6 +51,6 @@ http://hostname:8112 default password: deluge
 # 8. if you need change some configure:
 # using bash in deluge account
 
-su --shell /bin/bash --login deluge 
+su --shell /bin/bash --login deluge
 
 # you can find configure files in ~/.config/deluge/

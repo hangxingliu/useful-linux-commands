@@ -1,4 +1,6 @@
 # Git
+# Git is a version control system for tracking changes in computer files and coordinating work
+# on those files among multiple people.
 
 # 相关名词中英对照 Terminology zh-CN/en
 ## workspace: 工作区

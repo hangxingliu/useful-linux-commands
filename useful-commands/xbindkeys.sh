@@ -1,3 +1,6 @@
+# Xbindkeys
+# XbindKeys is a program that grab keys and mouse button events in X and starts associated shell command.
+
 # 用 xbindkeys 定制鼠标上的按键
 # 例如: 将鼠标上的两个方向键中的一个设置为 Ctrl+Tab
 
@@ -16,3 +19,9 @@ vim ~/.xbindkeysrc
 # 重启xbindkeys
 killall xbindkeys
 xbindkeys -f ~/.xbindkeysrc
+
+# example .xbindkeysrc (bind mouse side buttons to `HOME` and `END`)
+"xte 'keydown Home' 'keyup Home'"
+     b:9
+"xte 'keydown End' 'keyup End'"
+     b:8

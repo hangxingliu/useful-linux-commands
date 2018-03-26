@@ -1,3 +1,6 @@
+# SSH (encrypted home directory)
+# commands about how to use SSH server with user who encrypted his home directory
+
 # 在HOME目录加密了的情况下 使用 公私钥 SSH登录
 #  方法: 转移用户 authorized_keys 文件, 配置.profile
 #  WARNING: 下面假设用户名为 your_username

@@ -1,8 +1,10 @@
-# ffmpeg
+# FFmpeg
+# useful FFmpeg snippets
+# (FFmpeg is a free software project that produces libraries and programs for handling multimedia data.)
 
 ## Options 选项
 -i input.mp4
--vcodec rawvideo # video encoder: "rawvideo"(same with input) in default 
+-vcodec rawvideo # video encoder: "rawvideo"(same with input) in default
 -acodec copy # audio encoder
 
 ## Media Info 媒体文件信息

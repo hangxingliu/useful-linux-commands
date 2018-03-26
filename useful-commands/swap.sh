@@ -1,4 +1,7 @@
-# 创建swap
+# Swap
+# Swap space in Linux is used when the amount of physical memory (RAM) is full.
+
+# Create Swap file
 
 # 创建swap文件(2048mb)
 dd if=/dev/zero of=/swapfile count=2048 bs=1M

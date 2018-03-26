@@ -1,4 +1,7 @@
 # AWK
+# AWK get started and useful AWK scripts (AWK: AWK is a programming language designed for text processing
+# and typically used as a data extraction and reporting tool.)
+
 # 基本语法
 BEGIN {...} /pattern/ {...} END {...}
 # 字符串连接使用 空格. 例如: a=(prefix "content" suffix)
@@ -19,6 +22,6 @@ awk 'BEGIN {cmd="ls";
 # 常用函数
 # gsub(regex, replace_to, string) 将string中的regex替换成replace_to
 # index(string, substring) 找到string中substring的位置
-# length(string) 
+# length(string)
 # matched = match(string, regexp, result) 匹配string中的regexp (result参数仅gawk支持)
 # 例如: if(match("id:123", /id:(\d+), result/)) print(result[1])

@@ -1,4 +1,6 @@
-# CURL常用选项
+# cURL
+# useful cURL snippets
+# (cURL is a command line tool for getting or sending files using URL syntax.)
 
 # 自动跳转(301/302...)
 curl -L $URL

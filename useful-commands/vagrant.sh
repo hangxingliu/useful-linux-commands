@@ -1,4 +1,6 @@
-# Vagrant Linux 虚拟机
+# Vagrant
+# manage virtual machies by vagrant command line toolkit
+
 ## <Warning!!> 请先装好 VirtualBox 或别的虚拟机软件
 ## https://www.virtualbox.org/wiki/Linux_Downloads
 ## VirtualBox: 需要添加源来安装最新的版本

@@ -1,3 +1,6 @@
+# MySQL
+# commands about MySQL
+
 # 安装MYSQL
 sudo apt-get update
 sudo apt-get install mysql-server mysql-client
@@ -35,7 +38,7 @@ use mysql;
 select user, password, host from user;
 select user, authentication_string, host from user;
 # 修改密码
-update user set authentication_string=PASSWORD("newpassword") where 
+update user set authentication_string=PASSWORD("newpassword") where
 	user='root' and host='localhost';
 flush privileges;
 # 记得重启mysql或者系统
@@ -43,7 +46,7 @@ flush privileges;
 # MYSQL分配权限(包括支持远程访问)
 # GRANT 权限 ON 数据库/表 TO 用户/主机 [IDENTIFIED BY/WITH] [WITH GRANT OPTION]
 # WITH GRANT OPTION 分配一个 "分配权限" 的权限
-GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION; 
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
 # 创建用户
 CREATE USER 'test'@'localhost' IDENTIFIED BY 'password';
 # 删除用户

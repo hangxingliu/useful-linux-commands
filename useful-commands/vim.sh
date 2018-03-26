@@ -1,11 +1,12 @@
-# VIM
+# Vim
+# useful commands and skills for Vim
 
 # Add VIM Default Config
 vim ~/.vimrc # lines started with " is comment in this file
 
 
 # VIM Spell Checking
-# enable spellchecking: 
+# enable spellchecking:
 :set spell #or :set spell spelllang=en_us
 # disable:
 :set nospell
