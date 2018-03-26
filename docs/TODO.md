@@ -13,6 +13,7 @@
 - [ ] remove bootstrap
 - [ ] support query in browser without ajax
 	- [ ] SEO for each file
+	- [x] query in browser without ajax
 	- [x] add meta tags
 
 ## Server-side

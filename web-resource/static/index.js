@@ -1,5 +1,7 @@
 //@ts-check
 (function App() {
+	let cache = createCacheManager();
+
 	/** @type {HTMLInputElement} */
 	let $input = $('#txtSearchBox');
 
@@ -19,12 +21,17 @@
 	/** @type {RegExp} */
 	let resultKeywordHighlighter;
 
+	//@ts-ignore
+	let preQuery = window.PRE_QUERY;
+	if (preQuery)
+		handlerResult(null, 200, preQuery);
+
 	$input.addEventListener('keydown', event => {
 		let key = event.which || event.keyCode || 0;
 		if (key == 10 || key == 13 || key == 32) {//enter || space
 			if (key != 32)
 				event.preventDefault();
-			return sendQueryRequest();
+			return setTimeout(sendQueryRequest, 15);
 		}
 	});
 	$form.addEventListener('submit', event => { // for mobile device that could not catch keydown event
@@ -37,8 +44,16 @@
 		toggleDisplay($menu);
 	});
 
+	window.addEventListener('popstate', event => {
+		// req-query after history go back or go forward
+		console.log('popstate: ' + event.state);
+		$input.value = String(event.state || '');
+		sendQueryRequest();
+	});
+
 	function sendQueryRequest() {
-		let parts = value($input).split(/\s+/);
+		let rawInput = value($input);
+		let parts =rawInput.split(/\s+/);
 
 		let q = [], options = { file: '', a: '', b: '' };
 		/** @type {{[x: string]: RegExp}} */
@@ -58,18 +73,31 @@
 
 		resultKeywordHighlighter = getRegexp4ResultKeywordHightlight(q);
 
-		let url = `api?q=${encodeURIComponent(q.join('+'))}` +
+		let qs = `q=${encodeURIComponent(q.join('+'))}` +
 			`&[a]&[b]&[file]`.replace(/\[(\w+)\]/g, (_, name) =>
 				name + '=' + encodeURIComponent(options[name]));
-		console.log(url);
-		httpGetJSON(url, handlerResult);
+		history.pushState(rawInput, null, `/?${qs}`);
+
+		let hasCache = cache.get(qs);
+		if (hasCache) {
+			console.log(`matched cache for ${qs}`);
+			return handlerResult(null, 200, hasCache);
+		}
+
+		let ajaxURI = `api?${qs}`;
+		console.log(ajaxURI);
+		httpGetJSON(ajaxURI, (err, status, result) => {
+			if (err || status != 200) return;
+			cache.set(qs, result);
+			handlerResult(err, status, result);
+		});
 	}
 
 	/**
 	 *
 	 * @param {Error} err
 	 * @param {number} status
-	 * @param {{files: Array}} data
+	 * @param {{files: any[]}} data
 	 */
 	function handlerResult(err, status, data) {
 		let items = data.files, html = '';
@@ -188,5 +216,12 @@
 		};
 		request.onerror = () => callback(new Error('XMLHttpRequest Error'));
 		request.send();
+	}
+
+	function createCacheManager() {
+		let kv = {};
+		return {get,set};
+		function get(key) { return kv[key]; }
+		function set(key, value) { kv[key] = value; }
 	}
 })();

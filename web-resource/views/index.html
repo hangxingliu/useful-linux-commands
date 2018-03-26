@@ -42,7 +42,7 @@
 					<div class="col-sm-12">
 						<div class="input-group">
 							<input type="text" class="form-control" id="txtSearchBox"
-								autocomplete="off" autofocus
+								autocomplete="off" autofocus value="<%=preQueryString%>"
 								placeholder="input any keyword. optional: -f filename, -a lines after count, -b lines before count">
 							<div id="styleDropdown" class="input-group-append" style="position: relative">
 								<button type="button" class="btn btn-outline-secondary style-menu-toggle">
@@ -148,9 +148,7 @@
 			</div>
 		</div>
 
-		<!-- <script src="https://wechatfe.github.io/vconsole/lib/vconsole.min.js?v=3.0.0.0"></script>
-		<script>var vConsole = new VConsole();</script> -->
-
+		<%- preQuery %>
 		<script src="/static/highlight.js/highlight.pack.js"
 			integrity="sha384-ZY31mcqrqN4SPuDHV+6VKDerwTAhr3U6psNJ2q1nLgCu3H75AZHTXKWr9GvrBc0H"></script>
 		<script src="/static/index.min.js" __insert_js_integrity_here__></script>
