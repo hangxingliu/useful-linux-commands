@@ -13,3 +13,10 @@ type OutputChannel = {
 
 	finish: () => void;
 };
+
+
+type MinimizedExpressResponse = {
+	write: (data: any) => any;
+	json: (object: any) => any;
+	end: () => any;
+};

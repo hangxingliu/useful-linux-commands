@@ -1,5 +1,9 @@
 //@ts-check
+/// <reference path="./index.d.ts" />
 
+/**
+ * @param {MinimizedExpressResponse} res
+ */
 function OutputChannel(res) {
 
 	let output = {
