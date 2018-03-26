@@ -1,4 +1,10 @@
 module.exports = {
+	CSP: [ // Content-Security-Policy
+		"default-src",
+		"'self' 'unsafe-inline' 'unsafe-eval'",
+		"https://www.google-analytics.com;",
+	].join(' '),
+
 	title: 'Useful Linux Commands',
 	description: 'A collection of useful linux commands that can be queried from the command line and within the browser.',
 

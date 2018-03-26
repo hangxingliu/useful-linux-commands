@@ -5,9 +5,9 @@ let Express = require('express'),
 	Log = require("morgan"),
 	favicon = require('serve-favicon'),
 	QueryString = require('querystring'),
-	forWgetCURL = require('./for_wget_or_curl'),
-	forBrowser = require('./for_browser'),
-	forDownloadInstallScript = require('./for_download_install_script');
+	forWgetCURL = require('./for-wget-or-curl'),
+	forBrowser = require('./for-browser'),
+	forDownloadInstallScript = require('./for-download-install-script');
 
 let config = require('./config');
 

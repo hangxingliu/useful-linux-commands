@@ -9,6 +9,10 @@ let tmplVariables = require('./config-templates');
 function handler(req, res) {
 	let path = '/'; path = req.path;
 
+	res.setHeader('Content-Security-Policy', tmplVariables.CSP);
+	res.setHeader('X-Frame-Options', 'deny'); // Disallow put page into iframe
+	res.setHeader('X-XSS-Protection', '1; mode=block'); // XSS Protection
+
 	// response index page(homepage)
 	if (path == '/') {
 		let style = tmplVariables.styles[0];
