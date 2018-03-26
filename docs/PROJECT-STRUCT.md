@@ -13,7 +13,8 @@
 - `Dockerfile`: docker build and run
 - `.dockerignore`
 - `user.nginx.conf`: nginx proxy example
-- `ecosystem.yaml`: pm2 delopy configuration
+- `ecosystem.prod.yaml`: pm2 delopy configuration for production
+- `ecosystem.dev.yaml`: pm2 delopy configuration for development
 
 ## Documents
 

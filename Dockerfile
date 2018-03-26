@@ -26,4 +26,4 @@ RUN npm install --production
 ADD . ./
 
 EXPOSE 10765
-CMD pm2-docker ecosystem.yaml
+CMD pm2-docker ecosystem.prod.yaml

@@ -1,10 +1,12 @@
 apps:
   - script   : ./src/bin-web
-    name     : useful-commands-server
-    instances: 0
+    name     : useful-commands-server(dev)
+    instances: 1
     exec_mode: cluster
     watch:
       - src
       - web-resource
       - useful-commands
       - useful-installers
+    env:
+      NODE_ENV: development

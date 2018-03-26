@@ -5,20 +5,31 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="renderer" content="webkit" />
 		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0" />
-		<title>Useful Linux Commands</title>
+		<title><%= title %></title>
 
+		<meta name="description" content="<%= description %>">
+
+		<!-- Schema.org for Google -->
+		<meta itemprop="name" content="<%= title %>">
+		<meta itemprop="description" content="<%= description %>">
+
+
+		<!-- favicon -->
 		<link rel="shortcut icon" href="/static/favicon/favicon.ico"/>
 
+		<!-- Custom CSS -->
 		<link rel="stylesheet" href="/static/index.min.css" __insert_css_integrity_here__ />
-		<link rel="stylesheet" href="/static/highlight.js/styles/<%=styles[style]%>.css"
-			integrity="sha384-<%=styleSRIs[style]%>" />
+
+		<!-- highlight.js stylesheet -->
+		<link rel="stylesheet" href="/static/highlight.js/styles/<%=stylesMap[style]%>.css"
+			integrity="sha384-<%=styleSRIsMap[style]%>" />
 
 		<!-- boostrap -->
 		<link rel="stylesheet" href="/static/bootstrap/bootstrap.slim.min.css" 
 			integrity="sha384-/ziZm8NEVlV7K7LyB3ifxx3ia2cYJ+vikC7fOlr1T5TLVOE/bfXvX1j5tlv8IjgV" />
 
 	</head>
-	<body class="style-<%=styles[style]%>">
+	<body class="style-<%=stylesMap[style]%>">
 
 		<div class="main-container container">
 			<header>
@@ -42,7 +53,7 @@
 									<span class="sr-only">Toggle Style</span>
 								</button>
 								<div class="dropdown-menu" style="right:0;left:auto">
-									<% for(var name in styles) { %>
+									<% for(let name in stylesMap) { %>
 										<a class="dropdown-item" href="?<%=name%>"><%=name%></a>
 									<% } %>
 								</div>

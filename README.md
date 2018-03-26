@@ -46,7 +46,7 @@ default port is **10765**
 useful-commands-server -p ${port_number:10765}
 
 # Way 2: launch server by pm2
-pm2 start ecosystem.yaml;
+PORT=10765 pm2 start ecosystem.prod.yaml; # ecosystem.prod.yaml is profile for production mode
 
 # Way 3: launch server by docker
 sudo docker build -t cmd-query-server .

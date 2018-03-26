@@ -1,3 +1,4 @@
+//@ts-check
 
 module.exports = {
 	static: `${__dirname}/../../web-resource/static`,

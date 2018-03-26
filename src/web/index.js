@@ -1,3 +1,5 @@
+//@ts-check
+
 let Program = require('commander');
 let Express = require('express'),
 	Log = require("morgan"),
@@ -7,35 +9,45 @@ let Express = require('express'),
 	forBrowser = require('./for_browser'),
 	forDownloadInstallScript = require('./for_download_install_script');
 
-let Config = require('./config');
+let config = require('./config');
 
 Program
-	.version(require('../../package.json'))
+	//@ts-ignore
+	.version(require('../../package.json').version)
 	.usage('[options]')
 	.description('Useful linux commands web query server')
-	.option('-p, --port <port>', `Specifying the port is server listening on(default: ${Config.port})`)
-	.option('    --host <host>', `Specifying the host is server listening on(default: ${Config.host})`)
+	.option('-p, --port <port>', `Specifying the port is server listening on(default: ${config.port})`)
+	.option('    --host <host>', `Specifying the host is server listening on(default: ${config.host})`)
 	.parse(process.argv);
 
-Config.port = parseInt(Program.port) || Config.port;
-Config.host = Program.host || Config.host;
+const env = process.env.NODE_ENV || 'development';
+const port = parseInt(Program.port) || parseInt(process.env.PORT) || config.port;
+const host = Program.host || config.host;
 
 
 let app = Express();
+app.set('port', port);
+app.locals.ENV = env;
+app.locals.ENV_DEVELOPMENT = env == 'development';
+
+console.log('Useful Linux Commands Web Query Server: ');
+console.log(`  NODE_ENV: ${env}`);
+console.log(`  host:port: ${host}:${port}`);
+console.log('');
 
 // limit query string length
 app.set('query parser', qs => QueryString.parse(qs, null, null, { maxKeys: 8 }));
 
 // set up template engine and files
+//@ts-ignore
 app.engine('html', require('ejs').__express);
 app.set('view engine', 'html');
-app.set('views',  Config.views);
-
+app.set('views',  config.views);
 
 app.use(Log('dev'));
 
-app.use(favicon(`${Config.favicon}`));
-app.use('/static', Express.static(Config.static));
+app.use(favicon(`${config.favicon}`));
+app.use('/static', Express.static(config.static));
 
 app.use(forDownloadInstallScript);
 
@@ -58,8 +70,10 @@ app.use((err, req, res, next) => {
 
 
 let server = require('http').createServer(app);
-server.listen(Config.port, Config.host);
-server.on('listening', () =>{
-	console.log(`Server is listening on ${Config.host}:${Config.port}`);
-	console.log(`  Visit: http://${Config.host}:${Config.port}`);
+host ? server.listen(port, host) : server.listen(port);
+
+server.on('listening', () => {
+	console.log(`Server is listening on ${host||''}:${port}`);
+	if (host)
+		console.log(`  Visit: http://${host}:${port}`);
 });
