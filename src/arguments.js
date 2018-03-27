@@ -13,7 +13,7 @@ function Arguments(args) {
 	let fileNameLimit = null;
 	let miniOutput = false;
 	let queryString = '';
-	
+
 	function parse() {
 		let match = [], number = 0;
 		for (let index = 0; index < args.length; index ++) {
@@ -23,16 +23,16 @@ function Arguments(args) {
 			if (match = it.match(OPTION_BEFORE_AFTER_LINES_COUNT)) {
 				//the number of option -a/-A/-b/-B in the next array element
 				if (!match[2]) index++;
-				
+
 				number = parseInt(match[2] || args[index]);
 
 				if (isNaN(number))
 					throw new Error(`there are not a number following "-${match[1]}" param`);
-				
+
 				match[1].toLowerCase() == 'a' ?
 					(linesAfterCount = number) :
 					(linesBeforeCount = number);
-				
+
 				continue;
 			}
 			// -f -F
@@ -42,7 +42,7 @@ function Arguments(args) {
 
 				fileNameLimit = match[2] || args[index];
 				if (!fileNameLimit)
-					throw new Error(`there are not a string filename following "-${match[1]}" param`);	
+					throw new Error(`there are not a string filename following "-${match[1]}" param`);
 				continue;
 			}
 			//--mini -m
@@ -53,20 +53,19 @@ function Arguments(args) {
 			//ignore color params
 			if (SYSTEM_COLOR_ARGUMENTS.indexOf(it) >= 0)
 				continue;
-			
+
 			//add to query string
 			if (!queryString)
 				queryString = it;
 			else
-				queryString += `+${it}`;	
+				queryString += `+${it}`;
 
 			// End of "for"
 		}
 		return true;
 	}
-	
+
 	this.isLaunchForHelp = () => args.indexOf('-h') >= 0 || args.indexOf('--help') >= 0;
-	this.isLaunchForTest = () => args.indexOf('-t') >= 0 || args.indexOf('--test') >= 0;
 	this.parse = parse;
 
 	this.isEmptyQuery = () => !(queryString || fileNameLimit);
@@ -75,7 +74,7 @@ function Arguments(args) {
 	this.getFileNameLimit = () => fileNameLimit;
 	this.getMiniOutput = () => miniOutput;
 	this.getQueryString = () => queryString;
-	
+
 }
 
 module.exports = {

@@ -1,5 +1,7 @@
 server-config-mirror
 
+web-resource/wwwroot
+
 # Ignore archive file
 UsefulLinuxCommands-*.tar
 git-history.tar

@@ -9,6 +9,8 @@ let Express = require('express'),
 	forBrowser = require('./for-browser'),
 	forDownloadInstallScript = require('./for-download-install-script');
 
+let fs = require('fs');
+
 let config = require('./config');
 
 Program
@@ -44,6 +46,7 @@ app.engine('html', require('ejs').__express);
 app.set('view engine', 'html');
 app.set('views',  config.views);
 
+// TODO: better log control by env environment or launch option
 app.use(Log('dev'));
 
 app.use(favicon(`${config.favicon}`));
@@ -51,13 +54,27 @@ app.use('/static', Express.static(config.static));
 
 app.use(forDownloadInstallScript);
 
-app.use((req, res) => {
+app.use((req, res, next) => {
 	let ua = req.header('user-agent') || '';
 	ua.match(/^(?:Wget|curl)/i) ?
 		forWgetCURL.handler(req, res) :
-		forBrowser.handler(req, res);
+		forBrowser.handler(req, res, next);
 });
 
+// ==============
+//   wwwroot
+if (!fs.existsSync(config.wwwroot))
+	fs.mkdirSync(config.wwwroot);
+app.use('/', Express.static(config.wwwroot));
+
+// 404
+app.use((req, res) => {
+	res.status(404);
+	res.write('All this time I was finding myself. And I didn\'t know I was lost');
+	return res.end();
+})
+
+// 500
 app.use((err, req, res, next) => {
 	void next; // ignore unused next function
 

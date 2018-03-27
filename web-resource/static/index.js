@@ -44,6 +44,18 @@
 		toggleDisplay($menu);
 	});
 
+	$$('#styleDropdownPopup a').forEach(
+		/** @param {HTMLLinkElement} link */
+		function (link) {
+			let styleName = link.getAttribute('data-style');
+			link.addEventListener('click', ev => {
+				ev.preventDefault();
+				let newURL = location.href.replace(/[&?]*style=\w+/g, '');
+				newURL += newURL.indexOf('?') < 0 ? `?style=${styleName}` : `&style=${styleName}`;
+				location.href = newURL;
+			});
+		});
+
 	window.addEventListener('popstate', event => {
 		// req-query after history go back or go forward
 		console.log('popstate: ' + event.state);

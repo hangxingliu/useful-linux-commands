@@ -5,6 +5,7 @@ module.exports = {
 		"https://www.google-analytics.com;",
 	].join(' '),
 
+	siteName: 'Useful Linux Commands',
 	title: 'Useful Linux Commands',
 	description: 'A collection of useful linux commands that can be queried from the command line and within the browser.',
 

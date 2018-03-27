@@ -5,6 +5,8 @@ let files = require('./files');
 
 const COMMENT_LINE = /^\s*#/;
 
+module.exports = query;
+
 /**
  * @param {string} queryString
  * @param {string} fileNameLimit
@@ -18,7 +20,7 @@ function query(queryString, fileNameLimit, linesBeforeCount, linesAfterCount, ou
 
 	let queryArray = originalQueryArray.map(q => q.toLowerCase());
 
-	files.readEach(files.getFileNames(fileNameLimit), (content, file) => {
+	return files.iterateFiles(files.getFileNames(fileNameLimit), (content, file, meta) => {
 		let lines = content.split('\n');
 		let fileContext = {
 			fileName: file,
@@ -31,14 +33,15 @@ function query(queryString, fileNameLimit, linesBeforeCount, linesAfterCount, ou
 			queryArray.forEach(q => ok = (line.indexOf(q) >= 0 && ok));
 			ok && channel.outputLines(i, originalQueryArray, linesBeforeCount, linesAfterCount, fileContext);
 		}
+	}).then(() => {
+		outputChannel.finish();
+		return Promise.resolve(true);
 	});
-
-	outputChannel.finish();
 };
 
 /**
  * @constructor OutputChannelWrapper
- * @param {object} outputChannel
+ * @param {OutputChannel} outputChannel
  */
 function OutputChannelWrapper(outputChannel) {
 
@@ -96,5 +99,3 @@ function getHighLightRegexpFromKeywordsArray(keywords) {
 	).join('|') + ')', 'ig');
 
 }
-
-module.exports = query;

@@ -1,5 +1,11 @@
 # TODO
 
+## Unit test
+
+- [x] add .travis-ci
+- [ ] test all command files have title and description
+- [ ] test query under cli-toolkit, curl, wget and browser
+
 ## Core/Common
 
 - [ ] add highlight for text in editor
@@ -11,13 +17,12 @@
 ## Frontend
 
 - [ ] remove bootstrap
-- [ ] support query in browser without ajax
-	- [ ] SEO for each file
-	- [x] query in browser without ajax
-	- [x] add meta tags
 
 ## Server-side
 
+- [ ] support `HOST` environment variable for better SEO
+	- [ ] url in meta tags: `image`, `og:image`, and `twitter:image:src`
+	- [ ] generate `sitemap.xml` and `robots.txt` into `wwwroot`
 - [ ] add installers list to URI: `/` for curl/wget
 - [ ] add aliases for filename, for example: `gui_software`, `gui` and `desktop`
 
@@ -28,6 +33,11 @@
 
 ## Finished
 
+- [x] change read file to async in `file.js`
+- [x] support query in browser without ajax
+	- [x] SEO for each file
+	- [x] query in browser without ajax
+	- [x] add meta tags
 - [x] add visit counter by GA
 - [x] support set up server with sepcial port from system environment variable `process.env.PORT`
 - [x] support query on the mobile devices without keydown event.

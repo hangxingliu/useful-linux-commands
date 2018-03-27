@@ -3,9 +3,9 @@ apps:
     name     : useful-commands-server(dev)
     instances: 1
     exec_mode: cluster
+    max_restarts: 2
     watch:
       - src
-      - web-resource
       - useful-commands
       - useful-installers
     env:

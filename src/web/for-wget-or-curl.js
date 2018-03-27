@@ -4,7 +4,7 @@ let { OutputChannel } = require('../output-channel/wget_curl');
 let query = require('../query');
 
 let fileNameMatcher = /^\/(\w+)\//;
-let keywordMatcher = /\/([\w\+]*)$/
+let keywordMatcher = /\/([\w\s\.\+]*)$/
 
 function handler(req, res) {
 	let path = '/'; path = req.path;
@@ -37,7 +37,9 @@ function handler(req, res) {
 	if (!keywords && !fileNameFilter)
 		return printFilesInfo(res);
 
-	console.log('wget/curl query: ', fileNameFilter, keywords);
+	keywords = keywords.replace(/\W/g, '+');
+	if(req.app.locals.ENV_DEVELOPMENT)
+		console.log(`wget/curl query: "${keywords}" in "${fileNameFilter||"*"}"`)
 
 	let outputChannel = new OutputChannel(res, colorized);
 	outputChannel.setMiniOutput(mini);

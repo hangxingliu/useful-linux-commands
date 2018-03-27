@@ -9,10 +9,28 @@
 
 		<meta name="description" content="<%= description %>">
 
+		<!-- Thanks https://megatags.co/ let me know these meta tags -->
+
 		<!-- Schema.org for Google -->
 		<meta itemprop="name" content="<%= title %>">
 		<meta itemprop="description" content="<%= description %>">
+		<!-- TODO: <meta itemprop="image" content="...."> -->
 
+		<!-- Twitter -->
+		<meta name="twitter:card" content="summary">
+		<meta name="twitter:title" content="<%= title %>">
+		<meta name="twitter:description" content="<%= description %>">
+		<!-- TODO: <meta name="twitter:image:src" content="..."> -->
+
+
+		<!-- Open Graph general (Facebook, Pinterest & Google+) -->
+		<meta name="og:title" content="<%= title %>">
+		<meta name="og:description" content="description">
+		<!-- TODO: <meta name="og:image" content="..."> -->
+		<!-- TODO: <meta name="og:url" content="url"> -->
+		<meta name="og:site_name" content="<%= siteName %>">
+		<!-- TODO: <meta name="fb:admins" content="facebook id"> -->
+		<meta name="og:type" content="website">
 
 		<!-- favicon -->
 		<link rel="shortcut icon" href="/static/favicon/favicon.ico"/>
@@ -52,9 +70,9 @@
 									class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split style-menu-toggle">
 									<span class="sr-only">Toggle Style</span>
 								</button>
-								<div class="dropdown-menu" style="right:0;left:auto">
+								<div id="styleDropdownPopup" class="dropdown-menu" style="right:0;left:auto">
 									<% for(let name in stylesMap) { %>
-										<a class="dropdown-item" href="?<%=name%>"><%=name%></a>
+										<a class="dropdown-item" href="?style=<%=name%>" data-style="<%=name%>"><%=name%></a>
 									<% } %>
 								</div>
 							</div>
@@ -71,9 +89,14 @@
 							<h4 class="card-title">Query Guide</h4>
 							<h6 class="card-subtitle mb-2 text-muted">Query and install automatic scripts</h6>
 							<div class="card-text">
-								<p><code>-f</code> option:</p>
-								<p style="margin-left: 2em;margin-top: -1em">
-									<% for(var i in files){ %> <code> <%=files[i]%></code> <%}%>
+								<p class="mb-1">
+									<code>-f</code> option: 
+									<span class="text-muted ml-2">(shortcut: click following file names)</span>
+								</p>
+								<p class="files-container ml-4">
+									<% for(let i in files){ %> 
+										<a href="/?file=<%=files[i]%>"><code> <%=files[i]%></code> </a>
+									<%}%>
 								</p>
 								<p> <code>-a</code> option: <code>5</code> </p>
 								<p> <code>-b</code> option: <code>1</code> </p>

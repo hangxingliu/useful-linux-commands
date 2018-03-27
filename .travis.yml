@@ -1,0 +1,15 @@
+language: node_js
+
+os:
+  - linux
+
+node_js:
+  - "6"
+  - "8"
+  - "node" # latest stable Node.js release
+
+before_script:
+  - npm install mocha eslint -g
+
+notifications:
+  email: false
