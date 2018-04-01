@@ -107,7 +107,7 @@ function handler(req, res, next) {
 	res.setHeader('X-XSS-Protection', '1; mode=block'); // XSS Protection
 
 	if (path == '/') {
-		if (('keywords' in req.query) || ('file' in req.query) ) {
+		if (('q' in req.query) || ('file' in req.query) ) {
 			// index page with pre query data
 			let q = getQueryParamsFromQueryString(req.query);
 			if (q.keywords || q.file)

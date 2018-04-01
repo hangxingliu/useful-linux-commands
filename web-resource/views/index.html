@@ -10,26 +10,37 @@
 		<!-- Thanks https://megatags.co/ let me know these meta tags -->
 
 		<meta name="description" content="<%= description %>">
-		<meta name="image" content="<%= seoURL %>static/favicon/favicon.128.png">
+		<meta name="image" content="<%= seoURL %>static/favicon/favicon.256.png">
 
 		<!-- Schema.org for Google -->
 		<meta itemprop="name" content="<%= title %>">
 		<meta itemprop="description" content="<%= description %>">
-		<meta itemprop="image" content="<%= seoURL %>static/favicon/favicon.128.png">
+		<meta itemprop="image" content="<%= seoURL %>static/favicon/favicon.256.png">
 
 		<!-- Twitter -->
 		<meta name="twitter:card" content="summary">
 		<meta name="twitter:title" content="<%= title %>">
 		<meta name="twitter:description" content="<%= description %>">
-		<meta name="twitter:image:src" content="<%= seoURL %>static/favicon/favicon.128.png">
+		<meta name="twitter:image:src" content="<%= seoURL %>static/favicon/favicon.256.png">
 
 		<!-- Open Graph general (Facebook, Pinterest & Google+) -->
 		<meta property="og:title" content="<%= title %>">
 		<meta property="og:description" content="description">
-		<meta property="og:image" content="<%= seoURL %>static/favicon/favicon.128.png">
-		<meta property="og:url" content="<%= url %>">
+		<meta property="og:image" content="<%= seoURL %>static/favicon/favicon.256.png">
+		<meta property="og:url" content="<%- url %>">
 		<meta property="og:site_name" content="<%= siteName %>">
 		<meta property="og:type" content="website">
+
+		<!-- https://json-ld.org/ -->
+		<% if(url == seoURL) { %>
+		<script type="application/ld+json">
+		{"@context": "http://schema.org/","@type": "WebSite",
+		"name": "<%= siteName %>","url": "<%= url %>",
+		"potentialAction": {"@type": "SearchAction", 
+			"target": "<%= seoURL %>?q={search_term_string}",
+			"query-input": "required name=search_term_string"}}
+		</script>
+		<% } %>
 
 		<!-- favicon -->
 		<link rel="shortcut icon" href="/static/favicon/favicon.ico"/>
