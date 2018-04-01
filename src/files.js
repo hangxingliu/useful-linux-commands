@@ -59,7 +59,7 @@ function readFileMetaInfo(fileName) {
 	if (fileName in fileMetaInfoCache)
 		return Promise.resolve(fileMetaInfoCache[fileName]);
 	return readFile(fileName).then(content => {
-		let meta = { title: '', description: '' };
+		let meta = { title: '', description: '', fullPath: `${DIR}/${fileName}` };
 		let mtx = content.match(/^#(.+)/);
 		if (!mtx)
 			return Promise.reject(new Error(`Could not read meta info(title) for "${fileName}"`));

@@ -7,30 +7,29 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0" />
 		<title><%= title %></title>
 
-		<meta name="description" content="<%= description %>">
-
 		<!-- Thanks https://megatags.co/ let me know these meta tags -->
+
+		<meta name="description" content="<%= description %>">
+		<meta name="image" content="<%= seoURL %>static/favicon/favicon.128.png">
 
 		<!-- Schema.org for Google -->
 		<meta itemprop="name" content="<%= title %>">
 		<meta itemprop="description" content="<%= description %>">
-		<!-- TODO: <meta itemprop="image" content="...."> -->
+		<meta itemprop="image" content="<%= seoURL %>static/favicon/favicon.128.png">
 
 		<!-- Twitter -->
 		<meta name="twitter:card" content="summary">
 		<meta name="twitter:title" content="<%= title %>">
 		<meta name="twitter:description" content="<%= description %>">
-		<!-- TODO: <meta name="twitter:image:src" content="..."> -->
-
+		<meta name="twitter:image:src" content="<%= seoURL %>static/favicon/favicon.128.png">
 
 		<!-- Open Graph general (Facebook, Pinterest & Google+) -->
-		<meta name="og:title" content="<%= title %>">
-		<meta name="og:description" content="description">
-		<!-- TODO: <meta name="og:image" content="..."> -->
-		<!-- TODO: <meta name="og:url" content="url"> -->
-		<meta name="og:site_name" content="<%= siteName %>">
-		<!-- TODO: <meta name="fb:admins" content="facebook id"> -->
-		<meta name="og:type" content="website">
+		<meta property="og:title" content="<%= title %>">
+		<meta property="og:description" content="description">
+		<meta property="og:image" content="<%= seoURL %>static/favicon/favicon.128.png">
+		<meta property="og:url" content="<%= url %>">
+		<meta property="og:site_name" content="<%= siteName %>">
+		<meta property="og:type" content="website">
 
 		<!-- favicon -->
 		<link rel="shortcut icon" href="/static/favicon/favicon.ico"/>

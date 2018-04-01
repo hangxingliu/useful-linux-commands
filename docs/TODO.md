@@ -2,7 +2,6 @@
 
 ## Unit test
 
-- [x] add .travis-ci
 - [ ] test all command files have title and description
 - [ ] test query under cli-toolkit, curl, wget and browser
 
@@ -20,9 +19,6 @@
 
 ## Server-side
 
-- [ ] support `HOST` environment variable for better SEO
-	- [ ] url in meta tags: `image`, `og:image`, and `twitter:image:src`
-	- [ ] generate `sitemap.xml` and `robots.txt` into `wwwroot`
 - [ ] add installers list to URI: `/` for curl/wget
 - [ ] add aliases for filename, for example: `gui_software`, `gui` and `desktop`
 
@@ -33,6 +29,10 @@
 
 ## Finished
 
+- [x] add .travis-ci
+- [x] support `SEO_URL` environment variable for better SEO
+	- [x] url in meta tags: `image`, `og:image`, and `twitter:image:src`
+	- [x] generate `sitemap.xml` and `robots.txt` into `wwwroot`
 - [x] change read file to async in `file.js`
 - [x] support query in browser without ajax
 	- [x] SEO for each file

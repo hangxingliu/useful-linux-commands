@@ -1,6 +1,8 @@
 //@ts-check
 /// <reference path="./index.d.ts" />
 
+let { resolve: resolveURL } = require('url');
+
 let { getFileNames, iterateFiles } = require('../files');
 let { OutputChannel } = require('../output-channel/ajax');
 let query = require('../query');
@@ -52,13 +54,14 @@ function getQueryParamsFromQueryString(qsMap) {
 	return q;
 }
 
-function getRenderBaseData(style, preQueryString = '', preQueryResult = null) {
-	return { style, files: getFileNames(), preQueryString, preQuery: preQueryResult };
+function getRenderBaseData(url, style, preQueryString = '', preQueryResult = null) {
+	return { url, style, files: getFileNames(), preQueryString, preQuery: preQueryResult };
 }
 
 function renderIndex(req, res) {
 	let style = getIndexStyleFromQueryString(req.query);
-	return res.render(TEMPLATE_NAME, Object.assign(getRenderBaseData(style), tmplVariables));
+	let data = getRenderBaseData(resolveURL(req.app.locals.seoURL, '/'), style);
+	return res.render(TEMPLATE_NAME, Object.assign(data, tmplVariables));
 }
 
 /** @param {QueryParameters} q */
@@ -74,7 +77,8 @@ function renderIndexWithPreQueryData(q, req, res) {
 	query(q.keywords, q.file, q.linesBefore, q.linesAfter, outputChannel);
 
 	function end() {
-		let base = getRenderBaseData(style, q.queryString,
+		let url = resolveURL(req.app.locals.seoURL, req.originalUrl);
+		let base = getRenderBaseData(url, style, q.queryString,
 			`<script>PRE_QUERY=${JSON.stringify(queryResult)}</script>`);
 
 		if (!q.keywords && q.file) {
