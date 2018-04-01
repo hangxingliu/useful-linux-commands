@@ -38,9 +38,20 @@ cd useful-linux-commands
 npm install --production
 ```
 
-## 5. Launch this querying server and save them for auto startup
+## 5. Copy launch configuration and modify it
 
 ``` bash
-PORT=10765 pm2 start ecosystem.prod.yaml
+cp ecosystem.prod.yaml my.ecosystem.prod.yaml;
+
+# modify it:
+# you can add `PORT`/`SEO_URL` envrionment variables into it under field `env`
+vim my.ecosystem.prod.yaml;
+```
+
+
+## 6. Launch this querying server and save them for auto startup
+
+``` bash
+pm2 start my.ecosystem.prod.yaml
 pm2 save # save current state to pm2 profile for startup this server automatically
 ```

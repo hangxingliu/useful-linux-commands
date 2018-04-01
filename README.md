@@ -45,14 +45,14 @@ default port is **10765**
 
 ``` bash
 # Way 1: launch server directly
-useful-commands-server -p ${port_number:10765}
+PORT=10765 useful-commands-server
 
 # Way 2: launch server by pm2
 PORT=10765 pm2 start ecosystem.prod.yaml; # ecosystem.prod.yaml is profile for production mode
 
 # Way 3: launch server by docker
 sudo docker build -t cmd-query-server .
-sudo docker run -p 80:10765 -u node -m 256M --memory-swap 1G -d \
+sudo docker run -p 80:10765 -m 256M --memory-swap 1G -d \
 	--name my-cmd-query-server cmd-query-server
 ```
 

@@ -2,6 +2,9 @@ server-config-mirror
 
 web-resource/wwwroot
 
+# Ignore custom pm2 deploy configuration file
+*.ecosystem.*.yaml
+
 # Ignore archive file
 UsefulLinuxCommands-*.tar
 git-history.tar

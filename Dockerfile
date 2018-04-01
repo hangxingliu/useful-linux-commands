@@ -26,4 +26,8 @@ RUN npm install --production
 ADD . ./
 
 EXPOSE 10765
+RUN mkdir -p /webapp/web-resource/wwwroot
+RUN chown node /webapp/web-resource/wwwroot
+
+USER node
 CMD pm2-docker ecosystem.prod.yaml

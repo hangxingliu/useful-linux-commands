@@ -1,6 +1,11 @@
 server-config-mirror
 
+web-resource/wwwroot
+
 .vscode
+
+# Ignore custom pm2 deploy configuration file
+*.ecosystem.*.yaml
 
 # archive
 *.tgz

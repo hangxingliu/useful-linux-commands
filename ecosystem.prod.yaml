@@ -5,7 +5,8 @@ apps:
     exec_mode: cluster
     watch:
       - src
-      - web-resource
+      - web-resource/static
+      - web-resource/views
       - useful-commands
       - useful-installers
     env:

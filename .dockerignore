@@ -1,5 +1,12 @@
 server-config-mirror
 
+web-resource/wwwroot
+
+# Ignore custom pm2 deploy configuration file
+*.ecosystem.*.yaml
+
+*.tar
+
 .git
 Dockerfile
 
