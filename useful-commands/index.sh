@@ -50,17 +50,6 @@ uname -a
 # 查询一个域名的IP
 host -v $HOST_NAME
 
-# 查询SSH登录失败记录
-## Ubuntu
-cat /var/log/auth.log | grep 'sshd.*Invalid'
-
-## CentOS
-cat /var/log/secure | grep 'sshd.*Invalid'
-
-## clean CentOS last record
->/var/log/wtmp
->/var/log/btmp
-
 # 创建文件链接
 ln -s originalFolder new.lnk
 

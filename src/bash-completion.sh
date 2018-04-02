@@ -16,7 +16,7 @@ _useful_commands_completion() {
 
 	OPTS="-a -A -b -B -f -F -m --mini --help --color --no-color";
 	FILES_ARRAY=( awk bash curl disk docker ffmpeg find_xargs git gpg gui_software
-                image_magick index install_deluge_on_centos_6 lsyncd monitor_and_usage
+                image_magick index install_deluge_on_centos_6 log lsyncd monitor_and_usage
                 mysql proxy qt samba sed ssh_enc ssh swap ui vagrant vim xbindkeys );
 	for FNAME in "${FILES_ARRAY[@]}"; do
 		FILES="${FILES} ${FNAME}";
