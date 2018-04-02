@@ -17,9 +17,9 @@ module.exports = {
 		dark: 'solarized-dark'
 	},
 	styleSRIsMap: {
-		github: '3os04U6CRSZxAX9SO97BPnd90GVfzlfbJvpeTAGpHSDjGNIftACTITCXIhWdeaMm',
-		gist: '4dJlnp9ZK7fF+a6IldWe0MwL1NG+HWAhI9k9jJa0ly0iwnyX+qQ7nxlXpcDx4mE/',
-		light: 'Tnnq6pbLZp9PjpOt+RfOeRPGGKlGVI4o4dUEk6aPfkMf0sFzLLuPwWe217uipl4b',
-		dark: 'r6qmB9/fPnKwgAlSFlqwLDc5mWgL5SSxvLHPJbmFPL36fTg/BQaII9kKq0CxffSU'
+		github: 'yaOEEinoAKxVHv1ZCY3vqJeRItlRVwZ9pyTCCJLHlyHNndGZIF+S30C1+8oRQ2sz',
+		gist: 'FwjVcgPHUmKBs7MindDuCw8B29LdAnaKjkXsIP9FYRefyGCpxpUVtfRgSgiN3FLe',
+		light: 'a1dj0x8qD781iEPEXGKT7QjGhbXLBofaVP6wCF2N/xWaij9y8ZXSt9IZpqDRjggj',
+		dark: 'ubTNJRmlJBCExgXpPeGaPgNT3x13wbjM/FVT/BmJwalqsq2nQbJ5iE/HUptFmaH+'
 	}
 };
