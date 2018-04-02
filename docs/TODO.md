@@ -25,7 +25,6 @@
 ## Useful commands and installers
 
 - [ ] translate
-- [ ] add useful commands about iptables/nftables and firewalld
 
 ## Finished
 
@@ -43,3 +42,4 @@
 - [x] support query on the mobile devices without keydown event.
 - [x] minify html page and javascript
 - [x] set up develop and production version
+- [x] add useful commands about iptables/nftables and firewalld
