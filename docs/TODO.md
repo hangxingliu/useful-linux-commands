@@ -2,7 +2,6 @@
 
 ## Unit test
 
-- [ ] test all command files have title and description
 - [ ] test query under cli-toolkit, curl, wget and browser
 
 ## Core/Common
@@ -43,3 +42,4 @@
 - [x] minify html page and javascript
 - [x] set up develop and production version
 - [x] add useful commands about iptables/nftables and firewalld
+- [x] test all command files have title and description (2018/04/05)

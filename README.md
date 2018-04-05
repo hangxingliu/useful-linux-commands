@@ -8,7 +8,7 @@ A collection of useful linux commands that can be queried from the command line 
 
 The commands and comments inside consists of two languages (English, 简体中文)
 
-![screenshot](screenshots/1.png)
+![screenshot](docs/images/screenshot1.png)
 
 ## Install
 

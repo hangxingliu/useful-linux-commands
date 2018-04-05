@@ -1,8 +1,5 @@
 {
 	"eslint.enable": true,
-	"json2js.autoInclude": [
-		".json/*.json"
-	],
 	"cSpell.words": [
 		"gitignore",
 		"fname",
