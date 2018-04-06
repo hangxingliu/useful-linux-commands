@@ -60,6 +60,10 @@ echo "${FILENAME%%.*}" # index
 echo "${FILENAME#*.}" # d.ts
 echo "${FILENAME##*.}" # ts
 
+# Useful one-liner bash: get directory of current script located in.
+# WARNING! bash source file could not a symbol link
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
 # Useful bash snippet: Get directory of current script located in.
 # 获得此BASH脚本文件所在的目录 (代码片段)
 SOURCE="${BASH_SOURCE[0]}"

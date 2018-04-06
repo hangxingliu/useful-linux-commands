@@ -229,14 +229,10 @@ split file -b 1k -d path/prefix.
 split file.txt -l 10 part.txt.
 # 这个例子会将文本文件分割成每10行一个文件
 
-# Journalctl 查看日志
-# 查看Nginx服务(u: unit) 从今天开始的日志
-journalctl -u nginx.service --since today
--n [lineNumbers]: # -n all 全部行 默认值为10行
--f # Follow 不断显示新的日志
--r # 反转显示日志(先显示最新的日志)
--p [priority] # 根据日志优先级筛选日志
-# (0: 出现/1: 警告/2: 暴击/3: 错误/4: 警告/5: 通知/6: INFO/7: 调试)
+# Quick HTTP static server (one line command start file HTTP server) 快速开一个静态HTTP服务器
+busybox httpd -f -p 8000 # busybox
+python -m SimpleHTTPServer 8000 # python 2
+python -m http.server 8000 # python 3
 
 # 彻底删除一个文件(覆写,删除)
 # Delete file secure/can not recovered

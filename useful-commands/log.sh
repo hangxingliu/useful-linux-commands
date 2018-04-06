@@ -46,3 +46,12 @@ dateext # name older olg files with date but not number # 用日期给旧日志�
 
 # apply modified config for logratote (让修改后的配置生效)
 logrotate /etc/logrotate.d/nginx
+
+# view system log via journalctl  (通过 journalctl 查看日志)
+# example: view Nginx log since today. (u: unit) (查看Nginx服务从今天开始的日志)
+journalctl -u nginx.service --since today
+-n [lineNumbers]: # -n all (10 by default). `-n all` 是全部行 默认值为10行
+-f # Follow 不断显示新的日志
+-r # 反转显示日志(先显示最新的日志)
+-p [priority] # 根据日志优先级筛选日志
+# (0: 出现/1: 警告/2: 暴击/3: 错误/4: 警告/5: 通知/6: INFO/7: 调试)
