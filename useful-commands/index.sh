@@ -4,7 +4,7 @@
 # Install Ubuntu unity tweak tools
 sudo apt install unity-tweak-tools
 
-# 给Centos/RHEL 安装bash补全
+# Bash auto completion(press tab) for Centos/RHEL (给Centos/RHEL 安装bash补全)
 yum install bash-completion
 
 # 修改默认目录的语言(reboot required)
@@ -60,16 +60,16 @@ ln -s originalFolder new.lnk
 ## --exclude-dir={dist, *-obj} 不包含dist和以-obj结尾的目录
 grep -rnwi 'path/to/folder' -e 'keyword'
 
-# 解决VSCode的alt键与系统冲突的问题
+# Resolve `alt` conflict between VSCode and system. 解决VSCode的alt键与系统冲突的问题
 gsettings set org.gnome.desktop.wm.preferences mouse-button-modifier "<Super>"
 
-# grep查询关键字以及上3行下5行
+# grep display before lines and after lines. grep查询关键字以及上3行下5行
 grep -A 5 -B 3 -e "keyword"
 
-#按照YYMMDD hhmmss显示时间
+# show date in special format. 按照YYMMDD hhmmss显示时间
 date "+%y/%m/%d %H:%M:%S"
 
-# 将文本复制到系统剪切板
+# copy text to system clipbord. 将文本复制到系统剪切板
 echo 'helloworld' | xclip -selection clipboard
 
 # 无需密码执行sudo nopassword
@@ -128,10 +128,10 @@ git init
 # -H set home variable into sudo
 sudo -H pip install --upgrade youtube-dl
 
-# iconv 将 GBK 转成 utf8
+# iconv convert encoding/charset from GBK to UTF-8. 将 GBK 转成 utf8
 iconv -f GBK -t UTF-8 file.txt -o utf8_file.txt
 
-# Ubuntu字体路径
+# font directory in Ubuntu. Ubuntu字体路径
 ls ~/.local/share/fonts/
 
 # 查看软件包含文件的位置
@@ -149,6 +149,10 @@ sudo mount -t tmpfs -o size=512m tmpfs /path/mount/to
 # 开机设置
 vim /etc/fstab
 tmpfs /path/mount/to tmpfs rw,relatime,size=512m 0 0
+
+# find duplicated/repeated files.  查找重复的文件
+sudo apt install fdupes
+fdupes -r /path/to/dir
 
 # Set huamn language by environment variable to English
 # 设置当前Shell下的显示语言 到 English
