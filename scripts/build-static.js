@@ -24,13 +24,40 @@ const AUTOPREFIXER = autoprefixer({
 
 let jsIntegrity = '', cssIntegrity = '';
 
+let isWatch = process.argv.slice(2).findIndex(arg => arg == '--watch' || arg == '-w') >= 0;
+
+taskMain(isWatch ? taskWatch : undefined);
 
 // Main building flow:
-Async.series([
-	then => Async.parallel([taskJavascript, taskStylesheet], then),
-	getIntegrity,
-	taskHTML
-]);
+function taskMain(then) {
+	Async.series([
+		then => Async.parallel([taskJavascript, taskStylesheet], then),
+		getIntegrity,
+		taskHTML
+	], then);
+}
+
+function taskWatch() {
+	let { watchTree, unwatchTree } = require('watch');
+	let watch = dir => { unwatchTree(dir); watchTree(dir, { interval: 0.3 }, notify); };
+	watch(DIR);
+	watch(HTML_DIR);
+	console.log('>> Watching ... >>>>>>');
+
+	function notify(f) {
+		if (typeof f != 'string') return; // first scan all files after watch
+
+		let tasks = [];
+		if (f.endsWith('index.js')) tasks = [taskJavascript, getIntegrity];
+		else if (f.endsWith('index.scss')) tasks = [taskStylesheet, getIntegrity];
+		else if (f.endsWith('index.html')) tasks = [];
+		else return;
+
+		console.log(`changed: ${f}`);
+		tasks.push(taskHTML);
+		Async.series(tasks);
+	}
+}
 
 function taskJavascript(then) {
 	let task = startTask('javascript');
@@ -141,6 +168,7 @@ function getIntegrity(then) {
 function getFileIntegrity(file, then) {
 	file = "'" + file.replace(/'/g, "'\\''") + "'";
 	child_process.exec(`shasum -b -a 384 ${file} | xxd -r -p | base64`, (err, stdout, stderr) => {
+		void stderr; // unused variable
 		if (err) return then(err, null);
 		return then(null, stdout.trim());
 	});
@@ -157,6 +185,7 @@ function startTask(what = '') {
 	function fatal(err) {
 		console.error(`[-] fatal: task "${what}" failed!`);
 		console.error(err);
-		process.exit(0);
+		if(!isWatch)
+			process.exit(1);
 	}
 }
