@@ -27,12 +27,15 @@ tar -cvf xx.tar #c: 创建
 # --wildcards '*.txt' 匹配中压缩包内所有txt文件
 # -C /to/path 解压到指定目录
 
-# 修改密码
+# Hide a file/directory in nautilus(file explorer) 在文件浏览器中隐藏一个文件/文件夹
+echo "file or directory" >> .hidden
+
+# Modify/Change password 修改密码
 passwd
 passwd username
 passwd -g group_name
 
-# 清理DNS缓存
+# Clean DNS cache 清理DNS缓存
 sudo /etc/init.d/dns-clean restart
 
 # 配置DNS
@@ -190,10 +193,11 @@ sudo update-grub
 ffmpeg -i input.ts -acodec copy -vcodec copy output.mp4
 
 # Nvidia Graphics Driver 显卡(N卡)驱动
-# 最佳方法,且能一直更新
+# The easiest way, via ppa. 最简单方便的方法,且能一直更新
 sudo add-apt-repository ppa:graphics-drivers/ppa
 sudo apt update
-apt-cache search nvdia # 或在系统设置里面"软件与更新"里面选择安装
+apt-cache search nvdia # or search in GUI "Software & Updates" 或在系统设置里面"软件与更新"里面选择安装
+# current: `sudo apt install nvidia-390`
 
 # Runlevel 运行级别
 runlevel #查看当前运行级别
@@ -207,16 +211,16 @@ sudo init $level #切换运行级别到$level
 #  5 多用户，带图形界面
 #  6 重启
 
+# 在 64位 Ubuntu 上安装 VirtualBox/Chrome 等软件时 apt 警告:
+# apt note: Skipping acquire of configured file 'main/binary-i386/Packages' as repository
+# for example: install VirualBox/Chrome on 64 bit Ubuntu
+# you can add `[arch=amd64]` after `deb` in source list file (在deb后面加入 [arch=amd64])
+deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main
+
 # 自定义 Grub
 sudo add-apt-repository ppa:danielrichter2007/grub-customizer
 sudo apt update
 sudo apt install grub-customizer
-
-# 调整VirtualBox的vdi磁盘 动态尺寸=>固定尺寸
-VBoxManage clonehd [old-VDI] [new-VDI] --variant Standard
-VBoxManage clonehd [old-VDI] [new-VDI] --variant Fixed
-# 调整VirtualBox的vdi磁盘尺寸(记得还要用GParted分配一下空白空间)
-VBoxManage  modifyhd [VDI] --resize [Size/Unit:MB]
 
 # 随机字符串 Random String
 openssl rand -hex 16 # 16是长度

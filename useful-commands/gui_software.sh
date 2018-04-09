@@ -18,7 +18,7 @@ sudo apt install gpick
 # Ubuntu文件管理器右键菜单编辑
 sudo apt install nautilus-actions
 
-# Install Google Chrome
+# Install Google Chrome (non-opensource)
 # 1. Add key
 wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 # 2. Set repository
@@ -27,3 +27,8 @@ sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable
 sudo apt update
 sudo apt install google-chrome-stable
 
+# Install Chromium (OpenSource)
+sudo apt install -y chromium-browser
+# Optional: Install flash plugin for Chromium
+sudo apt install -y pepperflashplugin-nonfree
+sudo update-pepperflashplugin-nonfree --install

@@ -7,7 +7,7 @@
 echo $XDG_SESSION_TYPE # x11 / wayland
 
 # 安装 gnome 桌面环境
-sudo apt install gnome-shell ubuntu-gnome-desktop
+sudo apt install gnome-shell
 # 必装相关工具
 sudo apt install gnome-tweak-tool dconf-editor
 
@@ -26,6 +26,10 @@ https://github.com/B00merang-Project/macOS-Sierra/releases
 # GTK/GNOME 主题: (Gnome-OSX) For GTK3
 https://www.gnome-look.org/p/1171688/
 # GTK主题安装: 在HOME目录下创建一个 .themes 目录 然后复制压缩包内的内容进去
+
+# GTK/GNOME 更加好看的 OSX Shell 主题:
+https://www.gnome-look.org/p/1215571/ # macOS High Sierra DARK
+https://www.gnome-look.org/p/1213208/ # macOS High Sierra
 
 # 图标包: Unity/GNOME
 cd /usr/share/icons/
