@@ -32,3 +32,9 @@ sudo apt install -y chromium-browser
 # Optional: Install flash plugin for Chromium
 sudo apt install -y pepperflashplugin-nonfree
 sudo update-pepperflashplugin-nonfree --install
+
+# focus-control: set focus follow mouse/sloppy/click
+gsettings set org.gnome.desktop.wm.preferences focus-mode 'sloppy'
+gsettings set org.gnome.desktop.wm.preferences focus-mode 'mouse'
+# or click to get focus: (by default)
+gsettings set org.gnome.desktop.wm.preferences focus-mode 'click'

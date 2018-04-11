@@ -265,4 +265,13 @@ systemd-analyze blame
 ## 3. reference wiki:
 ##    https://wiki.archlinux.org/index.php/Improving_performance/Boot_process
 
+# 软件文本渲染出现杂质 (试着降级安装 libfreetype6)
+# libfreetype6_2.8-0.2_amd64.deb
+http://snapshot.debian.org/package/freetype/2.8-0.2/#libfreetype6_2.8-0.2
 
+# holding back deb packages: prevent upgrade. 阻止某个 deb 包被升级
+sudo apt-mark hold <package-name>
+sudo apt-mark unhold <package-name>
+
+# send desktop notification in bash  显示桌面通知
+notify-send -i $ICON $TITLE $MESSAGE
