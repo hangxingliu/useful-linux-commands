@@ -40,6 +40,17 @@ git clone https://github.com/keeferrourke/la-capitaine-icon-theme.git
 # 然后在unity-tweak-tool/gnome-tweak-tool中选择样式和图标集就OK了
 # https://www.gnome-look.org
 
-# 修改GNOME-WORKSPACE LABELS(工具区的名称)
-# dconf-editor gnome>desktop>wm>workspace-names
+# modify Gnome workspace labels 修改GNOME-WORKSPACE LABELS(工具区的名称)
+# dconf-editor /org/gnome/desktop/wm/workspace-names
 ["Internet", "VM", "Coding", "Terminal"]
+
+# modify Gnome screenshot save directory 修改屏幕截图的保存位置
+# dconf-editor /org/gnome/gnome-screenshot/auto-save-directory
+file:///path/to/dir # set this value to directory you want and save
+
+# WARNING: if the screenshot pictures are still in original directory, try these:
+#  open "system settings" > "Keyboard" > "Keyboard shortcuts"
+#  cancel shortcut for "Save a screenshot to Pictures"
+#  and create a new shortcut with command is `gnome-screenshot` and keys are "Print"
+#  then screenshots are saved into your custom directory after you press "Print"
+
