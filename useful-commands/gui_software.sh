@@ -18,6 +18,9 @@ sudo apt install gpick
 # Ubuntu文件管理器右键菜单编辑
 sudo apt install nautilus-actions
 
+# Nautilus: fix no thumbnails for video files (解决视频文件没有缩略图的问题)
+sudo apt install ffmpeg ffmpegthumbnailer
+
 # Install Google Chrome (non-opensource)
 # 1. Add key
 wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
