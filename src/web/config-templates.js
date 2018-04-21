@@ -2,6 +2,7 @@ module.exports = {
 	CSP: [ // Content-Security-Policy
 		"default-src",
 		"'self' 'unsafe-inline' 'unsafe-eval'",
+		"data:", // for google-analytics inject data:application/javascript
 		"https://www.google-analytics.com;",
 	].join(' '),
 
