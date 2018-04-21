@@ -49,7 +49,7 @@ function taskWatch() {
 
 		let tasks = [];
 		if (f.endsWith('index.js')) tasks = [taskJavascript, getIntegrity];
-		else if (f.endsWith('index.scss')) tasks = [taskStylesheet, getIntegrity];
+		else if (f.endsWith('.scss')) tasks = [taskStylesheet, getIntegrity];
 		else if (f.endsWith('index.html')) tasks = [];
 		else return;
 

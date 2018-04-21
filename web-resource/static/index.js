@@ -8,7 +8,7 @@
 	/** @type {HTMLFormElement} */
 	let $form = $('#formSearchBox');
 
-	let $help = $div('#rowHelp'),
+	let $help = $div('#indexGuide'),
 		$menu = $div('#styleDropdown .dropdown-menu'),
 		$blockResult = $div('#blockResult');
 

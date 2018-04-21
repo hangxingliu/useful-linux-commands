@@ -66,34 +66,30 @@
 			</header>
 
 			<form id="formSearchBox" action="#">
-				<div class="row">
-					<div class="col-sm-12">
-						<div class="input-group">
-							<input type="text" class="form-control" id="txtSearchBox"
-								autocomplete="off" autofocus value="<%=preQueryString%>"
-								placeholder="input any keyword. optional: -f filename, -a lines after count, -b lines before count">
-							<div id="styleDropdown" class="input-group-append" style="position: relative">
-								<button type="button" class="btn btn-outline-secondary style-menu-toggle">
-									Style
-								</button>
-								<button type="button"
-									class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split style-menu-toggle">
-									<span class="sr-only">Toggle Style</span>
-								</button>
-								<div id="styleDropdownPopup" class="dropdown-menu" style="right:0;left:auto">
-									<% for(let name in stylesMap) { %>
-										<a class="dropdown-item" href="?style=<%=name%>" data-style="<%=name%>"><%=name%></a>
-									<% } %>
-								</div>
-							</div>
+				<div class="input-group">
+					<input type="text" class="form-control" id="txtSearchBox"
+						autocomplete="off" autofocus value="<%=preQueryString%>"
+						placeholder="input any keyword. optional: -f filename, -a lines after count, -b lines before count">
+					<div id="styleDropdown" class="input-group-append" style="position: relative">
+						<button type="button" class="btn btn-outline-secondary style-menu-toggle">
+							Style
+						</button>
+						<button type="button"
+							class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split style-menu-toggle">
+							<span class="sr-only">Toggle Style</span>
+						</button>
+						<div id="styleDropdownPopup" class="dropdown-menu" style="right:0;left:auto">
+							<% for(let name in stylesMap) { %>
+								<a class="dropdown-item" href="?style=<%=name%>" data-style="<%=name%>"><%=name%></a>
+							<% } %>
 						</div>
-					</div> <!-- /.col-->
-				</div> <!-- /.row-->
+					</div>
+				</div>
 			</form>
 			<br/>
 
-			<div class="row d-flex align-items-stretch" id="rowHelp" style="display: none">
-				<div class="col-sm-12 col-md-8 ">
+			<div id="indexGuide" style="display: none">
+				<div class="left">
 					<div class="card" style="height: 100%">
 						<div class="card-body">
 							<h4 class="card-title">Query Guide</h4>
@@ -116,7 +112,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-sm-12 col-md-4 ">
+				<div class="right">
 					<div class="card" style="height: 100%">
 						<div class="card-body">
 							<h4 class="card-title">Installer</h4>
@@ -136,7 +132,7 @@
 						</div>
 					</div>
 				</div>
-			</div> <!-- /#rowHelp-->
+			</div> <!-- /#indexGuide-->
 			<br/>
 
 			<div class="result" id="blockResult">
@@ -167,14 +163,12 @@
 		</footer>
 
 		<div id="result-template" style="display: none">
-			<div class="row" style="margin-bottom: 1em">
-				<div class="col-sm-12">
-					<div class="card">
-						<div class="card-body">
-							<h4 class="card-title">{{ name }}</h4>
-							<div class="card-text">
-								<pre><code class="bash">{{ content }}</code></pre>
-							</div>
+			<div style="margin-bottom: 1em">
+				<div class="card">
+					<div class="card-body">
+						<h4 class="card-title">{{ name }}</h4>
+						<div class="card-text">
+							<pre><code class="bash">{{ content }}</code></pre>
 						</div>
 					</div>
 				</div>
