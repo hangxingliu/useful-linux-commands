@@ -273,5 +273,11 @@ http://snapshot.debian.org/package/freetype/2.8-0.2/#libfreetype6_2.8-0.2
 sudo apt-mark hold <package-name>
 sudo apt-mark unhold <package-name>
 
+# 为 apt 设置代理: (Set proxy for apt)
+sudo vim /etc/apt/apt.conf
+# 添加入下: Append like following statement:
+Acquire::http::Proxy "http://user:pass@proxy_host:port";
+Acquire::https::Proxy "https://user:pass@proxy_host:port";
+
 # send desktop notification in bash  显示桌面通知
 notify-send -i $ICON $TITLE $MESSAGE
