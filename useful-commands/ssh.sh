@@ -62,8 +62,17 @@ ssh -N -D 127.0.0.1:1090 root@hostname
 sudo apt install sshfs
 mkdir -p /path/to/mount2here
 sshfs root@hostname:/remote/path/to /path/to/mount2here
+
+# sshfs: keep connection in bad network 在差网络状况下使用sshfs
+sshfs hostname:/path/to /path/to -o 'reconnect,ServerAliveInterval=15,ServerAliveCountMax=3';
+# -o : set options
+# reconnect: reconnect when connection is broken (链接断开后重新连接)
+# ServerAliveInterval=15: send a keep-alive packet to server each 15s. (每隔15发送一次心跳包给服务器)
+# ServerAliveCountMax=3: disconnect if loss 3 keep-alive packets. (如果心跳包丢失了3次, 则主动断开连接)
+
 # unmout sshfs
 fusermount -u /path/to/mount2here
+
 
 # SSH rsync
 rsync -avz -e ssh --progress root@hostname:/path/to/remote  /path/to/
