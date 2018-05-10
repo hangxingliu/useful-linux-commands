@@ -113,7 +113,7 @@
 	 */
 	function handlerResult(err, status, data) {
 		let items = data.files, html = '';
-		setHelpDisplay(items && items.length > 0);
+		setHelpDisplay(!items || items.length == 0);
 
 		for (let index in items) {
 			let item = items[index];
@@ -133,7 +133,7 @@
 	}
 
 	/** @param {boolean} show */
-	function setHelpDisplay(show) { (show ? removeClass : addClass).call(null, $help, 'd-flex'); }
+	function setHelpDisplay(show) { (show ? addClass : removeClass).call(null, $help, 'd-flex'); }
 
 	function appendResultItem(obj) {
 		return tmpl.replace(/\{\{\s+(\w+)\s+\}\}/g, (_, name) =>
