@@ -1,6 +1,7 @@
 # cURL
 # useful cURL snippets
-# (cURL is a command line tool for getting or sending files using URL syntax.)
+# cURL is a command line tool for getting or sending files using URL syntax.
+# (In fact, `HTTPie` is another good choice about command line HTTP client)
 
 # 自动跳转(301/302...)
 curl -L $URL
