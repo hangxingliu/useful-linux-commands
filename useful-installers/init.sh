@@ -10,8 +10,8 @@
 #   - Bash alias
 #
 # - Supported OS:
-#   - ths OS has "yum" package manager  
-#   - ths OS has "apt" package manager 
+#   - ths OS has "yum" package manager
+#   - ths OS has "apt" package manager
 #
 #							Author: LiuYue
 #							Date  : 2017-12-03
@@ -63,15 +63,20 @@ IGNORE_SET_GIT_CONFIG="false"
 
 #================================
 #====   Colorized variables  ====
-RED="\e[0;31m"
-RED_BOLD="\e[1;31m"
-YELLOW_BOLD="\e[1;33m"
-GREEN="\e[0;32m"
-GREEN_BOLD="\e[1;32m"
-BLUE="\e[0;34m"
-BLUE_BOLD="\e[1;34m"
-BOLD="\e[1m"
-RESET="\e[0m"
+if [[ -t 1 ]]; then
+	COLOR_MODE=`tput colors`;
+	if [[ -n "$COLOR_MODE" ]] && [[ "$COLOR_MODE" -ge 8 ]]; then
+		RED="\e[0;31m"
+		RED_BOLD="\e[1;31m"
+		YELLOW_BOLD="\e[1;33m"
+		GREEN="\e[0;32m"
+		GREEN_BOLD="\e[1;32m"
+		BLUE="\e[0;34m"
+		BLUE_BOLD="\e[1;34m"
+		BOLD="\e[1m"
+		RESET="\e[0m"
+	fi
+fi
 #================================
 #====   Basic functions  ========
 function yes_no() {
@@ -216,7 +221,7 @@ if [[ "$IGNORE_SET_GIT_CONFIG" == "false" ]]; then
 		cfgName="${cfg%% *}"
 		cfgBody="${cfg#* }"
 		subTitle "$cfgName"
-		
+
 		OK="OK"
 		ORIGINAL_VALUE=`$CMD $cfgName`
 		if [[ -n "$ORIGINAL_VALUE"  ]]; then
