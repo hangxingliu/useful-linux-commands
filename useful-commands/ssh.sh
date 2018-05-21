@@ -55,8 +55,36 @@ useful-commands ssh -fssh_enc
 # 配置fail2ban的爆破攻击
 TODO...
 
-# proxy vis ssh 通过SSH进行代理
+# SSH Tunnel (Proxy/Reverse Proxy) SSH隧道(代理/反向代理)
+# 3 types 三种类型
+
+# Type 1: Tunnelling with Local port forwarding (本地端口转发)
+# Example: Forward server listening at 80 on server to local port 8080
+# 将服务器上的80端口的服务代理到本地的8080端口上
+ssh -N -L 8080:127.0.0.1:80 root@hostname # -N: Do not execute remote command (don't open bash/zsh ...)
+# Then you can visit http://127.0.0.1:8080 at local computer
+
+# Example2: connect Redis on server via SSH Tunnel
+ssh -NL 6379:127.0.0.1:6379 root@hostname
+redis-cli
+
+# Type 2: Reverse Tunnelling with remote port forwarding (反向端口转发/远程端口转发)
+# Example: Visit local file via local FTP(port: 21) on remote server at 8021 port
+# 让服务器上通过8021端口访问本地机器上的FTP(端口21)来读写本机文件
+ssh -N -R 8021:127.0.0.1:21 root@hostname
+
+# Example2: 打洞,通过远程服务器访问本地(LAN)计算机上的HTTP服务
+# 本地执行: (假设本地HTTP服务的端口是 8080)
+ssh -R 8081:127.0.0.1:8080 root@hostname # local 8080 ==> remote 127.0.0.1:8081
+# 远端执行: (假设远端暴露到公网的端口是 80)
+sudo ssh -g -L 80:127.0.0.1:8081 127.0.0.1 # 127.0.0.1:8081 ==> xx.xx.xx.xx:80 (公网IP)
+# Tip: -g  Allows remote hosts to connect to local forwarded ports.
+
+# Type 3: Dynamic Port Forwarding (动态端口转发)
+# Example: set up proxy server via SSH at local port 1090 (通过SSH建立代理服务器,监听本地端口1090)
 ssh -N -D 127.0.0.1:1090 root@hostname
+# Then you set SOCKS proxy in your browser/system as "localhost:1090"
+
 
 # mount ssh filesystem (SSH之间传递文件, sshfs挂载方法)
 sudo apt install sshfs
