@@ -71,12 +71,15 @@ ss-server -c config.json -f ss_is_running.pid
   "method":"chacha20-ietf-poly1305"
 }
 
-# Privoxy (convert socks5 proxy to HTTP proxy)
+# Privoxy (forward socks5 proxy to HTTP proxy)
 
 sudo apt install privoxy
 sudo vim /etc/privoxy/config
-# Add a line in the bottom
-#	forward-socks5	/ 127.0.0.1:1080
+# # Add a line in the bottom 在最后添加一行
+# # IMPORTANT!!! (There is a dot character '.' in the end, means this is the last forward)
+# # 重要!!! (下面这行的最后一个字符是一个点号, 表示这个转发是最后一层)
+#
+#	forward-socks5	/ 127.0.0.1:1080 .
 sudo service privoxy restart
 # now http proxy is running on 127.0.0.1:8118
 
@@ -90,8 +93,10 @@ sudo make install
 sudo make install-config # (installs proxychains.conf)
 vim /etc/proxychains.conf
 
-# common proxy variable in terminal
+# common proxy variable in terminal (终端约定的 HTTP/HTTPS 代理相关的环境变量)
 export http_proxy=http://127.0.0.1:8000
 export http_proxy=http://user:pwd@127.0.0.1:8000
-export http_proxy=socks5://127.0.0.1:1080
 export https_proxy=http://127.0.0.1:8000
+# some software only recognize `http_proxy` without prefix protocol "http://" (某些软件不认 http_proxy 变量中的 http 协议前缀)
+# for example: `go get`, software written by golang
+export http_proxy=127.0.0.1:8000; export https_proxy=127.0.0.1:8000;
