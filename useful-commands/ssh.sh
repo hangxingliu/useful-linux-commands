@@ -4,6 +4,8 @@
 ssh-keygen -t rsa # create RSA key pair: public/private keys. 创建公私钥对
 ssh-copy-id xxx@hostname # copy public key to server. 复制公钥到服务器
 ssh-copy-id -i ~/.ssh/id_rsa.pub xx@hostname
+# use password login way to copy public key (使用密码登录方式复制 公钥)
+ssh-copy-id -i ~/.ssh/id_rsa.pub -o PreferredAuthentications=password -o PubkeyAuthentication=no xx@hostname
 # or append content of public key into ~/.ssh/authorized_keys on server
 # 或者如下将公钥  追加  到服务器的~/.ssh/authorized_keys内
 
@@ -15,7 +17,7 @@ ssh-keygen -lvf ~/.ssh/id_rsa.pub
 ssh-keygen -E md5 -lvf ~/.ssh/id_rsa.pub
 # It looks like: 4096 MD5://f0:23:5d... xxx@mail.com (RSA)
 
-# Remove fingerpoint in file known_hosts
+# Remove SSH host fingerpoint in file known_hosts (去掉 known_hosts 中的某条指纹)
 ssh-keygen -R hostname
 
 # SSH permissions
