@@ -91,7 +91,7 @@ function yes_no() {
 }
 function title() { echo -e "${BLUE_BOLD}# $1 ${RESET}"; }
 function subTitle() { echo -e "${BLUE}## $1 ${RESET}"; }
-function finish() { echo -e "\n${GREEN_BOLD}# Finish!\n  ${GREEN}Please re-login to activate config.\n"; exit 0; }
+function finish() { echo -e "\n${GREEN_BOLD}# Finish!\n  ${GREEN}Please re-login to activate config.${RESET}\n"; exit 0; }
 function warn() { echo -e "${YELLOW_BOLD} warning: ${1} ${RESET}"; }
 function success() { echo -e "${GREEN} success: ${1} ${RESET}"; }
 function error() { echo -e "${RED}  error: ${RED_BOLD}$1${RESET}"; exit 1; }

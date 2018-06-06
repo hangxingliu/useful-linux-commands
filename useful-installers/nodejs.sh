@@ -41,7 +41,7 @@ function yes_no() {
 	done
 }
 function title() { echo -e "${BLUE_BOLD}# $1 ${RESET}"; }
-function finish() { echo -e "\n${GREEN_BOLD}# Finish!\n"; exit 0; }
+function finish() { echo -e "\n${GREEN_BOLD}# Finish!${RESET}\n"; exit 0; }
 function success() { echo -e "${GREEN} success: ${1} ${RESET}"; }
 function error() { echo -e "${RED}  error: ${RED_BOLD}$1${RESET}"; exit 1; }
 #================================
