@@ -122,10 +122,36 @@ rw
 chown username /mnt/disk_xxx
 chgrp groupname /mnt/disk_xxx
 
-# 搜狗拼音bug问题
+# Sogou PinYin(IME) Bug 搜狗拼音bug问题
 cd /home/ly/.config/SogouPY
 git init
 # 通过建立git仓库的办法让Sogou拼音坏了的时候还可以被恢复回来
+
+# fix Android Studio (IntelliJ IDEA, and JetBrains IDEs) could not input Chinese
+# 修复 Android Studio, IDEA 等 JetBrains 全家桶无法输入中文的 Bug
+# For example fix Android Studio:
+
+# Way 1 (please try way 2 if this solution have no effect):
+vim /path/to/android-studio/bin/studio.sh
+# insert following commands before last command (last command is looks like "$JAVA_BIN" \ ...)
+# 在最后一句命令前加入以下命令: (最后一句命令大致长这个样: "$JAVA_BIN" \ ...)
+export XMODIFIERS="@im=fcitx"
+export QT_IM_MODULE="fcitx"
+export GTK_IM_MODULE="fcitx"
+
+# Way 2: set environment variables about language (设置相应的语言环境变量)
+vim /path/to/android-studio/bin/studio.sh
+# replace last command from: "$JAVA_BIN" \ ... 替换最后一句命令
+# to:
+env \
+  LANG=zh_CN.UTF-8 \
+  LANGUAGE=zh_CN:en_US:en \
+  LC_CTYPE="zh_CN.UTF-8" \
+  LC_COLLATE="zh_CN.UTF-8" \
+  LC_MESSAGES="zh_CN.UTF-8" \
+"$JAVA_BIN" \
+  ${AGENT} # ...
+
 
 # install youtube-dl
 # -H set home variable into sudo
