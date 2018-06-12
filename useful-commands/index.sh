@@ -307,3 +307,23 @@ Acquire::https::Proxy "https://user:pass@proxy_host:port";
 
 # send desktop notification in bash  显示桌面通知
 notify-send -i $ICON $TITLE $MESSAGE
+
+# Install VNC(Remote Desktop) on Linux server  给 Linux 服务器安装 VNC (远程桌面)
+sudo apt install xfce4 xfce4-goodies tightvncserver
+sudo apt install xfonts-base # fix: Couldn't start Xtightvnc process.
+vncserver # and input password (设置 VNC 密码)
+vncserver -kill :1
+# :1 means display port 1 => and network port is 5900+1=5901
+# so network port of :2 is 5900+2=5902
+mv ~/.vnc/xstartup ~/.vnc/xstartup.bak # backup original config
+vim ~/.vnc/xstartup
+# And add following content: 然后加入一下文件内容
+
+#!/bin/bash
+xrdb $HOME/.Xresources
+startxfce4 &
+
+# Then save and exit, 然后保存退出
+sudo chmod +x ~/.vnc/xsatrtup
+vncserver
+# More guidance: https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-vnc-on-ubuntu-16-04
