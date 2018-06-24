@@ -26,3 +26,6 @@ mount /dev/your_NTFS_partition /mount/point
 powercfg /h off
 
 
+# Safely remove USB drive 安全移除 USB 设备
+udisksctl unmount -b /dev/sdXY # or /dev/disk/by-label/my-usb
+udisksctl power-off -b /dev/sdX # or /dev/disk/by-label/my-usb
