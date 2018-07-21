@@ -295,7 +295,8 @@ systemd-analyze blame
 # libfreetype6_2.8-0.2_amd64.deb
 http://snapshot.debian.org/package/freetype/2.8-0.2/#libfreetype6_2.8-0.2
 
-# holding back deb packages: prevent upgrade. 阻止某个 deb 包被升级
+# holding/preventing back deb packages: prevent upgrade. 阻止某个 deb 包被升级
+#   (keep version of apt package 保持 apt 包的版本)
 sudo apt-mark hold <package-name>
 sudo apt-mark unhold <package-name>
 

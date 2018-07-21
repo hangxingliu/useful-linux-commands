@@ -1,16 +1,6 @@
 # GUI softwares for Linux
 # commands about how to install some GUI softwares on Linux
 
-# Multi-media player (VLC)
-# install vlc media player in ubuntu
-# libavcodec-extra is support streaming or transcoding
-sudo apt-get install vlc browser-plugin-vlc libavcodec-extra
-
-# 屏幕Gif录制工具
-# Screen GIF capture (Peek)
-sudo add-apt-repository ppa:peek-developers/stable
-sudo apt update && sudo apt install peek
-
 # Screen color picker 屏幕取色工具
 sudo apt install gpick
 
