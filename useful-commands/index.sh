@@ -1,6 +1,13 @@
 # Miscellany
 # miscellaneous commands
 
+# Display date and time in `history` bash command  (在 history 命令中显示日期)
+## Append following command into `~/.bashrc` or `~/.bash_profile`
+export HISTTIMEFORMAT='%F %T '
+# %F: date string format as '%Y-%m-%d'
+# %T: time string format as '%H:%M:%S'
+
+
 # Install Ubuntu unity tweak tools
 sudo apt install unity-tweak-tools
 
