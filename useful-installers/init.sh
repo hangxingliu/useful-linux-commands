@@ -5,7 +5,7 @@
 #  This script is a basic soaftware and environment
 #     installer for a new linux OS
 # - Include:
-#   - git, vim, htop, gawk, bash-completion
+#   - git, vim, htop, gawk, bash-completion, wget, curl
 #   - Git config | alias
 #   - Bash alias
 #
@@ -14,12 +14,12 @@
 #   - ths OS has "apt" package manager
 #
 #							Author: LiuYue
-#							Date  : 2017-12-03
+#							Date  : 2018-08-11
 #==================================================
 
 # CONFIG_BLOCK ====================>
 
-SOFTWARES="git vim htop gawk bash-completion";
+SOFTWARES="git vim htop gawk bash-completion wget curl";
 SOFTWARES_READABLE=`echo "$SOFTWARES" | tr ' ' ',' `;
 YOUTUBE_DL_BASE_OPTS="--proxy socks5://127.0.0.1:1080/ --socket-timeout 10 ";
 ALIASES=(
@@ -31,6 +31,7 @@ ALIASES=(
 	"2cb='xclip -selection clipboard'"
 	"sudo='sudo '"
 	"vi='vim'"
+	"docker='sudo docker'"
 	"youtube=\"youtube-dl ${YOUTUBE_DL_BASE_OPTS} \
 		-f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio' \""
 	"youtube-music=\"youtube-dl ${YOUTUBE_DL_BASE_OPTS} \
@@ -66,15 +67,12 @@ IGNORE_SET_GIT_CONFIG="false"
 if [[ -t 1 ]]; then
 	COLOR_MODE=`tput colors`;
 	if [[ -n "$COLOR_MODE" ]] && [[ "$COLOR_MODE" -ge 8 ]]; then
-		RED="\e[0;31m"
-		RED_BOLD="\e[1;31m"
-		YELLOW_BOLD="\e[1;33m"
-		GREEN="\e[0;32m"
-		GREEN_BOLD="\e[1;32m"
-		BLUE="\e[0;34m"
-		BLUE_BOLD="\e[1;34m"
-		BOLD="\e[1m"
-		RESET="\e[0m"
+		RED="\e[0;31m";          RED_BOLD="\e[1;31m"
+		GREEN="\e[0;32m";        GREEN_BOLD="\e[1;32m"
+		BLUE="\e[0;34m";         BLUE_BOLD="\e[1;34m"
+		CYAN_BOLD="\e[1;36m";
+		YELLOW_BOLD="\e[1;33m";
+		BOLD="\e[1m";            RESET="\e[0m"
 	fi
 fi
 #================================
@@ -84,8 +82,8 @@ function yes_no() {
 	while true; do
 	read -p "${text}" yn
 		case $yn in
-			[Yy]* ) echo "yes"; break ;;
-			[Nn]* ) echo "no"; break ;;
+			Y|Yes|YES|yes|y) echo "yes"; break ;;
+			N|No|NO|no|n) echo "no"; break ;;
 		esac
 	done
 }
@@ -97,16 +95,17 @@ function success() { echo -e "${GREEN} success: ${1} ${RESET}"; }
 function error() { echo -e "${RED}  error: ${RED_BOLD}$1${RESET}"; exit 1; }
 #================================
 
+
+# Double banner color
+C0="$CYAN_BOLD"; C1="$RESET";
 DIV_LINE="===============================================";
 echo -e "\n${DIV_LINE}"
-echo -e "  _____       _ _                   _       _   "
-echo -e " |_   _|     (_) |                 (_)     | |  "
-echo -e "   | |  _ __  _| |_   ___  ___ _ __ _ _ __ | |_ "
-echo -e "   | | | '_ \| | __| / __|/ __| '__| | '_ \| __|"
-echo -e "  _| |_| | | | | |_  \__ \ (__| |  | | |_) | |_ "
-echo -e " |_____|_| |_|_|\__| |___/\___|_|  |_| .__/ \__|"
-echo -e "                                     | |        "
-echo -e "                                     |_|        "
+echo -e $C0'  ___       _ _     '$C1' ____            _       _   ';
+echo -e $C0' |_ _|_ __ (_) |_   '$C1'/ ___|  ___ _ __(_)_ __ | |_ ';
+echo -e $C0'  | || '\''_ \| | __|'$C1'  \___ \ / __| '\''__| | '\''_ \| __|';
+echo -e $C0'  | || | | | | |_   '$C1' ___) | (__| |  | | |_) | |_ ';
+echo -e $C0' |___|_| |_|_|\__|  '$C1'|____/ \___|_|  |_| .__/ \__|';
+echo -e $C0'                    '$C1'                  |_|        ';
 echo -e "${BOLD} Init basic software, config and environment \n\
                 ${BOLD}for new linux OS in one script."
 echo -e "\n${BOLD} Include: ${RESET}\n\
@@ -114,8 +113,8 @@ echo -e "\n${BOLD} Include: ${RESET}\n\
         Useful git configs, aliases\n\
         Useful bash aliases\n\
                             Author:${BOLD} LiuYue${RESET}\n\
-                            Date:  ${BOLD} 2017-12-03"
-echo -e "${DIV_LINE}"
+                            Date:  ${BOLD} 2018-08-11"
+echo -e "${DIV_LINE}${RESET}"
 
 [[ `yes_no "Are you ready?(y/n)"` == "no" ]] && exit 0;
 
