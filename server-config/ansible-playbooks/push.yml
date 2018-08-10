@@ -1,0 +1,14 @@
+---
+- hosts: all
+  remote_user: root
+  gather_facts: yes # for variable: ansible_default_ipv4
+  tasks:
+    - name: "push config file to remote (temporary directory)"
+      copy:
+        src: "../nginx-conf/{{ ansible_default_ipv4.address }}/useful-linux-commands.conf"
+        dest: "/tmp/ansible-upload.tmp"
+        mode: 0644
+    - name: "apply config file on remote"
+      script: ./__push.sh
+    - name: "reload nginx service"
+      service: "name=nginx state=restarted"

@@ -1,0 +1,12 @@
+---
+- hosts: all
+  remote_user: root
+  gather_facts: yes # for variable: ansible_default_ipv4
+  tasks:
+    - name: "copy nginx config file to tmp dir"
+      script: ./__pull.sh
+    - name: "pull config file to local"
+      fetch:
+        src: "/tmp/ansible-download.tmp"
+        dest: "../nginx-conf/{{ ansible_default_ipv4.address }}/useful-linux-commands.conf"
+        flat: yes

@@ -1,0 +1,8 @@
+# directory storaged nginx configurations
+nginx-conf
+
+# ignore hosts(it includes vps ip information)
+hosts
+
+# ignore ansible retry file
+*.retry
