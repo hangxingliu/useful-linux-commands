@@ -198,6 +198,15 @@ export LC_ALL=C # C: English
 export TZ=Asia/Shanghai
 TZ=Asia/Tokyo date # show tokyo date string
 
+# Fix USB transfer(copy) slowly and hang(freeze) 修复USB传输缓慢的问题(传输被挂起)
+#   Details: https://unix.stackexchange.com/questions/107703
+#   It just a kernel bug and will be fixed in newer kernels
+# ROOT: Execute two following commands as root (用root用户执行下面两条命令)
+echo $((16*1024*1024)) > /proc/sys/vm/dirty_background_bytes
+echo $((48*1024*1024)) > /proc/sys/vm/dirty_bytes
+# You can append these two commands into your /etc/rc.local
+
+
 # Ubuntu 17.04 加密主目录后启动很久 (booting bug: encrypted home in 17.04)
 
 # step1 edit /etc/crypttab
@@ -257,6 +266,14 @@ sudo apt install grub-customizer
 
 # 随机字符串 Random String
 openssl rand -hex 16 # 16是长度
+
+# OpenSSL symmetrical encrypt/decrypt (对称加密/解密)
+#  -a:     input/output as base64 encoded
+#  -salt:  adds strength to the encryption (SHOULD ALWAYS BE USED)
+# Encrypt(加密)
+openssl aes-256-cbc -a -salt -in plain.txt -out encrypted.txt
+# Decrypt(解密)
+openssl aes-256-cbc -d -a -in encrypted.txt -out new.plain.txt
 
 # Split 分割文件
 # -b 每个块的大小 -d 按照数字命名每个文件块(否则是字母)
