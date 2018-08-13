@@ -15,10 +15,14 @@ _useful_commands_completion() {
 	LAST_WORD="$3";
 
 	OPTS="-a -A -b -B -f -F -m --mini --help --color --no-color";
+	#===========================
+	# begin automatically generating region
 	FILES_ARRAY=( awk bash curl disk docker ffmpeg find_xargs firewall git gpg gui_software
-                httpie image_magick index inotify install_deluge_on_centos_6 install_macos_in_virtualbox
-                log lsyncd monitor_and_usage multimedia mysql proxy qt raspberrypi
-                samba sed ssh_enc ssh swap ui vagrant vim vm xbindkeys );
+		httpie image_magick index inotify install_deluge_on_centos_6 install_macos_in_virtualbox
+		log lsyncd monitor_and_usage mouse multimedia mysql proxy qt raspberrypi
+		samba sed ssh_enc ssh swap ui vagrant vim vm  );
+	# end automatically generating region
+	#===========================
 	for FNAME in "${FILES_ARRAY[@]}"; do
 		FILES="${FILES} ${FNAME}";
 		_F_FILES="${_F_FILES} -f${FNAME}";
