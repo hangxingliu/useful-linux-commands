@@ -7,6 +7,13 @@ export HISTTIMEFORMAT='%F %T '
 # %F: date string format as '%Y-%m-%d'
 # %T: time string format as '%H:%M:%S'
 
+# Get GUI window properties/information (title, locale, window location ...)
+# 获取 GUI 窗口的信息 (标题, 语言, 窗口位置)
+# Usage: execute `xprop` and then click a window (执行`xprop`然后点击一个窗口)
+xprop                 # all properties
+xprop WM_CLASS        # title property
+xprop WM_LOCALE_NAME  # locale property
+xprop WM_NORMAL_HINTS # widnow location
 
 # Install Ubuntu unity tweak tools
 sudo apt install unity-tweak-tools
