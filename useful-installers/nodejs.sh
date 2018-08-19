@@ -5,7 +5,7 @@
 # This script is a
 #   Nodejs installer in one step
 #			Author: LiuYue
-#			Date  : 2018-08-11
+#			Date  : 2018-08-19
 #===============================
 
 
@@ -49,10 +49,10 @@ function error() { echo -e "${RED}  error: ${RED_BOLD}$1${RESET}"; exit 1; }
 # ================================
 # !!!!! pre-check
 PRE_CHECK=true;
-if [[ -z `which curl` ]]; then PRE_CHECK=false; echo -e "  ${RED}\"curl\" is missing (used to fetch Node.js setup script)"; fi
-if [[ -z `which gpg` ]]; then PRE_CHECK=false; echo -e "  ${RED}\"gpg\" is missing (used to import the GPG key of Node.js)"; fi
+if [[ -z `which curl` ]]; then PRE_CHECK=false; echo -e "  ${RED}\"curl\" is not installed! (used to fetch Node.js setup script)"; fi
+if [[ -z `which gpg` ]]; then PRE_CHECK=false; echo -e "  ${RED}\"gnupg\" is not installed! (used to import the GPG key of Node.js)"; fi
 if [[ "$EUID" -ne 0 ]]; then # is not root user
-	if [[ -z `which sudo` ]]; then PRE_CHECK=false; echo -e "  ${RED}\"sudo\" is missing (used to install Node.js)"; fi
+	if [[ -z `which sudo` ]]; then PRE_CHECK=false; echo -e "  ${RED}\"sudo\" is not installed! (used to install Node.js)"; fi
 fi
 [[ "$PRE_CHECK" == false ]] && error "script dependencies are missing!";
 # ================================
@@ -108,7 +108,7 @@ echo -e $C0' |  \| |/ _ \ / _` |/ _ \| / __|' $C1 '  | || '\''_ \/ __| __/ _` | 
 echo -e $C0' | |\  | (_) | (_| |  __/| \__ \' $C1 '  | || | | \__ \ || (_| | | |  __/ |   ';
 echo -e $C0' |_| \_|\___/ \__,_|\___|/ |___/' $C1 ' |___|_| |_|___/\__\__,_|_|_|\___|_|   ';
 echo -e $C0'                       |__/     ' $C1 '                                       ';
-echo -e "                                   Author: ${BOLD}LiuYue ${RESET} Date: ${BOLD}2018-08-11\n";
+echo -e "                                   Author: ${BOLD}LiuYue ${RESET} Date: ${BOLD}2018-08-19\n";
 
 echo -e "$COMPAT_INFO"
 echo -e "$COMPAT_OS_INFO"
@@ -153,12 +153,15 @@ else
 fi
 
 echo "${URL}";
+NODEJS_INSTALL_CODE="$(curl --silent --location "${URL}")";
+[[ $? -ne 0 ]] && error "Download Node.js installer script failed!";
+
 if [[ "$EUID" -eq 0 ]]; then # is root ?
-	curl --silent --location "${URL}" | bash -
+	echo "${NODEJS_INSTALL_CODE}" | bash -
 else
-	curl --silent --location "${URL}" | sudo bash -
+	echo "${NODEJS_INSTALL_CODE}" | sudo -E bash -
 fi
-[[ $? -ne 0 ]] && error "Download or execute nodejs install script failed!";
+[[ $? -ne 0 ]] && error "Execute Node.js installer script failed!";
 
 # ======= STEP 2 ====================================
 title "${PACKAGE_MANAGER} installing ...";
@@ -166,7 +169,7 @@ title "${PACKAGE_MANAGER} installing ...";
 if [[ "$EUID" -eq 0 ]]; then # is root ?
 	${PACKAGE_MANAGER} install -y nodejs
 else
-	sudo ${PACKAGE_MANAGER} install -y nodejs
+	sudo -E ${PACKAGE_MANAGER} install -y nodejs
 fi
 [[ $? -ne 0 ]] && error "${PACKAGE_MANAGER} install nodejs failed!"
 
