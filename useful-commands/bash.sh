@@ -36,8 +36,14 @@ STR="hello"; echo "${#STR}"
 
 # array (使用数组)
 arr=("item0" 2 "hello3")
-echo ${arr[2]} # hello3
-echo ${#arr[*]} # 数组长度: 3
+echo ${arr[2]}   # "hello3"  3rd element of array (数组的第3个元素))
+echo ${#arr[@]}  # "3"       length of array (数组长度)
+
+# array slice (数组切片, 截取)
+A=( foo bar tiny large )
+B=("${A[@]:1:2}") # bar tiny
+C=("${A[@]:1}")   # bar tiny large
+argument_without_first=("${@:2}")
 
 # test string (测试字符串)
 [ "$1" = "--debug" ] # 第一个参数是否为--debug (比较符: != < >)
