@@ -230,14 +230,6 @@ cryptswap1 /swapfile /dev/urandom ...
 # Then reboot
 # ==== DONE ====
 
-# Ubuntu 开机菜单无法显示 (No grub boot menu)
-vim /etc/default/grub
-# replace
-#   GRUB_HIDDEN_TIMEOUT=0
-# to:
-#   GRUB_HIDDEN_TIMEOUT=
-sudo update-grub
-
 # ffmpeg .ts => .mp4
 ffmpeg -i input.ts -acodec copy -vcodec copy output.mp4
 
@@ -265,11 +257,6 @@ sudo init $level #切换运行级别到$level
 # for example: install VirualBox/Chrome on 64 bit Ubuntu
 # you can add `[arch=amd64]` after `deb` in source list file (在deb后面加入 [arch=amd64])
 deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main
-
-# 自定义 Grub
-sudo add-apt-repository ppa:danielrichter2007/grub-customizer
-sudo apt update
-sudo apt install grub-customizer
 
 # 随机字符串 Random String
 openssl rand -hex 16 # 16是长度
