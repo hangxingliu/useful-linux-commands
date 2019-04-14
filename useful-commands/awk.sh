@@ -23,14 +23,20 @@ awk 'BEGIN {file="test.txt";
 	while((getline line < file) > 0) print line;
 	close(file);}'
 
-# Execute command执行命令
+# Execute command 执行命令
 awk 'BEGIN {cmd="ls";
 	while((cmd|getline line) > 0) print line;
 	close(cmd);}'
 
-# Useful commands 常用函数
-# gsub(regex, replace_to, string) # replace `replace` to `replace_to` in `string`. 将string中的regex替换成replace_to
-# index(string, substring) # find the index of `substring` in `string`. 找到string中substring的位置
-# length(string)
-# matched = match(string, regexp, result) # match regexp in string (result be only supported gawk). 匹配string中的regexp (result参数仅gawk支持)
-# 例如: if(match("id:123", /id:(\d+), result/)) print(result[1])
+# String operation example 字符串操作样例
+awk '{
+	gsub("name", "Steve", $0);   # replace "name" to "Steve" in the line
+	gsub(/\s/, " ", $0);         # replace empty string (regex) to space char in the line
+	print index("abcdefg", "b"); # result: 2
+	print length("abc");         # result: 3
+	len = split("ab--cd--efg", part, "--");    # len is 3
+	print part[2];                             # result: "cd"
+	len = match("a-b-cde-f", /(\w+)/, part);   # len is 4
+	print part[3];                             # result: "cde"
+
+}'

@@ -19,6 +19,8 @@ sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable
 # 3. Install
 sudo apt update
 sudo apt install google-chrome-stable
+# Disable chrome's built-in automatic virus scanning of downloaded files
+google-chrome-stable --safebrowsing-disable-download-protection
 
 # Install Chromium (OpenSource)
 sudo apt install -y chromium-browser
