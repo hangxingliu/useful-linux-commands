@@ -1,30 +1,43 @@
 #!/usr/bin/env node
-
 //@ts-check
 
-let fs = require('fs');
-let path = require('path');
-let child_process = require('child_process');
 
-let Async = require('async'),
-	babel = require('babel-core'),
-	sass = require('node-sass'),
-	postcss = require('postcss'),
-	autoprefixer = require('autoprefixer'),
-	htmlminifier = require('html-minifier');
+const fs = require('fs');
+const path = require('path');
+const childProcess = require('child_process');
+
+const Async = require('async');
+const babel = require('babel-core');
+const sass = require('sass');
+const postcss = require('postcss');
+const autoprefixer = require('autoprefixer');
+const htmlminifier = require('html-minifier');
 
 const DIR = path.join(__dirname, '..', 'web-resource', 'static');
 const HTML_DIR = path.join(__dirname, '..', 'web-resource', 'views');
+
+//#region options
 const SASSOPTS = {
 	outputStyle: 'compressed'
 };
 const AUTOPREFIXER = autoprefixer({
 	browsers: ['cover 95%'],
 });
+const BABEL_PLUGINS = [
+	['transform-es2015-block-scoping', { throwIfClosureRequired: true }], // for `let`, `const`
+	'transform-es2015-arrow-functions', // for `() => {}`
+	'transform-es2015-template-literals',
+	'transform-merge-sibling-variables',
+	'minify-mangle-names',
+];
+//#endregion options
 
-let jsIntegrity = '', cssIntegrity = '';
 
-let isWatch = process.argv.slice(2).findIndex(arg => arg == '--watch' || arg == '-w') >= 0;
+
+let jsIntegrity = '';
+let cssIntegrity = '';
+
+let isWatch = process.argv.slice(2).findIndex(arg => arg === '--watch' || arg === '-w') >= 0;
 
 taskMain(isWatch ? taskWatch : undefined);
 
@@ -45,7 +58,7 @@ function taskWatch() {
 	console.log('>> Watching ... >>>>>>');
 
 	function notify(f) {
-		if (typeof f != 'string') return; // first scan all files after watch
+		if (typeof f !== 'string') return; // first scan all files after watch
 
 		let tasks = [];
 		if (f.endsWith('index.js')) tasks = [taskJavascript, getIntegrity];
@@ -62,13 +75,7 @@ function taskWatch() {
 function taskJavascript(then) {
 	let task = startTask('javascript');
 	babel.transformFile(path.join(DIR, 'index.js'), {
-		plugins: [
-			["transform-es2015-block-scoping", { throwIfClosureRequired: true }], // for `let`, `const`
-			"transform-es2015-arrow-functions", // for `() => {}`
-			"transform-es2015-template-literals",
-			"transform-merge-sibling-variables",
-			"minify-mangle-names",
-		],
+		plugins: BABEL_PLUGINS,
 		comments: false,
 		compact: true
 	}, (err, result) => {
@@ -100,6 +107,7 @@ function taskStylesheet(then) {
 					if (result.warnings()) {
 						for (let warning of result.warnings())
 							console.error(`postcss warning: `, warning.toString());
+
 						// return task.fatal(new Error(`there have warnings in postcss process`));
 					}
 					task.done();
@@ -167,7 +175,7 @@ function getIntegrity(then) {
  */
 function getFileIntegrity(file, then) {
 	file = "'" + file.replace(/'/g, "'\\''") + "'";
-	child_process.exec(`shasum -b -a 384 ${file} | xxd -r -p | base64`, (err, stdout, stderr) => {
+	childProcess.exec(`shasum -b -a 384 ${file} | xxd -r -p | base64`, (err, stdout, stderr) => {
 		void stderr; // unused variable
 		if (err) return then(err, null);
 		return then(null, stdout.trim());
@@ -185,7 +193,7 @@ function startTask(what = '') {
 	function fatal(err) {
 		console.error(`[-] fatal: task "${what}" failed!`);
 		console.error(err);
-		if(!isWatch)
+		if (!isWatch)
 			process.exit(1);
 	}
 }
