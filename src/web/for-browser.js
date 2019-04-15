@@ -9,7 +9,7 @@ let query = require('../query');
 
 let tmplVariables = require('./config-templates');
 
-const TEMPLATE_NAME = "index-min";
+const TEMPLATE_NAME = 'index-min';
 
 module.exports = { handler };
 
@@ -70,7 +70,7 @@ function renderIndexWithPreQueryData(q, req, res) {
 	let queryResult = null;
 
 	let outputChannel = new OutputChannel({
-		json: data => queryResult = data,
+		json: data => { queryResult = data; return data },
 		write: data => void data,
 		end
 	});
@@ -107,7 +107,7 @@ function handler(req, res, next) {
 	res.setHeader('X-XSS-Protection', '1; mode=block'); // XSS Protection
 
 	if (path == '/') {
-		if (('q' in req.query) || ('file' in req.query) ) {
+		if (('q' in req.query) || ('file' in req.query)) {
 			// index page with pre query data
 			let q = getQueryParamsFromQueryString(req.query);
 			if (q.keywords || q.file)

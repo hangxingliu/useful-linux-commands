@@ -1,9 +1,9 @@
 //@ts-check
 /// <reference path="../index.d.ts" />
 
-let fs = require('fs'),
-	path = require('path'),
-	url = require('url');
+const fs = require('fs');
+const path = require('path');
+const url = require('url');
 
 let seoURL = '';
 let sitemap = '';
@@ -15,7 +15,9 @@ function to2(num) { return num < 10 ? `0${num}` : `${num}`; }
  * @returns {Promise<Date>}
  */
 function getFileLastModifyDate(path) {
-	return new Promise((yes, no) => fs.stat(path, (e, s) => e ? no(e) : yes(s.mtime)));
+	return new Promise((resolve, reject) => {
+		return fs.stat(path, (e, s) => e ? reject(e) : resolve(s.mtime));
+	});
 }
 /** @param {Date} date */
 function getDateString(date) {
@@ -39,7 +41,7 @@ function init(_seoURL) {
  * @param {"always"|"hourly"|"daily"|"weekly"|"monthly"|"yearly"|"never"} [changefreq]
  * @param {number} [priority]
  */
-function bindFile(uri, filePath, changefreq = "weekly", priority = 0.5) {
+function bindFile(uri, filePath, changefreq = 'weekly', priority = 0.5) {
 	return getFileLastModifyDate(filePath)
 		.then(date => addPage(uri, getDateString(date), changefreq, priority));
 }
@@ -63,13 +65,13 @@ function bindAllFiles(fileNames, metaInfoArray) {
  * @param {"always"|"hourly"|"daily"|"weekly"|"monthly"|"yearly"|"never"} [changefreq]
  * @param {number} priority
  */
-function addPage(uri, dateStr, changefreq = "weekly", priority = 0.5) {
+function addPage(uri, dateStr, changefreq = 'weekly', priority = 0.5) {
 	sitemap += [`\n\t<url>`,
-	`\t\t<loc>${encodeURI(url.resolve(seoURL, uri))}</loc>`,
-	`\t\t<lastmod>${dateStr.trim().slice(0, 10).replace(/\D/g, '-')}</lastmod>`,
-	`\t\t<changefreq>${changefreq}</changefreq>`,
-	`\t\t<priority>${priority.toFixed(1)}</priority>`,
-	`\t</url>`].join('\n');
+		`\t\t<loc>${encodeURI(url.resolve(seoURL, uri))}</loc>`,
+		`\t\t<lastmod>${dateStr.trim().slice(0, 10).replace(/\D/g, '-')}</lastmod>`,
+		`\t\t<changefreq>${changefreq}</changefreq>`,
+		`\t\t<priority>${priority.toFixed(1)}</priority>`,
+		`\t</url>`].join('\n');
 }
 
 function generateRobots() {

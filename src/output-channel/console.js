@@ -2,7 +2,6 @@
 require('colors');
 
 function OutputChannel() {
-
 	let miniOutput = false;
 
 	function setMiniOutput(_miniOutput) { miniOutput = _miniOutput; }
@@ -16,17 +15,17 @@ function OutputChannel() {
 			: 'all content';
 
 		if (fileNameLimit)
-			info += ` in ${('*'+fileNameLimit+'*').bold} files`
+			info += ` in ${('*' + fileNameLimit + '*').bold} files`
 		console.log(`\nquery: ${info}`);
 	}
 
-	function printFilenameDividingLine(fileName){
-		if (miniOutput) return;
-
+	function printFilenameDividingLine(fileName) {
+		if (miniOutput)
+			return;
 		console.log(`\n${fileName.bold} ---------------------------------\n`);
 	}
 
-	function printMoreEllipsis(){
+	function printMoreEllipsis() {
 		if (miniOutput) return;
 
 		console.log('...'.white);
@@ -34,7 +33,7 @@ function OutputChannel() {
 
 	const PREFIX = '> '.white;
 	const COLORABLE = 'test'.white != 'test';
-	function printCommentLine(content, highlightRegexp){
+	function printCommentLine(content, highlightRegexp) {
 		if (COLORABLE) {
 			content = content.replace(highlightRegexp, _ => '\u001b[22m' + _.cyan + '\u001b[2m');
 			content = '\u001b[2m' + content + '\u001b[22m'; //.dim
@@ -47,7 +46,7 @@ function OutputChannel() {
 		console.log(miniOutput ? content : (PREFIX + content));
 	}
 
-	function finish(){ }
+	function finish() { }
 
 	//export public methods
 	this.getMiniOutput = getMiniOutput;

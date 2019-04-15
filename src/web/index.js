@@ -1,20 +1,20 @@
 //@ts-check
 
 let Program = require('commander');
-let express = require('express'),
-	log = require("morgan"),
-	favicon = require('serve-favicon'),
-	queryString = require('querystring'),
-	files = require('../files'),
-	robotsSitemap = require('./robots-sitemap-generator'),
-	forWgetCURL = require('./for-wget-or-curl'),
-	forBrowser = require('./for-browser'),
-	forDownloadInstallScript = require('./for-download-install-script');
+let express = require('express');
+let log = require('morgan');
+let favicon = require('serve-favicon');
+let queryString = require('querystring');
+let files = require('../files');
+let robotsSitemap = require('./robots-sitemap-generator');
+let forWgetCURL = require('./for-wget-or-curl');
+let forBrowser = require('./for-browser');
+let forDownloadInstallScript = require('./for-download-install-script');
 
-let fs = require('fs'),
-	os = require('os'),
-	path = require('path'),
-	http = require('http');
+let fs = require('fs');
+let os = require('os');
+let path = require('path');
+let http = require('http');
 
 let config = require('./config');
 
@@ -62,7 +62,7 @@ app.set('query parser', qs => queryString.parse(qs, null, null, { maxKeys: 8 }))
 //@ts-ignore
 app.engine('html', require('ejs').__express);
 app.set('view engine', 'html');
-app.set('views',  config.views);
+app.set('views', config.views);
 
 // TODO: better log control by env environment or launch option
 app.use(log('dev'));
@@ -74,9 +74,9 @@ app.use(forDownloadInstallScript);
 
 app.use((req, res, next) => {
 	let ua = req.header('user-agent') || '';
-	ua.match(/^(?:Wget|curl)/i) ?
-		forWgetCURL.handler(req, res) :
-		forBrowser.handler(req, res, next);
+	ua.match(/^(?:Wget|curl)/i)
+		? forWgetCURL.handler(req, res)
+		: forBrowser.handler(req, res, next);
 });
 
 // ==============
@@ -105,12 +105,13 @@ app.use((err, req, res, next) => {
 
 initRobotsAndSiteMap()
 	.then(startServer)
-	.catch(error => console.error(`fatal: ${String(error.stack||error.message||error)}`));
+	.catch(error => console.error(`fatal: ${String(error.stack || error.message || error)}`));
 
 function initRobotsAndSiteMap() {
 	robotsSitemap.init(seoURL);
 
-	let fileNames = files.getFileNames(), metas = [];
+	let fileNames = files.getFileNames();
+	let metas = [];
 	return robotsSitemap.bindFile('/', path.join(config.views, 'index-min.html'))
 		.then(() => files.iterateFiles(fileNames, (_, __, meta) => metas.push(meta)))
 		.then(() => robotsSitemap.bindAllFiles(fileNames, metas))

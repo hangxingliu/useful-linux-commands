@@ -11,7 +11,6 @@ describe('Validate each useful commands', () => {
 	let allFileNames = files.getFileNames();
 
 	it('# iterate each files (ensure meta info correct)', () => {
-
 		/** @type {FileMetaInfo[]} */
 		let metaArray = [];
 		let lastMeta = null;

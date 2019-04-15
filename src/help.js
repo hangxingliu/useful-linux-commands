@@ -15,7 +15,7 @@ START>>>
 `  useful-commands DNS Ubuntu
 >    query commands around DNS and Ubuntu(Match line included 'DNS' and 'Ubuntu')
 
-`  useful-commands DNS -F network    
+`  useful-commands DNS -F network
 `  useful-commands DNS -f network
 `  useful-commands DNS -fnetwork
 >    query commands around DNS in files `*network*`
@@ -51,18 +51,18 @@ let contentAutoColor = [];
 	for (const line of lines) {
 		if (!enable) {
 			if (line.trim() == 'START>>>')
-				enable = true;	
+				enable = true;
 			continue;
-		} 
+		}
 		if (enable && line.trim() == '<<<END') {
 			enable = false;
 			break;
-		}	
+		}
 		switch (line[0]) {
-			case '#': addTitleLine(line.slice(1)); break;	
+			case '#': addTitleLine(line.slice(1)); break;
 			case '`': addCodeLine(line.slice(1)); break;
 			case '>': addNormalLine(line.slice(1)); break;
-			default: addNormalLine(line);	
+			default: addNormalLine(line);
 		}
 	}
 	contentAutoColor = contentAutoColor.join('\n');

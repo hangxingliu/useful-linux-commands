@@ -29,9 +29,14 @@ function query(queryString, fileNameLimit, linesBeforeCount, linesAfterCount, ou
 		let channel = new OutputChannelWrapper(outputChannel);
 
 		for (var i = 0; i < lines.length; i++) {
-			let line = lines[i].toLowerCase(), ok = true;
-			queryArray.forEach(q => ok = (line.indexOf(q) >= 0 && ok));
-			ok && channel.outputLines(i, originalQueryArray, linesBeforeCount, linesAfterCount, fileContext);
+			let line = lines[i].toLowerCase();
+			let ok = true;
+			queryArray.forEach(q => {
+				if (ok && line.indexOf(q) < 0)
+					ok = false;
+			});
+			if (ok)
+				channel.outputLines(i, originalQueryArray, linesBeforeCount, linesAfterCount, fileContext);
 		}
 	}).then(() => {
 		outputChannel.finish();
@@ -44,8 +49,7 @@ function query(queryString, fileNameLimit, linesBeforeCount, linesAfterCount, ou
  * @param {OutputChannel} outputChannel
  */
 function OutputChannelWrapper(outputChannel) {
-
-	let lastFileName = '', lineRepeatMark = {}, lastOutputLine = -1;
+	let lastFileName = ''; let lineRepeatMark = {}; let lastOutputLine = -1;
 
 	/**
 	 *
@@ -76,7 +80,6 @@ function OutputChannelWrapper(outputChannel) {
 
 		while (pointer < to) {
 			if (!lineRepeatMark[pointer]) {
-
 				let line = fileLines[pointer];
 				if (line.match(COMMENT_LINE))
 					outputChannel.printCommentLine(line, highlightRegex);
@@ -97,5 +100,4 @@ function getHighLightRegexpFromKeywordsArray(keywords) {
 	return new RegExp('(' + keywords.map(keyword =>
 		keyword.replace(/[\*\+\?\(\)\[\]\{\}\.\|]/g, _ => `\\${_}`)
 	).join('|') + ')', 'ig');
-
 }

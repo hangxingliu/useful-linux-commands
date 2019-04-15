@@ -15,12 +15,14 @@ function Arguments(args) {
 	let queryString = '';
 
 	function parse() {
-		let match = [], number = 0;
-		for (let index = 0; index < args.length; index ++) {
+		let match = [];
+		let number = 0;
+		for (let index = 0; index < args.length; index++) {
 			const it = args[index];
 
 			//-a -A -b -B
-			if (match = it.match(OPTION_BEFORE_AFTER_LINES_COUNT)) {
+			match = it.match(OPTION_BEFORE_AFTER_LINES_COUNT)
+			if (match) {
 				//the number of option -a/-A/-b/-B in the next array element
 				if (!match[2]) index++;
 
@@ -29,14 +31,15 @@ function Arguments(args) {
 				if (isNaN(number))
 					throw new Error(`there are not a number following "-${match[1]}" param`);
 
-				match[1].toLowerCase() == 'a' ?
-					(linesAfterCount = number) :
-					(linesBeforeCount = number);
+				match[1].toLowerCase() == 'a'
+					? (linesAfterCount = number)
+					: (linesBeforeCount = number);
 
 				continue;
 			}
 			// -f -F
-			if (match = it.match(OPTION_FILE_NAME_LIMIT)) {
+			match = it.match(OPTION_FILE_NAME_LIMIT)
+			if (match) {
 				//the number of option -f/-F in the next array element
 				if (!match[2]) index++;
 
@@ -74,7 +77,6 @@ function Arguments(args) {
 	this.getFileNameLimit = () => fileNameLimit;
 	this.getMiniOutput = () => miniOutput;
 	this.getQueryString = () => queryString;
-
 }
 
 module.exports = {

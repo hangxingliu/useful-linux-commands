@@ -1,6 +1,5 @@
 //@ts-check
 function OutputChannel(res, colorized) {
-
 	let output = [];
 
 	let miniOutput = false;
@@ -23,14 +22,14 @@ function OutputChannel(res, colorized) {
 		output.push(`\nquery: ${info}`);
 	}
 
-	function printFilenameDividingLine(fileName){
+	function printFilenameDividingLine(fileName) {
 		if (miniOutput) return;
 
 		let str = colorized ? `\n\u001b[1m${fileName}\u001b[22m` : `\n${fileName}`;
 		output.push(`${str} ---------------------------------\n`);
 	}
 
-	function printMoreEllipsis(){
+	function printMoreEllipsis() {
 		if (miniOutput) return;
 
 		output.push(colorized ? '\u001b[37m...\u001b[39m' : '...');
@@ -38,22 +37,21 @@ function OutputChannel(res, colorized) {
 
 	const PREFIX = '> ';
 	const PREFIX_COLOR = '\u001b[37m> \u001b[39m';
-	function printCommentLine(content, highlightRegexp){
+	function printCommentLine(content, highlightRegexp) {
 		if (colorized) {
 			content = content.replace(highlightRegexp, _ =>
 				`\u001b[22m\u001b[36m${_}\u001b[39m\u001b[2m`); //.cyan
 			content = '\u001b[2m' + content + '\u001b[22m'; //.dim
 		}
-		output.push(miniOutput ? content :
-			((colorized ? PREFIX_COLOR : PREFIX) + content));
+		output.push(miniOutput ? content
+			: ((colorized ? PREFIX_COLOR : PREFIX) + content));
 	}
 
 	function printLine(content, highlightRegexp) {
-		if(colorized)
-			content = content.replace(highlightRegexp,
-				_ => `\u001b[36m${_}\u001b[39m`);
-		output.push(miniOutput ? content :
-			((colorized ? PREFIX_COLOR : PREFIX) + content));
+		if (colorized)
+			content = content.replace(highlightRegexp, _ => `\u001b[36m${_}\u001b[39m`);
+		output.push(miniOutput ? content
+			: ((colorized ? PREFIX_COLOR : PREFIX) + content));
 	}
 
 	function finish() {

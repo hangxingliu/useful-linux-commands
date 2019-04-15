@@ -69,7 +69,8 @@ function readFileMetaInfo(fileName) {
 		if (!split)
 			return Promise.reject(new Error(`Could not read meta info(description) for "${fileName}"`));
 
-		let from = mtx.index + mtx[0].length, to = split.index;
+		let from = mtx.index + mtx[0].length;
+		let to = split.index;
 		meta.description = content.slice(from, to)
 			.replace(/^#\s*/mg, '')
 			.replace(/\s/g, ' ')

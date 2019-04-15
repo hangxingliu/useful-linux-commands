@@ -34,8 +34,8 @@ START>>>
 <<<END
 */
 
-let contentWithColor = [],
-	contentWithoutColor = [];
+let contentWithColor = [];
+let contentWithoutColor = [];
 
 (function init() {
 	let lines = require('fs').readFileSync(__filename, 'utf8').split('\n');
@@ -43,18 +43,18 @@ let contentWithColor = [],
 	for (const line of lines) {
 		if (!enable) {
 			if (line.trim() == 'START>>>')
-				enable = true;	
+				enable = true;
 			continue;
-		} 
+		}
 		if (enable && line.trim() == '<<<END') {
 			enable = false;
 			break;
-		}	
+		}
 		switch (line[0]) {
-			case '#': addTitleLine(line.slice(1)); break;	
+			case '#': addTitleLine(line.slice(1)); break;
 			case '`': addCodeLine(line.slice(1)); break;
 			case '>': addNormalLine(line.slice(1)); break;
-			default: addNormalLine(line);	
+			default: addNormalLine(line);
 		}
 	}
 	contentWithColor = contentWithColor.join('\n');

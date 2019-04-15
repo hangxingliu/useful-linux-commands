@@ -8,15 +8,15 @@
 	/** @type {HTMLFormElement} */
 	let $form = $('#formSearchBox');
 
-	let $help = $div('#indexGuide'),
-		$menu = $div('#styleDropdown .dropdown-menu'),
-		$blockResult = $div('#blockResult');
+	let $help = $div('#indexGuide');
+	let $menu = $div('#styleDropdown .dropdown-menu');
+	let $blockResult = $div('#blockResult');
 
 	let tmpl = $div('#result-template').innerHTML;
 
-	let regexpA = /^-a(.*?)$/i,
-		regexpB = /^-b(.*?)$/i,
-		regexpFile = /^-f(.*?)$/i;
+	let regexpA = /^-a(.*?)$/i;
+	let regexpB = /^-b(.*?)$/i;
+	let regexpFile = /^-f(.*?)$/i;
 
 	/** @type {RegExp} */
 	let resultKeywordHighlighter;
@@ -28,8 +28,8 @@
 
 	$input.addEventListener('keydown', event => {
 		let key = event.which || event.keyCode || 0;
-		if (key == 10 || key == 13 || key == 32) {//enter || space
-			if (key != 32)
+		if (key === 10 || key === 13 || key === 32) { //enter || space
+			if (key !== 32)
 				event.preventDefault();
 			return setTimeout(sendQueryRequest, 15);
 		}
@@ -65,18 +65,22 @@
 
 	function sendQueryRequest() {
 		let rawInput = value($input);
-		let parts =rawInput.split(/\s+/);
+		let parts = rawInput.split(/\s+/);
 
-		let q = [], options = { file: '', a: '', b: '' };
+		const q = [];
+		const options = { file: '', a: '', b: '' };
 		/** @type {{[x: string]: RegExp}} */
 		let opt2regexpMap = { file: regexpFile, a: regexpA, b: regexpB };
 
 		for (let i = 0; i < parts.length; i++) {
-			let word = parts[i], match, isKeyword = true;
+			let word = parts[i];
+			let match;
+			let isKeyword = true;
 			if (!word) continue;
 			for (let opt in opt2regexpMap) {
 				let regexp = opt2regexpMap[opt];
-				options[opt] = (match = word.match(regexp))
+				match = word.match(regexp);
+				options[opt] = match
 					? ((isKeyword = false) || match[1] || parts[++i] || '')
 					: options[opt];
 			}
@@ -99,7 +103,7 @@
 		let ajaxURI = `api?${qs}`;
 		console.log(ajaxURI);
 		httpGetJSON(ajaxURI, (err, status, result) => {
-			if (err || status != 200) return;
+			if (err || status !== 200) return;
 			cache.set(qs, result);
 			handlerResult(err, status, result);
 		});
@@ -112,13 +116,15 @@
 	 * @param {{files: any[]}} data
 	 */
 	function handlerResult(err, status, data) {
-		let items = data.files, html = '';
-		setHelpDisplay(!items || items.length == 0);
+		if (err) return;
+		let items = data.files;
+		let html = '';
+		setHelpDisplay(!items || items.length === 0);
 
 		for (let index in items) {
 			let item = items[index];
 			item.content = item.contents.map(v =>
-				v == '...' ? `<i>...(lines be omitted)</i><br />` : escapeHtml(v)).join('');
+				v === '...' ? `<i>...(lines be omitted)</i><br />` : escapeHtml(v)).join('');
 			html += appendResultItem(item);
 		}
 		$blockResult.innerHTML = html;
@@ -133,11 +139,11 @@
 	}
 
 	/** @param {boolean} show */
-	function setHelpDisplay(show) { (show ? addClass : removeClass).call(null, $help, 'd-flex'); }
+	function setHelpDisplay(show) { (show ? addClass : removeClass)($help, 'd-flex'); }
 
 	function appendResultItem(obj) {
 		return tmpl.replace(/\{\{\s+(\w+)\s+\}\}/g, (_, name) =>
-			name == 'content' ? (obj.content || '') : escapeHtml(obj[name] || '') );
+			name === 'content' ? (obj.content || '') : escapeHtml(obj[name] || ''));
 	}
 
 	function getRegexp4ResultKeywordHightlight(keywords) {
@@ -156,11 +162,11 @@
 	/** @param {string} str */
 	function escapeHtml(str) {
 		return str
-			.replace(/&/g, "&amp;")
-			.replace(/</g, "&lt;")
-			.replace(/>/g, "&gt;")
-			.replace(/"/g, "&quot;")
-			.replace(/'/g, "&#039;");
+			.replace(/&/g, '&amp;')
+			.replace(/</g, '&lt;')
+			.replace(/>/g, '&gt;')
+			.replace(/"/g, '&quot;')
+			.replace(/'/g, '&#039;');
 	}
 
 	/** @return {any} */
@@ -211,7 +217,7 @@
 
 	/**
 	 * @param {string} uri
-	 * @param {(err: Error, statusCode: number, object: any) => any} callback
+	 * @param {(err: Error, statusCode?: number, object?: any) => any} callback
 	 */
 	function httpGetJSON(uri, callback) {
 		let request = new XMLHttpRequest();
@@ -232,7 +238,7 @@
 
 	function createCacheManager() {
 		let kv = {};
-		return {get,set};
+		return { get, set };
 		function get(key) { return kv[key]; }
 		function set(key, value) { kv[key] = value; }
 	}

@@ -5,7 +5,6 @@
  * @param {MinimizedExpressResponse} res
  */
 function OutputChannel(res) {
-
 	let output = {
 		query: {
 			keyword: [],
@@ -14,12 +13,14 @@ function OutputChannel(res) {
 		files: [
 
 		]
-	}, initFile = (name = '') => ({
+	};
+	let initFile = (name = '') => ({
 		name,
 		contents: [''],
-	}), currentFile = initFile();
+	});
+	let currentFile = initFile();
 
-	function setMiniOutput(_miniOutput) { return _miniOutput;}
+	function setMiniOutput(_miniOutput) { return _miniOutput; }
 	function getMiniOutput() { return false; }
 
 	function printQueryInfo(keywordsArray, fileNameLimit) {
@@ -28,18 +29,18 @@ function OutputChannel(res) {
 			output.query.filename = '*' + fileNameLimit + '*';
 	}
 
-	function printFilenameDividingLine(fileName){
+	function printFilenameDividingLine(fileName) {
 		if (currentFile.name)
 			output.files.push(currentFile);
 
 		currentFile = initFile(fileName);
 	}
 
-	function printMoreEllipsis(){
+	function printMoreEllipsis() {
 		currentFile.contents.push('...', '');
 	}
 
-	function printCommentLine(content /*, highlightRegexp*/){
+	function printCommentLine(content /*, highlightRegexp*/) {
 		let { contents } = currentFile;
 		contents[contents.length - 1] += content + '\n';
 	}

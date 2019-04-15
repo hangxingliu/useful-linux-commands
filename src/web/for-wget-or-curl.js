@@ -8,10 +8,10 @@ let keywordMatcher = /\/([\w\s\.\+]*)$/
 
 function handler(req, res) {
 	let path = '/'; path = req.path;
-	let colorized = 'color' in req.query,
-		mini = 'mini' in req.query;
-	let linesBeforeCount = parseInt(req.query.b),
-		linesAfterCount = parseInt(req.query.a);
+	let colorized = 'color' in req.query;
+	let mini = 'mini' in req.query;
+	let linesBeforeCount = parseInt(req.query.b);
+	let linesAfterCount = parseInt(req.query.a);
 
 	if (isNaN(linesBeforeCount)) linesBeforeCount = 1;
 	if (isNaN(linesAfterCount)) linesAfterCount = 5;
@@ -27,7 +27,7 @@ function handler(req, res) {
 		return printFilesInfo(res);
 
 	//match path
-	let fileNameFilter = '', keywords = '';
+	let fileNameFilter = ''; let keywords = '';
 	let match = path.match(fileNameMatcher);
 	fileNameFilter = match ? match[1] : null;
 
@@ -38,8 +38,8 @@ function handler(req, res) {
 		return printFilesInfo(res);
 
 	keywords = keywords.replace(/\W/g, '+');
-	if(req.app.locals.ENV_DEVELOPMENT)
-		console.log(`wget/curl query: "${keywords}" in "${fileNameFilter||"*"}"`)
+	if (req.app.locals.ENV_DEVELOPMENT)
+		console.log(`wget/curl query: "${keywords}" in "${fileNameFilter || '*'}"`)
 
 	let outputChannel = new OutputChannel(res, colorized);
 	outputChannel.setMiniOutput(mini);

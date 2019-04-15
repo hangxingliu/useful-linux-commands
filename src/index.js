@@ -2,13 +2,12 @@
 
 let colors = require('colors/safe');
 
-let { OutputChannel } = require('./output-channel/console'),
-	{ Arguments } = require('./arguments'),
-	{ getFileNames } = require('./files'),
-	query = require('./query');
+const { OutputChannel } = require('./output-channel/console');
+const { Arguments } = require('./arguments');
+const { getFileNames } = require('./files');
+const query = require('./query');
 
 function main(args) {
-
 	let app = new Arguments(args);
 
 	if (app.isLaunchForHelp())
@@ -24,10 +23,10 @@ function main(args) {
 	let outputChannel = new OutputChannel();
 	outputChannel.setMiniOutput(isMini);
 
-	let qs = app.getQueryString(),
-		fileName = app.getFileNameLimit();
-	let linesBefore = app.getLinesBeforeCount(),
-		linesAfter = app.getLinesAfterCount();
+	let qs = app.getQueryString();
+	let fileName = app.getFileNameLimit();
+	let linesBefore = app.getLinesBeforeCount();
+	let linesAfter = app.getLinesAfterCount();
 
 	if (isMini) {
 		linesBefore = 0;
