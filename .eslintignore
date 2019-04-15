@@ -1,0 +1,4 @@
+web-resource/static/bootstrap
+web-resource/static/highlight.js
+node_modules
+*.min.js

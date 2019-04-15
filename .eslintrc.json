@@ -1,4 +1,5 @@
 {
+	"extends": "standard",
     "env": {
         "browser": true,
         "commonjs": true,
@@ -23,6 +24,17 @@
         "no-unreachable": "warn",
         "no-unused-vars": "warn",
         "constructor-super": "warn",
-        "valid-typeof": "warn"
+		"valid-typeof": "warn",
+		"spaced-comment": "off",
+		"semi": ["off", "always"],
+		"indent": ["warn", "tab", {"SwitchCase": 1}],
+		"no-tabs": "off",
+		"space-before-function-paren": "off",
+		"comma-dangle": "off",
+		"no-useless-escape": "off",
+		"curly": ["error", "multi-or-nest"],
+		"eqeqeq": "off",
+		"node/no-deprecated-api": "warn",
+		"no-multiple-empty-lines": ["warn", {"max": 3}]
     }
 }
